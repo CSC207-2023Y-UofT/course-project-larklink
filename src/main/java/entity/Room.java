@@ -4,8 +4,8 @@ import java.util.*;
 import java.util.ArrayList;
 
 public class Room {
-    public String name;
-    public User host;
+    private String name;
+    private User host;
     private List<User> activeUsers;
     private List<Message> messageHistory;
 

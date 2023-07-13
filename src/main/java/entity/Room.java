@@ -6,21 +6,23 @@ import java.util.ArrayList;
 public class Room {
     public String name;
     public User host;
-    private List<User> ActiveUsers;
+    private List<User> activeUsers;
+    private List<Message> messageHistory;
 
     public Room(String name, User host) {
         this.name = name;
         this.host = host;
-        this.ActiveUsers = new ArrayList<User>();
+        this.activeUsers = new ArrayList<User>();
+        this.messageHistory = new ArrayList<Message>();
 
-        ActiveUsers.add(host);
+        activeUsers.add(host);
     }
 
     public void addUser(User person) {
-        ActiveUsers.add(person);
+        activeUsers.add(person);
     }
     public void removeUser(User person) {
-        ActiveUsers.remove(person);
+        activeUsers.remove(person);
     }
 
     public String getName() {

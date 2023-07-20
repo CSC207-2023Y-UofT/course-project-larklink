@@ -12,9 +12,14 @@ public class WelcomeView {
         this.controller = controller;
     }
 
+    /**
+     * Prepares and displays the graphical user interface for user registration.
+     * This method creates the necessary components such as labels, text fields, and buttons,
+     * sets up the layout, and handles the submission of user information.
+     */
     public void prepareGUI() {
 
-        JFrame frame  = new JFrame("User Registration");
+        JFrame frame = new JFrame("User Registration");
         frame.setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));

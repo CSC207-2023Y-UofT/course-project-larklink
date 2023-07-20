@@ -18,6 +18,10 @@ public class UserDBAccess implements UserDBGateway {
 
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink/users";
 
+    /**
+     * Loads the users from the database.
+     * @return a list of UserRequestModel objects representing the existing users
+     */
     @Override
     public List<UserRequestModel> loadUsers() {
         try {
@@ -43,6 +47,10 @@ public class UserDBAccess implements UserDBGateway {
         return new ArrayList<>();
     }
 
+    /**
+     * Saves a new user to the database (effectively signing them up).
+     * @param request the UserRequestModel object representing the new user
+     */
     @Override
     public void saveNewUser(UserRequestModel request) {
         try {
@@ -60,6 +68,14 @@ public class UserDBAccess implements UserDBGateway {
         }
     }
 
+    /**
+     Performs an HTTP request to the specified URL with the given method and JSON input.
+     This method is used internally by the UserDBAccess class.
+     @param method the HTTP method (e.g., GET, POST)
+     @param jsonInputString the JSON input string for POST requests, null for GET requests
+     @return the response from the HTTP request
+     @throws Exception if an error occurs during the HTTP request
+     **/
     private String performHttpRequest(String method, String jsonInputString) throws Exception {
         URL url = new URL(UserDBAccess.API_URL);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

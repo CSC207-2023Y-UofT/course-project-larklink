@@ -1,10 +1,10 @@
 package signup_and_login;
 
-public class UserRequestModel {
+public class UserModel {
     private final String username;
     private final String password;
 
-    public UserRequestModel(String username, String password) {
+    public UserModel(String username, String password) {
         this.username = username;
         this.password = password;
     }

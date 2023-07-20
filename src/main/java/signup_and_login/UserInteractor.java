@@ -19,10 +19,10 @@ public class UserInteractor implements UserInputBoundary {
      * @param request the user request model containing the username and password
      */
     @Override
-    public void handleUser(UserRequestModel request) {
-        List<UserRequestModel> existingUsers = database.loadUsers();
+    public void handleUser(UserModel request) {
+        List<UserModel> existingUsers = database.loadUsers();
 
-        for (UserRequestModel existingUser : existingUsers) {
+        for (UserModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
                 if (existingUser.getPassword().equals(request.getPassword())) {
                     presenter.prepareJoinOrHostView(request.getUsername()); // "log in" the user

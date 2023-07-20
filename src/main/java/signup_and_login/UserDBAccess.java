@@ -20,10 +20,10 @@ public class UserDBAccess implements UserDBGateway {
 
     /**
      * Loads the users from the database.
-     * @return a list of UserRequestModel objects representing the existing users
+     * @return a list of UserModel objects representing the existing users
      */
     @Override
-    public List<UserRequestModel> loadUsers() {
+    public List<UserModel> loadUsers() {
         try {
             String result = performHttpRequest("GET", null);
 
@@ -32,12 +32,12 @@ public class UserDBAccess implements UserDBGateway {
             JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
             JsonArray usersArray = jsonObject.get("users").getAsJsonArray();
 
-            List<UserRequestModel> users = new ArrayList<>();
+            List<UserModel> users = new ArrayList<>();
             for (JsonElement userElement : usersArray) {
                 JsonObject userObject = userElement.getAsJsonObject();
                 String username = userObject.get("username").getAsString();
                 String password = userObject.get("password").getAsString();
-                users.add(new UserRequestModel(username, password));
+                users.add(new UserModel(username, password));
             }
 
             return users;
@@ -49,10 +49,10 @@ public class UserDBAccess implements UserDBGateway {
 
     /**
      * Saves a new user to the database (effectively signing them up).
-     * @param request the UserRequestModel object representing the new user
+     * @param request the UserModel object representing the new user
      */
     @Override
-    public void saveNewUser(UserRequestModel request) {
+    public void saveNewUser(UserModel request) {
         try {
             JsonObject userObject = new JsonObject();
             userObject.addProperty("username", request.getUsername());

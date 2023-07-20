@@ -20,87 +20,68 @@ public class UserDBAccess implements UserDBGateway {
 
     @Override
     public List<UserRequestModel> loadUsers() {
-        List<UserRequestModel> users = new ArrayList<>();
         try {
-            URL url = new URL(API_URL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            String result = performHttpRequest("GET", null);
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder result = new StringBuilder();
-            String line;
+            // Parse JSON data
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
+            JsonArray usersArray = jsonObject.get("users").getAsJsonArray();
 
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
+            List<UserRequestModel> users = new ArrayList<>();
+            for (JsonElement userElement : usersArray) {
+                JsonObject userObject = userElement.getAsJsonObject();
+                String username = userObject.get("username").getAsString();
+                String password = userObject.get("password").getAsString();
+                users.add(new UserRequestModel(username, password));
             }
 
-            reader.close();
-
-            users = parseJsonAndLoadUsers(result.toString());
+            return users;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return users;
-    }
-
-    private List<UserRequestModel> parseJsonAndLoadUsers(String jsonData) {
-        Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(jsonData, JsonObject.class);
-        JsonArray usersArray = jsonObject.get("users").getAsJsonArray();
-
-        List<UserRequestModel> users = new ArrayList<>();
-        for (JsonElement userElement : usersArray) {
-            JsonObject userObject = userElement.getAsJsonObject();
-            String username = userObject.get("username").getAsString();
-            String password = userObject.get("password").getAsString();
-            users.add(new UserRequestModel(username, password));
-        }
-        System.out.println(users);
-        return users;
+        return new ArrayList<>();
     }
 
     @Override
     public void saveNewUser(UserRequestModel request) {
         try {
-            URL url = new URL(API_URL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-            // Set the appropriate headers and properties
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setDoOutput(true);
-
-            // Create a user object
             JsonObject userObject = new JsonObject();
             userObject.addProperty("username", request.getUsername());
             userObject.addProperty("password", request.getPassword());
 
-            // Create the main object and add the user object to it
             JsonObject mainObject = new JsonObject();
             mainObject.add("user", userObject);
 
-            // Convert the main object to a string
             String jsonInputString = mainObject.toString();
+            performHttpRequest("POST", jsonInputString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-            // Get the output stream of the connection and write the JSON input string to it
+    private String performHttpRequest(String method, String jsonInputString) throws Exception {
+        URL url = new URL(UserDBAccess.API_URL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod(method);
+
+        if (method.equals("POST")) {
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
             }
+        }
 
-            // Read and print the response from the server
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-                StringBuilder response = new StringBuilder();
-                String responseLine;
-
-                while ((responseLine = br.readLine()) != null) {
-                    response.append(responseLine.trim());
-                }
-                System.out.println(response);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return response.toString();
         }
     }
 }

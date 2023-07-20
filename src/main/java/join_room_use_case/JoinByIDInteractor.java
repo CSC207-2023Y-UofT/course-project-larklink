@@ -25,12 +25,12 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary{
                     if (user.getUser().getUsername().equals(requestModel.getCurrUserID())){
                         roomDBGateway.updateRoomActiveUsers(user.getUser());
                         JoinByIDResponseModel responseModel = new JoinByIDResponseModel(true);
-                        presenter.prepareRoomView(responseModel);
+                        presenter.prepareRoomView();
                     }
-                } presenter.prepareFailView("Not a valid user");
+                }
             }
         }
-        presenter.prepareFailView("No Such Room Found!");
+        presenter.prepareFailView();
         }
 
     }

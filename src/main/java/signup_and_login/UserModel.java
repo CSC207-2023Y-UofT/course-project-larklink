@@ -2,7 +2,7 @@ package signup_and_login;
 
 public class UserModel {
     private final String username;
-    private final String password;
+    private String password;
 
     public UserModel(String username, String password) {
         this.username = username;
@@ -14,5 +14,8 @@ public class UserModel {
     }
     public String getPassword() {
         return this.password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

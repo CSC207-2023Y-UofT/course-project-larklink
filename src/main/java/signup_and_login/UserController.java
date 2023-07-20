@@ -7,7 +7,8 @@ public class UserController {
         this.inputBoundary = inputBoundary;
     }
 
-    public void formatAndHandleUser(String username, String password) {
-
+    public UserResponseModel formatAndHandleUser(String username, String password) {
+        UserRequestModel request = new UserRequestModel(username, password);
+        return inputBoundary.handleUser(request);
     }
 }

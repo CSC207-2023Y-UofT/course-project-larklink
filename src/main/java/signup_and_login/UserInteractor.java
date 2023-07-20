@@ -13,23 +13,21 @@ public class UserInteractor implements UserInputBoundary {
     }
 
     @Override
-    public UserResponseModel handleUser(UserRequestModel request) {
+    public void handleUser(UserRequestModel request) {
         List<UserRequestModel> existingUsers = database.loadUsers();
 
         for (UserRequestModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
                 if (existingUser.getPassword().equals(request.getPassword())) {
-                    return new UserResponseModel(request.getUsername(), true);
-                    // presenter.prepareJoinOrHostView(response);
+                    presenter.prepareJoinOrHostView(request.getUsername());
                 } else {
-                    return new UserResponseModel(request.getUsername(), false);
-                    // presenter.prepareInvalidCredentialsView(response);
+                    presenter.prepareInvalidCredentialsView(request.getUsername());
                 }
+                return; // found existing user, no need to check further
             }
         }
-        // we didn't find any matching user, so we save a new user
+        // no existing user found, so we save a new user
         database.SaveNewUser(request);
-        return new UserResponseModel(request.getUsername(), true);
-        // presenter.prepareJoinOrHostView(response);
+        presenter.prepareJoinOrHostView(request.getUsername());
     }
 }

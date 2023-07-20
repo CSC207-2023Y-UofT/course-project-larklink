@@ -1,5 +1,5 @@
 package signup_and_login;
 
 public interface UserInputBoundary {
-    UserResponseModel handleUser(UserRequestModel request);
+    void handleUser(UserRequestModel request);
 }

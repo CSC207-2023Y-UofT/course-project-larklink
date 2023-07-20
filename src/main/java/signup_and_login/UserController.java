@@ -1,7 +1,7 @@
 package signup_and_login;
 
 public class UserController {
-    private UserInputBoundary inputBoundary;
+    private final UserInputBoundary inputBoundary;
 
     public UserController(UserInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;

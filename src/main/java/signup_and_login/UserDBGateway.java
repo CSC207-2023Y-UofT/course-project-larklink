@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface UserDBGateway {
     List<UserRequestModel> loadUsers();
-    void SaveNewUser(UserRequestModel request);
+    void saveNewUser(UserRequestModel request);
 }

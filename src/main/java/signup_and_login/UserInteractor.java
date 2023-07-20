@@ -27,7 +27,7 @@ public class UserInteractor implements UserInputBoundary {
             }
         }
         // no existing user found, so we save a new user
-        database.SaveNewUser(request);
+        database.saveNewUser(request);
         presenter.prepareJoinOrHostView(request.getUsername());
     }
 }

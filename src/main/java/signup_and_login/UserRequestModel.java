@@ -4,8 +4,8 @@ package signup_and_login;
 // TODO: decide if that's a good idea
 
 public class UserRequestModel {
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     public UserRequestModel(String username, String password) {
         this.username = username;

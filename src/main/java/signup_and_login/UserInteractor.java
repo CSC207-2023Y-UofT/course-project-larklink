@@ -19,15 +19,17 @@ public class UserInteractor implements UserInputBoundary {
         for (UserRequestModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
                 if (existingUser.getPassword().equals(request.getPassword())) {
-                    return presenter.prepareSignedInView();
+                    return new UserResponseModel(request.getUsername(), true);
+                    // presenter.prepareJoinOrHostView(response);
                 } else {
-                    return presenter.prepareInvalidCredentialsView();
+                    return new UserResponseModel(request.getUsername(), false);
+                    // presenter.prepareInvalidCredentialsView(response);
                 }
             }
         }
-        // we didn't find any matching user so we save a new user
+        // we didn't find any matching user, so we save a new user
         database.SaveNewUser(request);
-        return presenter.prepareSignedUpView();
-
+        return new UserResponseModel(request.getUsername(), true);
+        // presenter.prepareJoinOrHostView(response);
     }
 }

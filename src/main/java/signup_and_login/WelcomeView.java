@@ -1,30 +1,54 @@
 package signup_and_login;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.*;
 
 public class WelcomeView {
-    private String usernameField;
-    private String passwordField;
-    private UserController controller;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private final UserController controller;
 
     public WelcomeView(UserController controller){
         this.controller = controller;
     }
 
     public void prepareGUI() {
-        JFrame frame  = new JFrame();
+
+        JFrame frame  = new JFrame("User Registration");
+        frame.setLayout(new BorderLayout());
+
+        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel usernameLabel = new JLabel("Username:");
+        usernameField = new JTextField();
+        JLabel passwordLabel = new JLabel("Password:");
+        passwordField = new JPasswordField();
+
         JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.formatAndHandleUser(usernameField, passwordField);
+        submitButton.addActionListener(e -> {
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
+
+            if(!username.isEmpty() && !password.isEmpty()) {
+                controller.formatAndHandleUser(username, password);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Both fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        frame.add(submitButton);
+
+        panel.add(usernameLabel);
+        panel.add(usernameField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(new JLabel());  // Empty label for grid alignment
+        panel.add(submitButton);
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setSize(300, 200);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);  // Center the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
         frame.setVisible(true);
     }
 }

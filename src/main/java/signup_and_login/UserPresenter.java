@@ -6,7 +6,6 @@ public class UserPresenter implements UserOutputBoundary {
 
     @Override
     public void prepareJoinOrHostView(String userID) {
-        System.out.println(userID +  " goes to join or host view");
         JOptionPane.showMessageDialog(null, userID + " would go to JoinOrHostView now.");
     }
 

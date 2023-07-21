@@ -15,8 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDBAccess implements UserDBGateway {
+    private final String urlBase;
 
-    private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink/users";
+    public UserDBAccess(String urlBase) {
+        this.urlBase = urlBase;
+    }
 
     /**
      * Loads the users from the database.
@@ -77,7 +80,7 @@ public class UserDBAccess implements UserDBGateway {
      @throws Exception if an error occurs during the HTTP request
      **/
     private String performHttpRequest(String method, String jsonInputString) throws Exception {
-        URL url = new URL(UserDBAccess.API_URL);
+        URL url = new URL(urlBase + "/users");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(method);
 
@@ -88,7 +91,13 @@ public class UserDBAccess implements UserDBGateway {
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
                 os.write(input, 0, input.length);
+                os.flush();
             }
+        }
+
+        int responseCode = conn.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            System.err.println("HTTP request failed with response code: " + responseCode);
         }
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
@@ -97,6 +106,7 @@ public class UserDBAccess implements UserDBGateway {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
+            conn.disconnect();
             return response.toString();
         }
     }

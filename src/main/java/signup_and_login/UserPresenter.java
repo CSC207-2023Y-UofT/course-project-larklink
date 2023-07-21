@@ -9,7 +9,7 @@ public class UserPresenter implements UserOutputBoundary {
      * @param userID the ID of the user
      */
     @Override
-    public void prepareJoinOrHostView(String userID) {
+    public void prepareJoinOrHostView(int userID) {
         JOptionPane.showMessageDialog(null, userID + " would go to JoinOrHostView now.");
         // pass in the userID here.
     }

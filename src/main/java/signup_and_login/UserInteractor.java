@@ -22,22 +22,22 @@ public class UserInteractor implements UserInputBoundary {
      */
     @Override
     public void handleUser(UserModel request) {
-        String plainPassword = request.getPassword();
-        request.setPassword(User.hashPassword(plainPassword));
         List<UserModel> existingUsers = database.loadUsers();
 
         for (UserModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
-                if (User.checkPassword(plainPassword, existingUser.getPassword())) {
-                    presenter.prepareJoinOrHostView(request.getUsername()); // "log in" the user
+                if (User.checkPassword(request.getPassword(), existingUser.getPassword())) {
+                    presenter.prepareJoinOrHostView(existingUser.getUserID()); // "log in" the existing user
                 } else {
                     presenter.prepareInvalidCredentialsView();
                 }
                 return; // found existing user, no need to check further
             }
         }
-        // no existing user found, so we save a new user
+        // no existing user found, so we hash their password and set their userID to save the new user
+        request.setPassword(User.hashPassword(request.getPassword()));
+        request.setUserID(existingUsers.size() + 2);
         database.saveNewUser(request);
-        presenter.prepareJoinOrHostView(request.getUsername());
+        presenter.prepareJoinOrHostView(request.getUserID());
     }
 }

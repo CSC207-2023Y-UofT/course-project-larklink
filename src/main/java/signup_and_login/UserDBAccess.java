@@ -28,19 +28,19 @@ public class UserDBAccess implements UserDBGateway {
     @Override
     public List<UserModel> loadUsers() {
         try {
-            String result = performHttpRequest("GET", null);
+            String result = performHttpRequest("GET", null, null);
 
             // Parse JSON data
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
             JsonArray usersArray = jsonObject.get("users").getAsJsonArray();
-
             List<UserModel> users = new ArrayList<>();
             for (JsonElement userElement : usersArray) {
                 JsonObject userObject = userElement.getAsJsonObject();
+                int userId = userObject.get("id").getAsInt();
                 String username = userObject.get("username").getAsString();
                 String password = userObject.get("password").getAsString();
-                users.add(new UserModel(username, password));
+                users.add(new UserModel(userId, username, password));
             }
 
             return users;
@@ -48,6 +48,30 @@ public class UserDBAccess implements UserDBGateway {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * Fetches a specific user from the database by their userID
+     * @return a UserModel object representing the user
+     */
+    @Override
+    public UserModel fetchUser(int userID) {
+        try {
+            String result = performHttpRequest("GET", null, userID);
+
+            // Parse JSON data
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
+            JsonObject userObject = jsonObject.get("user").getAsJsonObject();
+
+            String username = userObject.get("username").getAsString();
+            String password = userObject.get("password").getAsString();
+
+            return new UserModel(userID, username, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -65,7 +89,7 @@ public class UserDBAccess implements UserDBGateway {
             mainObject.add("user", userObject);
 
             String jsonInputString = mainObject.toString();
-            performHttpRequest("POST", jsonInputString);
+            performHttpRequest("POST", jsonInputString, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,8 +103,13 @@ public class UserDBAccess implements UserDBGateway {
      @return the response from the HTTP request
      @throws Exception if an error occurs during the HTTP request
      **/
-    private String performHttpRequest(String method, String jsonInputString) throws Exception {
-        URL url = new URL(urlBase + "/users");
+    private String performHttpRequest(String method, String jsonInputString, Integer id) throws Exception {
+        URL url;
+        if (id != null) {
+            url = new URL(urlBase + "/users/" + id);
+        } else {
+            url = new URL(urlBase + "/users");
+        }
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(method);
 

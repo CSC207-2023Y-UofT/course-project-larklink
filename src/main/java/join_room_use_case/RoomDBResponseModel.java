@@ -1,9 +1,9 @@
 package join_room_use_case;
 
-import entity.Room;
+import entities.Room;
 
 public class RoomDBResponseModel {
-    private Room room;
+    private final Room room;
 
     public RoomDBResponseModel(Room room) {
         this.room = room;

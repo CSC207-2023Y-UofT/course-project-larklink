@@ -9,7 +9,7 @@ public class JoinByIDPresenter implements JoinByIDOutputBoundary {
     public void prepareRoomView(){
     }
     @Override
-    public void prepareFailView(){
-        JOptionPane.showMessageDialog(null, "No Such Room Found!");
+    public void prepareFailView(String error){
+        JOptionPane.showMessageDialog(null, error);
     }
 }

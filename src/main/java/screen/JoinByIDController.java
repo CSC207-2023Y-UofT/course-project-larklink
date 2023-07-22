@@ -5,7 +5,7 @@ import join_room_use_case.JoinByIDRequestModel;
 
 public class JoinByIDController {
 
-    private JoinByIDInputBoundary joinByIDInputBoundary;
+    private final JoinByIDInputBoundary joinByIDInputBoundary;
 
     public JoinByIDController(JoinByIDInputBoundary joinByIDInputBoundary){
         this.joinByIDInputBoundary = joinByIDInputBoundary;

@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 import java.util.*;
 import java.util.ArrayList;
@@ -32,3 +32,5 @@ public class Room {
         return host;
     }
 }
+
+

@@ -3,9 +3,9 @@ package join_room_use_case;
 import java.util.List;
 
 public class JoinByIDInteractor implements JoinByIDInputBoundary{
-    private RoomDBGateway roomDBGateway;
-    private UserDBGateway userDBGateway;
-    private JoinByIDOutputBoundary presenter;
+    private final RoomDBGateway roomDBGateway;
+    private final UserDBGateway userDBGateway;
+    private final JoinByIDOutputBoundary presenter;
 
     public JoinByIDInteractor(RoomDBGateway roomDBGateway, JoinByIDOutputBoundary presenter,
                               UserDBGateway userDBGateway){
@@ -24,13 +24,12 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary{
                 for (UserModel user : users){
                     if (user.getUser().getUsername().equals(requestModel.getCurrUserID())){
                         roomDBGateway.updateRoomActiveUsers(user.getUser());
-                        JoinByIDResponseModel responseModel = new JoinByIDResponseModel(true);
                         presenter.prepareRoomView();
                     }
-                }
+                } presenter.prepareFailView("No Such User Found!");
             }
         }
-        presenter.prepareFailView();
+        presenter.prepareFailView("No Such Room Found!");
         }
 
     }

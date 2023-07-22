@@ -14,7 +14,7 @@ public class UserController {
      * @param password the password entered by the user
      */
     public void formatAndHandleUser(String username, String password) {
-        UserModel request = new UserModel(0, username, password);
+        UserModel request = new UserModel(username, password);
         inputBoundary.handleUser(request);
     }
 }

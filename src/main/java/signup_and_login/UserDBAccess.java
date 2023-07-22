@@ -26,7 +26,7 @@ public class UserDBAccess implements UserDBGateway {
      * @return a list of UserModel objects representing the existing users
      */
     @Override
-    public List<UserModel> loadUsers() {
+    public List<UserDBModel> loadUsers() {
         try {
             String result = performHttpRequest("GET", null, null);
 
@@ -34,13 +34,13 @@ public class UserDBAccess implements UserDBGateway {
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
             JsonArray usersArray = jsonObject.get("users").getAsJsonArray();
-            List<UserModel> users = new ArrayList<>();
+            List<UserDBModel> users = new ArrayList<>();
             for (JsonElement userElement : usersArray) {
                 JsonObject userObject = userElement.getAsJsonObject();
                 int userId = userObject.get("id").getAsInt();
                 String username = userObject.get("username").getAsString();
                 String password = userObject.get("password").getAsString();
-                users.add(new UserModel(userId, username, password));
+                users.add(new UserDBModel(userId, username, password));
             }
 
             return users;
@@ -55,7 +55,7 @@ public class UserDBAccess implements UserDBGateway {
      * @return a UserModel object representing the user
      */
     @Override
-    public UserModel fetchUser(int userID) {
+    public UserDBModel fetchUser(int userID) {
         try {
             String result = performHttpRequest("GET", null, userID);
 
@@ -67,7 +67,7 @@ public class UserDBAccess implements UserDBGateway {
             String username = userObject.get("username").getAsString();
             String password = userObject.get("password").getAsString();
 
-            return new UserModel(userID, username, password);
+            return new UserDBModel(userID, username, password);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class UserDBAccess implements UserDBGateway {
      * @param request the UserModel object representing the new user
      */
     @Override
-    public void saveNewUser(UserModel request) {
+    public void saveNewUser(UserDBModel request) {
         try {
             JsonObject userObject = new JsonObject();
             userObject.addProperty("username", request.getUsername());

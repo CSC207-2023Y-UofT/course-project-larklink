@@ -3,7 +3,7 @@ package signup_and_login;
 import java.util.List;
 
 public interface UserDBGateway {
-    List<UserModel> loadUsers();
-    void saveNewUser(UserModel request);
-    UserModel fetchUser(int userID);
+    List<UserDBModel> loadUsers();
+    void saveNewUser(UserDBModel request);
+    UserDBModel fetchUser(int userID);
 }

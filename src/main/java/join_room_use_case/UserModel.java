@@ -1,9 +1,9 @@
 package join_room_use_case;
 
-import entity.User;
+import entities.User;
 
 public class UserModel {
-    private User user;
+    private final User user;
 
     public UserModel(User user) {
         this.user = user;

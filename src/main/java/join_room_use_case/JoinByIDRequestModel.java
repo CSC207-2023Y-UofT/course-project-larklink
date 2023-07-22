@@ -1,16 +1,16 @@
 package join_room_use_case;
 
 public class JoinByIDRequestModel {
-    private final String roomID;
+    private final String roomName;
     private final String currUserID;
 
-    public JoinByIDRequestModel(String roomID, String currUserID){
-        this.roomID = roomID;
+    public JoinByIDRequestModel(String roomName, String currUserID){
+        this.roomName = roomName;
         this.currUserID = currUserID;
     }
 
-    String getRoomID(){
-        return roomID;
+    String getRoomName(){
+        return roomName;
     }
 
     String getCurrUserID(){

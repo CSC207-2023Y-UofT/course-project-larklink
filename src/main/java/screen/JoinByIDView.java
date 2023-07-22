@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class JoinByIDView {
 
-    private JTextField roomIDField;
+    private JTextField roomNameField;
     private JTextField currUserIDField;
     private final JoinByIDController controller;
 
@@ -30,17 +30,17 @@ public class JoinByIDView {
     }
 
     private JPanel createPanel() {
-        JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel roomIDLabel = new JLabel("Room name:");
-        roomIDField = new JTextField();
-        JLabel currUserIDLabel = new JLabel("Username:");
+        JLabel roomNameLabel = new JLabel("Room name:");
+        roomNameField = new JTextField();
+        JLabel currUserIDLabel = new JLabel("User name:");
         currUserIDField = new JTextField();
         JButton joinButton = createJoinButton();
 
-        panel.add(roomIDLabel);
-        panel.add(roomIDField);
+        panel.add(roomNameLabel);
+        panel.add(roomNameField);
         panel.add(currUserIDLabel);
         panel.add(currUserIDField);
         panel.add(new JLabel());
@@ -51,10 +51,10 @@ public class JoinByIDView {
     private JButton createJoinButton() {
         JButton submitButton = new JButton("Join");
         submitButton.addActionListener(e -> {
-            String roomID = roomIDField.getText();
+            String roomName = roomNameField.getText();
             String currUserID = currUserIDField.getText();
 
-            if (roomID.isEmpty()) {
+            if (roomName.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please Enter Room Name",
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -68,7 +68,7 @@ public class JoinByIDView {
             }
 
 
-            controller.formatAndHandleJoinByID(roomID, currUserID);
+            controller.formatAndHandleJoinByID(roomName, currUserID);
         });
         return submitButton;
     }

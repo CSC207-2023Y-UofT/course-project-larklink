@@ -5,10 +5,12 @@ import java.awt.*;
 
 public class JoinOrHostView {
 
-    private final JoinByIDController controller;
+    private final int currUserID;
+    private final JoinByIDController joinByIDController;
 
-    public JoinOrHostView(JoinByIDController controller){
-        this.controller = controller;
+    public JoinOrHostView(int currUserID, JoinByIDController joinByIDController){
+        this.currUserID = currUserID;
+        this.joinByIDController = joinByIDController;
     }
 
     public void prepareGUI() {
@@ -42,7 +44,7 @@ public class JoinOrHostView {
     private JButton createJoinButton() {
         JButton joinButton = new JButton("Join a Room");
         joinButton.addActionListener(e -> {
-            JoinByIDView joinByIDView = new JoinByIDView(controller);
+            JoinByIDView joinByIDView = new JoinByIDView(currUserID, joinByIDController);
             joinByIDView.prepareGUI();
         });
         return joinButton;

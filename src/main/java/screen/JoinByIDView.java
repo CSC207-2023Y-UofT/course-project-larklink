@@ -6,11 +6,12 @@ import java.awt.*;
 public class JoinByIDView {
 
     private JTextField roomNameField;
-    private JTextField currUserIDField;
-    private final JoinByIDController controller;
+    private final JoinByIDController joinByIDController;
+    private final int currUserID;
 
-    public JoinByIDView(JoinByIDController controller){
-        this.controller = controller;
+    public JoinByIDView(int currUserID, JoinByIDController joinByIDController){
+        this.currUserID = currUserID;
+        this.joinByIDController = joinByIDController;
     }
 
     public void prepareGUI() {
@@ -20,7 +21,7 @@ public class JoinByIDView {
         frame.setVisible(true);
     }
     private JFrame createFrame() {
-        JFrame frame = new JFrame("Joining a Room");
+        JFrame frame = new JFrame("Please Enter a Room Name");
         frame.setLayout(new BorderLayout());
         frame.setSize(300, 200);
         frame.setResizable(false);
@@ -30,20 +31,13 @@ public class JoinByIDView {
     }
 
     private JPanel createPanel() {
-        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(1, 2, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(60, 20, 60, 20));
 
-        JLabel roomNameLabel = new JLabel("Room name:");
         roomNameField = new JTextField();
-        JLabel currUserIDLabel = new JLabel("User name:");
-        currUserIDField = new JTextField();
         JButton joinButton = createJoinButton();
 
-        panel.add(roomNameLabel);
         panel.add(roomNameField);
-        panel.add(currUserIDLabel);
-        panel.add(currUserIDField);
-        panel.add(new JLabel());
         panel.add(joinButton);
         return panel;
     }
@@ -52,7 +46,6 @@ public class JoinByIDView {
         JButton submitButton = new JButton("Join");
         submitButton.addActionListener(e -> {
             String roomName = roomNameField.getText();
-            String currUserID = currUserIDField.getText();
 
             if (roomName.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Please Enter Room Name",
@@ -60,15 +53,7 @@ public class JoinByIDView {
                 return;
             }
 
-
-            if (currUserID.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please Enter User Name",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-
-            controller.formatAndHandleJoinByID(roomName, currUserID);
+            joinByIDController.formatAndHandleJoinByID(roomName, currUserID);
         });
         return submitButton;
     }

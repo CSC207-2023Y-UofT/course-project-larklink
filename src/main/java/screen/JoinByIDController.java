@@ -10,7 +10,7 @@ public class JoinByIDController {
     public JoinByIDController(JoinByIDInputBoundary joinByIDInputBoundary){
         this.joinByIDInputBoundary = joinByIDInputBoundary;
     }
-    public void formatAndHandleJoinByID(String roomName, String currUserID){
+    public void formatAndHandleJoinByID(String roomName, int currUserID){
         JoinByIDRequestModel requestModel = new JoinByIDRequestModel(roomName, currUserID);
         joinByIDInputBoundary.handleJoinByID(requestModel);
     }

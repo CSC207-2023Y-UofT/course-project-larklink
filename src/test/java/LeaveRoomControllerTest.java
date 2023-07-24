@@ -5,8 +5,8 @@ import static org.mockito.Mockito.*;
 public class LeaveRoomControllerTest {
     @Test
     public void testHandleLeaveRoom() {
-        String roomId = "room1";
-        String currUserId = "user1";
+        Integer roomId = 1;
+        Integer currUserId = 1;
         // Mock the interface
         LeaveRoomInputBoundary mockInputBoundary = mock(LeaveRoomInputBoundary.class);
         LeaveRoomController controller = new LeaveRoomController(mockInputBoundary);

@@ -6,11 +6,11 @@ import java.awt.event.ActionEvent;
 
 
 public class RoomView {
-    private String roomId;
-    private String currUserId;
+    private int roomId;
+    private Integer currUserId;
     private LeaveRoomController leaveRoomController;
 
-    public RoomView(LeaveRoomController leaveRoomController, String roomId, String currUserId ){
+    public RoomView(LeaveRoomController leaveRoomController, Integer roomId, Integer currUserId ){
         this.leaveRoomController = leaveRoomController;
         this.roomId = roomId;
         this.currUserId = currUserId;

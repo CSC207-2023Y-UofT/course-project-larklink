@@ -1,5 +1,5 @@
 package leaveRoom;
 
 public interface LeaveRoomInputBoundary {
-    void leaveRoom(String roomId, String currUserId);
+    void leaveRoom(Integer roomId, Integer currUserId);
 }

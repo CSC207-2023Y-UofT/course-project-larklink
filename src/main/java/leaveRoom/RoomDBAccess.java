@@ -1,54 +1,115 @@
 package leaveRoom;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import entities.Message;
+import entities.Room;
+import entities.User;
+import signup_and_login.UserDBModel;
+import util.RemoteUtilities;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RoomDBAccess implements RoomDBGateway {
-    private Map<String, List<String>> activeRooms = new HashMap<>();
+    private Map<Integer, List<Integer>> activeRooms = new HashMap<>();
+    final private String urlbase;
 
-    public RoomDBAccess() {
-        createRooms();
+    public RoomDBAccess(String urlbase) {
+        this.urlbase = urlbase;
     }
-
-    private void createRooms() {
-        List<String> activeUsers1 = new ArrayList<>();
-        activeUsers1.add("user1");
-        activeUsers1.add("user2");
-        activeRooms.put("room1", activeUsers1);
-        List<String> activeUsers2 = new ArrayList<>();
-        activeUsers2.add("user3");
-        activeUsers2.add("user4");
-        activeRooms.put("room2", activeUsers2);
-    }
-
 
     @Override
-    public List<RoomDBRequestModel> loadRooms() {
-        List<RoomDBRequestModel> rooms = new ArrayList<>();
-        for (String roomId : activeRooms.keySet()) {
-            List<String> activeUsers = activeRooms.get(roomId);
-            RoomDBRequestModel room = new RoomDBRequestModel(roomId, activeUsers);
-            rooms.add(room);
+    public List<RoomDBModel> loadRooms() {
+        try {
+            String result = performHttpRequest("GET", null, null);
+            // Parse JSON data
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
+            JsonArray roomsArray = jsonObject.get("rooms").getAsJsonArray();
+            List<RoomDBModel> rooms = new ArrayList<>();
+
+            for (JsonElement roomElement : roomsArray) {
+                JsonObject roomObject = roomElement.getAsJsonObject();
+                int roomID = roomObject.get("id").getAsInt();
+                Integer host = roomObject.get("host").getAsInt();
+                JsonArray activeUsers = roomObject.get("activeUsers").getAsJsonArray();
+
+                List<Integer> users = new ArrayList<>();
+                for (JsonElement userElement : activeUsers) {
+                    JsonObject userObject = userElement.getAsJsonObject();
+                    int userId = userObject.get("id").getAsInt();
+                    users.add(userId);
+                }
+                rooms.add(new RoomDBModel(roomID, users, host));
+            }
+
+            return rooms;
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return rooms;
+        return new ArrayList<>();
     }
 
     @Override
-    public void updateRoomActiveUsers(RoomDBRequestModel requestModel) {
-        String roomId = requestModel.getRoomId();
-        List<String> activeUsers = requestModel.getActiveUsers();
+    public RoomDBModel fetchRoom(int roomID) {
+
+        try {
+            String result = performHttpRequest("GET", null, roomID);
+
+            // Parse JSON data
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
+            JsonObject roomObject = jsonObject.get("room").getAsJsonObject();
+
+            Integer host = roomObject.get("host").getAsInt();
+
+            JsonArray userList = jsonObject.get("activeUsers").getAsJsonArray();
+
+            List<Integer> users = new ArrayList<>();
+            for (JsonElement userElement : userList) {
+                JsonObject userObject = userElement.getAsJsonObject();
+                int userId = userObject.get("id").getAsInt();
+                users.add(userId);
+            }
+
+            return new RoomDBModel(roomID, users, host);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void saveRoom(RoomDBModel request) {
+        // NEED TO IMPLEMENT
+    }
+
+    @Override
+    public void updateRoomActiveUsers(RoomDBModel roomDBModel) {
+        int roomId = roomDBModel.getRoomID();
+        List<Integer> activeUsers = roomDBModel.getActiveUsers();
         activeRooms.put(roomId, activeUsers);
     }
 
     @Override
     public void leaveRoom(String roomId, String currUserId) {
         if (activeRooms.containsKey(roomId)) {
-            List<String> activeUsers = activeRooms.get(roomId);
+            List<Integer> activeUsers = activeRooms.get(roomId);
             if (activeUsers.contains(currUserId)) {
                 activeUsers.remove(currUserId);
             }
         }
+    }
+
+    private String performHttpRequest(String method, String jsonInputString, Integer id) throws Exception {
+        RemoteUtilities remote_util = new RemoteUtilities(urlbase);
+        return remote_util.performHttpRequest(method, jsonInputString, id, "rooms");
     }
 }

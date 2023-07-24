@@ -12,12 +12,13 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     }
 
     @Override
-    public void leaveRoom(String roomId, String currUserId) {
-        List<RoomDBRequestModel> rooms = roomDBGateway.loadRooms();
+    public void leaveRoom(Integer roomId, Integer currUserId) {
+        // shouldn't fetch all rooms
+        List<RoomDBModel> rooms = roomDBGateway.loadRooms();
 
-        for (RoomDBRequestModel room : rooms) {
-            if (room.getRoomId().equals(roomId)) {
-                List<String> activeUsers = room.getActiveUsers();
+        for (RoomDBModel room : rooms) {
+            if (room.getRoomID() == roomId) {
+                List<Integer> activeUsers = room.getActiveUsers();
                 if (activeUsers.contains(currUserId)) {
                     activeUsers.remove(currUserId);
                     roomDBGateway.updateRoomActiveUsers(room);

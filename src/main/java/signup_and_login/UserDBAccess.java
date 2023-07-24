@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import util.RemoteUtilities;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -55,7 +56,7 @@ public class UserDBAccess implements UserDBGateway {
      * @return a UserModel object representing the user
      */
     @Override
-    public UserDBModel fetchUser(int userID) {
+    public UserDBModel fetchUser(Integer userID) {
         try {
             String result = performHttpRequest("GET", null, userID);
 
@@ -104,39 +105,7 @@ public class UserDBAccess implements UserDBGateway {
      @throws Exception if an error occurs during the HTTP request
      **/
     private String performHttpRequest(String method, String jsonInputString, Integer id) throws Exception {
-        URL url;
-        if (id != null) {
-            url = new URL(urlBase + "/users/" + id);
-        } else {
-            url = new URL(urlBase + "/users");
-        }
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod(method);
-
-        if (method.equals("POST")) {
-            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setDoOutput(true);
-            try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-                os.flush();
-            }
-        }
-
-        int responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            System.err.println("HTTP request failed with response code: " + responseCode);
-        }
-
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            conn.disconnect();
-            return response.toString();
-        }
+        RemoteUtilities remote_util = new RemoteUtilities(urlBase);
+        return remote_util.performHttpRequest(method, jsonInputString, id, "users");
     }
 }

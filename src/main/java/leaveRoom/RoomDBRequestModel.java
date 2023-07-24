@@ -3,18 +3,20 @@ package leaveRoom;
 import java.util.List;
 
 public class RoomDBRequestModel {
-    private String roomId;
-    private List<String> activeUsers;
+    private Integer roomID;
+    private List<Integer> activeUsers;
+    private String host;
 
-    public RoomDBRequestModel(String roomId, List<String> activeUsers) {
-        this.roomId = roomId;
+    public RoomDBRequestModel(Integer roomID, List<Integer> activeUsers, String host) {
+        this.roomID = roomID;
         this.activeUsers = activeUsers;
+        this.host = host;
     }
 
-    public String getRoomId() {
-        return roomId;
+    public int getRoomId() {
+        return roomID;
     }
-    public List<String> getActiveUsers() {
+    public List<Integer> getActiveUsers() {
         return activeUsers;
     }
 }

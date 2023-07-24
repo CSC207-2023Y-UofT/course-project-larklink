@@ -1,7 +1,4 @@
-package screen;
-
-import join_room_use_case.JoinByIDInputBoundary;
-import join_room_use_case.JoinByIDRequestModel;
+package join_room_use_case;
 
 public class JoinByIDController {
 

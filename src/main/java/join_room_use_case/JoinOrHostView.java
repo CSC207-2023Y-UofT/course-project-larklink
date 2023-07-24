@@ -1,4 +1,4 @@
-package screen;
+package join_room_use_case;
 
 import javax.swing.*;
 import java.awt.*;

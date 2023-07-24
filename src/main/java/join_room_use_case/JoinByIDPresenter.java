@@ -1,6 +1,5 @@
-package screen;
+package join_room_use_case;
 
-import join_room_use_case.JoinByIDOutputBoundary;
 
 import javax.swing.*;
 

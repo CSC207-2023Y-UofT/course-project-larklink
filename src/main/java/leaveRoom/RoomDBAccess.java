@@ -1,9 +1,6 @@
 package leaveRoom;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import entities.Message;
 import entities.Room;
 import entities.User;
@@ -88,7 +85,24 @@ public class RoomDBAccess implements RoomDBGateway {
 
     @Override
     public void saveRoom(RoomDBModel request) {
-        // NEED TO IMPLEMENT
+        try {
+            JsonObject roomObject = new JsonObject();
+            JsonArray users = new JsonArray();
+            for (Integer userID : request.getActiveUsers()) {
+                users.add(new JsonPrimitive(userID));
+            }
+
+            roomObject.addProperty("host", request.getHost());
+            roomObject.add("activeUsers", users);
+
+            JsonObject mainObject = new JsonObject();
+            mainObject.add("room", roomObject);
+
+            String jsonInputString = mainObject.toString();
+            performHttpRequest("POST", jsonInputString, request.getHost());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

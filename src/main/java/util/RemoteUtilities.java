@@ -62,12 +62,4 @@ public class RemoteUtilities {
             return response.toString();
         }
     }
-
-    public UserDBModel convertUserObject(JsonObject userObject) {
-        String username = userObject.get("username").getAsString();
-        String password = userObject.get("password").getAsString();
-        int userID = userObject.get("userID").getAsInt();
-
-        return new UserDBModel(userID, username, password);
-    }
 }

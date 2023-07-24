@@ -12,13 +12,10 @@ import java.util.List;
 
 public class HostRoomInteractor implements HostRoomInputBoundary{
     private RoomDBGateway database;
-    private HostRoomOutputBoundary outputBoundary;
-    private HostRoomPresenter presenter;
+    private HostRoomOutputBoundary presenter;
 
-    public HostRoomInteractor(RoomDBGateway database,
-                              HostRoomOutputBoundary outputBoundary, HostRoomPresenter presenter) {
+    public HostRoomInteractor(RoomDBGateway database, HostRoomOutputBoundary presenter) {
         this.database = database;
-        this.outputBoundary = outputBoundary;
         this.presenter = presenter;
     }
 
@@ -30,13 +27,13 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
             if (existingRoom.getHost().equals(request.getHost())) {
                 // NEED TO FIX
                 presenter.prepareRoomNameAlreadyTaken();
-                return; // found existing user, no need to check further
+                return;
             }
         }
 
         RoomDBModel newRoom = new RoomDBModel(existingRooms.size() + 2, request.getActiveUsers(),
                 request.getHost());
-        database.
-
+        database.saveRoom(newRoom);
+        presenter.prepareRoomView(newRoom.getHost());
     }
 }

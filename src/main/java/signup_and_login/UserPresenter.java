@@ -1,17 +1,31 @@
 package signup_and_login;
 
+import host_room.HostRoomController;
+import host_room.HostRoomInteractor;
+import host_room.HostRoomPresenter;
+import host_room.JoinOrHostView;
+import leaveRoom.RoomDBGateway;
+
 import javax.swing.*;
 
 public class UserPresenter implements UserOutputBoundary {
-
+    private RoomDBGateway roomDBAccess;
+    private Integer currUserID;
+    public UserPresenter(RoomDBGateway roomDBAccess, Integer currUserID) {
+        this.roomDBAccess = roomDBAccess;
+        this.currUserID = currUserID;
+    }
     /**
      * Displays the JoinOrHostView passing in the specified user ID.
      * @param userID the ID of the user
      */
     @Override
     public void prepareJoinOrHostView(int userID) {
-        JOptionPane.showMessageDialog(null, userID + " would go to JoinOrHostView now.");
-        // pass in the userID here.
+        HostRoomPresenter hostRoomPresenter = new HostRoomPresenter();
+        HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
+        HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
+        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, currUserID);
+        joinOrHostView.prepareGUI();
     }
 
     /**

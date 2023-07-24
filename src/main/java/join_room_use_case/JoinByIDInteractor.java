@@ -27,7 +27,7 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary{
                 for (UserDBModel user : users){
                     if (user.getUserID() == requestModel.getCurrUserID()){
                         roomDBGateway.updateRoomActiveUsers(user);
-                        presenter.prepareRoomView(room.getName());
+                        presenter.prepareRoomView(room.getRoomID());
                     }
                 } presenter.prepareFailView("No Such User Found!");
             }

@@ -19,15 +19,15 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary{
 
     @Override
     public void handleJoinByID(JoinByIDRequestModel requestModel){
-        List<RoomDBResponseModel> rooms = roomDBGateway.loadRooms();
+        List<RoomDBModel> rooms = roomDBGateway.loadRooms();
 
-        for (RoomDBResponseModel room : rooms) {
-            if (room.getRoom().getName().equals(requestModel.getRoomName())){
+        for (RoomDBModel room : rooms) {
+            if (room.getName().equals(requestModel.getRoomName())){
                 List<UserDBModel> users = userDBGateway.loadUsers();
                 for (UserDBModel user : users){
                     if (user.getUserID() == requestModel.getCurrUserID()){
                         roomDBGateway.updateRoomActiveUsers(user);
-                        presenter.prepareRoomView(room.getRoom().getName());
+                        presenter.prepareRoomView(room.getName());
                     }
                 } presenter.prepareFailView("No Such User Found!");
             }

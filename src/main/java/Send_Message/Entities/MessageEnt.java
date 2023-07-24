@@ -1,4 +1,4 @@
-package Entities;
+package Send_Message.Entities;
 
 
 import java.io.Serializable;
@@ -20,11 +20,7 @@ public class MessageEnt implements Serializable {
      */
     private String sender;
     private String roomId;
-    /**
-     * Creates an instance of MessageEnt
-     * @param content
-     * @param sender
-     */
+
     public MessageEnt(String content, String sender, String roomId){
         this.content = content;
         this.sender = sender;

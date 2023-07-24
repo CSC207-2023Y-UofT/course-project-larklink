@@ -99,7 +99,7 @@ public class RoomDBAccess implements RoomDBGateway {
             mainObject.add("room", roomObject);
 
             String jsonInputString = mainObject.toString();
-            performHttpRequest("POST", jsonInputString, request.getHost());
+            performHttpRequest("POST", jsonInputString, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

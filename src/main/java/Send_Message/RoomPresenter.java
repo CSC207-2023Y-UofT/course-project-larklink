@@ -8,7 +8,7 @@ public class RoomPresenter implements SendMessageOutputBoundary{
     private List<String> messageList;
     private JTextArea chatTextArea;
     @Override
-    public void prepareRoomView() {
+    public void prepareRoomView(String RoomID) {
         //Updating the messages being shown
         // list of message content
         for (String message : messageList) {

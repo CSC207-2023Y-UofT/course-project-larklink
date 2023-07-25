@@ -3,7 +3,7 @@ package send_message;
 public class MessageInputModel {
     private final String content;
     private final String sender;
-    private final String roomID;
+    private final Integer roomID;
 
     /**
      * Construct a message model
@@ -11,7 +11,7 @@ public class MessageInputModel {
      * @param sender a sender
      * @param roomID the id of a room
      */
-    public MessageInputModel(String s, String sender, String roomID){
+    public MessageInputModel(String s, String sender, Integer roomID){
         this.content = s;
         this.sender = sender;
         this.roomID = roomID;
@@ -37,7 +37,7 @@ public class MessageInputModel {
      * Get the id of the room of this message model
      * @return the id of a room this message is sent through
      */
-    public String getRoomID() {
+    public Integer getRoomID() {
         return this.roomID;
     }
 }

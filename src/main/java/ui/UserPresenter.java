@@ -2,9 +2,9 @@ package ui;
 
 import host_room.HostRoomController;
 import host_room.HostRoomInteractor;
-import host_room.HostRoomPresenter;
 import database.RoomDBGateway;
 import signup_and_login.UserOutputBoundary;
+import util.ViewUtilities;
 
 import javax.swing.*;
 
@@ -21,11 +21,9 @@ public class UserPresenter implements UserOutputBoundary {
      */
     @Override
     public void prepareJoinOrHostView(int userID) {
-        HostRoomPresenter hostRoomPresenter = new HostRoomPresenter();
-        HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
-        HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
-        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, currUserID);
-        joinOrHostView.prepareGUI();
+        ViewUtilities viewUtilities = new ViewUtilities(roomDBAccess, userID);
+        viewUtilities.prepareJoinOrHostView();
+
     }
 
     /**

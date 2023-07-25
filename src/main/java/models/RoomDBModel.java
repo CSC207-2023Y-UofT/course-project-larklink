@@ -6,7 +6,7 @@ public class RoomDBModel {
     private final int roomID;
     // stored using userIDs
     private List<Integer> activeUsers;
-    private Integer host;
+    private final Integer host;
 
     public RoomDBModel(int roomID, List<Integer> activeUsers, Integer host) {
         this.roomID = roomID;

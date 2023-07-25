@@ -48,7 +48,7 @@ public class RoomDBAccess implements RoomDBGateway {
     }
 
     @Override
-    public RoomDBModel fetchRoom(int roomID) {
+    public RoomDBModel fetchRoom(Integer roomID) {
 
         try {
             String result = performHttpRequest("GET", null, roomID);
@@ -100,12 +100,12 @@ public class RoomDBAccess implements RoomDBGateway {
     }
 
     @Override
-    public void joinRoom(RoomDBModel roomDBModel, String currUserID) {
+    public void joinRoom(RoomDBModel roomDBModel, Integer currUserID) {
         // TODO: implement
     }
 
     @Override
-    public void leaveRoom(String roomId, String currUserId) {
+    public void leaveRoom(Integer roomId, Integer currUserId) {
         // TODO: Needs to find which room user is in and remove user
         //if (activeRooms.containsKey(roomId)) {
         //    List<Integer> activeUsers = activeRooms.get(roomId);

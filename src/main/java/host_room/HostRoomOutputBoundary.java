@@ -4,5 +4,5 @@ import entities.User;
 
 public interface HostRoomOutputBoundary {
     void prepareRoomView(int userID);
-    void prepareRoomNameAlreadyTaken();
+    void prepareMultipleHostingView();
 }

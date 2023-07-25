@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface RoomDBGateway {
     List<RoomDBModel> loadRooms();
-    void joinRoom(RoomDBModel requestModel, String currUserID);
-    void leaveRoom(String roomId, String currUserID);
+    void joinRoom(RoomDBModel request, Integer currUserID);
+    void leaveRoom(Integer roomId, Integer currUserID);
 
-    RoomDBModel fetchRoom(int roomID);
+    RoomDBModel fetchRoom(Integer roomID);
 
     void saveRoom(RoomDBModel request);
 }

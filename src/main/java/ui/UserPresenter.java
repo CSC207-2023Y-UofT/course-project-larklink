@@ -10,10 +10,8 @@ import javax.swing.*;
 
 public class UserPresenter implements UserOutputBoundary {
     private RoomDBGateway roomDBAccess;
-    private Integer currUserID;
-    public UserPresenter(RoomDBGateway roomDBAccess, Integer currUserID) {
+    public UserPresenter(RoomDBGateway roomDBAccess) {
         this.roomDBAccess = roomDBAccess;
-        this.currUserID = currUserID;
     }
     /**
      * Displays the JoinOrHostView passing in the specified user ID.

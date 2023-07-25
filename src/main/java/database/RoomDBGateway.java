@@ -1,4 +1,6 @@
-package leaveRoom;
+package database;
+
+import models.RoomDBModel;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package signup_and_login;
+package ui;
 
 import host_room.HostRoomController;
 import host_room.HostRoomInteractor;
 import host_room.HostRoomPresenter;
-import host_room.JoinOrHostView;
-import leaveRoom.RoomDBGateway;
+import database.RoomDBGateway;
+import signup_and_login.UserOutputBoundary;
 
 import javax.swing.*;
 

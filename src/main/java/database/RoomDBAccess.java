@@ -1,16 +1,11 @@
-package leaveRoom;
+package database;
 
 import com.google.gson.*;
-import entities.Message;
-import entities.Room;
-import entities.User;
-import signup_and_login.UserDBModel;
+import models.RoomDBModel;
 import util.RemoteUtilities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RoomDBAccess implements RoomDBGateway {
     final private String urlbase;

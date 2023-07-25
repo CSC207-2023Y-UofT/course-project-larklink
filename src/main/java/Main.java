@@ -1,9 +1,10 @@
-import host_room.HostRoomController;
-import host_room.HostRoomInteractor;
-import host_room.HostRoomPresenter;
-import host_room.JoinOrHostView;
-import leaveRoom.*;
+import database.RoomDBAccess;
+import database.RoomDBGateway;
+import database.UserDBAccess;
+import database.UserDBGateway;
 import signup_and_login.*;
+import ui.UserPresenter;
+import ui.WelcomeView;
 
 public class Main {
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";

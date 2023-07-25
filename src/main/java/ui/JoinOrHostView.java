@@ -1,4 +1,6 @@
-package host_room;
+package ui;
+
+import host_room.HostRoomController;
 
 import javax.swing.*;
 import java.awt.*;

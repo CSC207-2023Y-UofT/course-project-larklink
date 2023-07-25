@@ -1,13 +1,9 @@
 package host_room;
 
-import entities.User;
-import leaveRoom.RoomDBGateway;
-import leaveRoom.RoomDBModel;
-import leaveRoom.RoomDBRequestModel;
-import leaveRoom.RoomModel;
-import signup_and_login.UserDBModel;
+import database.RoomDBGateway;
+import models.RoomDBModel;
+import models.RoomModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HostRoomInteractor implements HostRoomInputBoundary{

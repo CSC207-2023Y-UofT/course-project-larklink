@@ -1,4 +1,4 @@
-import leaveRoom.*;
+import leave_room.*;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 

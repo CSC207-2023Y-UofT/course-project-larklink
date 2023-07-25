@@ -1,6 +1,6 @@
 package host_room;
 
-import leaveRoom.RoomModel;
+import models.RoomModel;
 
 import java.util.ArrayList;
 import java.util.List;

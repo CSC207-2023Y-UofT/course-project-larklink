@@ -1,4 +1,4 @@
-package leaveRoom;
+package models;
 
 import java.util.List;
 

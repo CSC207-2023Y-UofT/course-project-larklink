@@ -1,4 +1,6 @@
-package signup_and_login;
+package database;
+
+import models.UserDBModel;
 
 import java.util.List;
 

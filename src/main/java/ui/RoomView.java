@@ -1,4 +1,6 @@
-package leaveRoom;
+package ui;
+
+import leave_room.LeaveRoomController;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

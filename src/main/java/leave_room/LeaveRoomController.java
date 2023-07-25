@@ -1,4 +1,4 @@
-package leaveRoom;
+package leave_room;
 
 public class LeaveRoomController {
     private LeaveRoomInputBoundary leaveRoomInputBoundary;

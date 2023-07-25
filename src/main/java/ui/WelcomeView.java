@@ -1,4 +1,6 @@
-package signup_and_login;
+package ui;
+
+import signup_and_login.UserController;
 
 import javax.swing.*;
 import java.awt.*;

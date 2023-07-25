@@ -1,4 +1,4 @@
-package leaveRoom;
+package leave_room;
 
 public class LeaveRoomController {
     private LeaveRoomInputBoundary leaveRoomInputBoundary;
@@ -7,7 +7,7 @@ public class LeaveRoomController {
         this.leaveRoomInputBoundary = leaveRoomInputBoundary;
     }
 
-    public void handleLeaveRoom(String roomId, String currUserId) {
-        leaveRoomInputBoundary.leaveRoom(roomId, currUserId);
+    public void handleLeaveRoom(String roomID, String userID) {
+        leaveRoomInputBoundary.leaveRoom(roomID, userID);
     }
 }

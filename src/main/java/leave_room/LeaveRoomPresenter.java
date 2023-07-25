@@ -1,4 +1,4 @@
-package leaveRoom;
+package leave_room;
 
 import javax.swing.JOptionPane;
 

@@ -1,9 +1,9 @@
-package leaveRoom;
+package leave_room;
 
 import java.util.List;
 
 public interface RoomDBGateway {
     List<RoomDBRequestModel> loadRooms();
     void updateRoomActiveUsers(RoomDBRequestModel requestModel);
-    void leaveRoom(String roomId, String currUserId);
+    void leaveRoom(String roomID, String userID);
 }

@@ -6,9 +6,12 @@ public class RoomModel {
     private final List<Integer> activeUsers;
     private final Integer host;
 
-    public RoomModel(List<Integer> activeUsers, Integer host) {
+    private final String name;
+
+    public RoomModel(List<Integer> activeUsers, Integer host, String name) {
         this.host = host;
         this.activeUsers = activeUsers;
+        this.name = name;
     }
 
     public List<Integer> getActiveUsers() {
@@ -18,4 +21,6 @@ public class RoomModel {
     public Integer getHost() {
         return host;
     }
+
+    public String getName() { return this.name; }
 }

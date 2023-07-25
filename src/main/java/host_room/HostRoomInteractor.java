@@ -34,7 +34,7 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
         }
 
         RoomDBModel newRoom = new RoomDBModel(existingRooms.size() + 2, request.getActiveUsers(),
-                request.getHost());
+                request.getHost(), request.getName());
         database.saveRoom(newRoom);
         presenter.prepareRoomView(newRoom.getHost());
     }

@@ -7,11 +7,13 @@ public class RoomDBModel {
     // stored using userIDs
     private List<Integer> activeUsers;
     private final Integer host;
+    private final String name;
 
-    public RoomDBModel(int roomID, List<Integer> activeUsers, Integer host) {
+    public RoomDBModel(int roomID, List<Integer> activeUsers, Integer host, String name) {
         this.roomID = roomID;
         this.activeUsers = activeUsers;
         this.host = host;
+        this.name = name;
     }
 
     public int getRoomID() {
@@ -23,5 +25,7 @@ public class RoomDBModel {
     public Integer getHost() {
         return this.host;
     }
+
+    public String getName() { return this.name; }
 
 }

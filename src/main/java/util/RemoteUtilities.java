@@ -1,11 +1,19 @@
 package util;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import models.RoomDBModel;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RemoteUtilities {
     /**
@@ -62,4 +70,25 @@ public class RemoteUtilities {
         }
     }
 
+    public RoomDBModel ConvertToRoomDB(JsonObject roomObject, JsonObject jsonObject,
+                                       Integer roomID) {
+
+        Integer host = roomObject.get("host").getAsInt();
+        String name = roomObject.get("name").getAsString();
+
+        JsonArray userList;
+        if (jsonObject.get("activeUsers") == null) {
+            return new RoomDBModel(roomID, new ArrayList<>(), host, name);
+        }
+        userList = jsonObject.get("activeUsers").getAsJsonArray();
+
+        List<Integer> users = new ArrayList<>();
+
+        for (JsonElement userElement : userList) {
+            JsonObject userObject = userElement.getAsJsonObject();
+            int userId = userObject.get("id").getAsInt();
+            users.add(userId);
+        }
+        return new RoomDBModel(roomID, users, host, name);
+    }
 }

@@ -1,4 +1,4 @@
-package join_room_use_case;
+package join_room;
 
 
 //Need to add other instance variables and getters when merging with other branches

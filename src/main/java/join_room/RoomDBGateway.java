@@ -1,6 +1,7 @@
-package join_room_use_case;
+package join_room;
 
-import signup_and_login.UserDBModel;
+
+import models.UserDBModel;
 
 import java.util.List;
 

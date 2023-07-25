@@ -1,4 +1,4 @@
-package join_room_use_case;
+package join_room;
 
 
 import javax.swing.*;

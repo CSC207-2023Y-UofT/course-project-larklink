@@ -1,4 +1,4 @@
-package join_room_use_case;
+package join_room;
 
 public interface JoinByIDOutputBoundary {
     void prepareRoomView(int roomID);

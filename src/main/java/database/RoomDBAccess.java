@@ -27,16 +27,9 @@ public class RoomDBAccess implements RoomDBGateway {
             for (JsonElement roomElement : roomsArray) {
                 JsonObject roomObject = roomElement.getAsJsonObject();
                 int roomID = roomObject.get("id").getAsInt();
-                Integer host = roomObject.get("host").getAsInt();
-                JsonArray activeUsers = roomObject.get("activeUsers").getAsJsonArray();
+                RemoteUtilities remoteUtilities = new RemoteUtilities(urlbase);
 
-                List<Integer> users = new ArrayList<>();
-                for (JsonElement userElement : activeUsers) {
-                    JsonObject userObject = userElement.getAsJsonObject();
-                    int userId = userObject.get("id").getAsInt();
-                    users.add(userId);
-                }
-                rooms.add(new RoomDBModel(roomID, users, host));
+                rooms.add(remoteUtilities.ConvertToRoomDB(roomObject, jsonObject, roomID));
             }
 
             return rooms;
@@ -57,19 +50,9 @@ public class RoomDBAccess implements RoomDBGateway {
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
             JsonObject roomObject = jsonObject.get("room").getAsJsonObject();
+            RemoteUtilities remoteUtilities = new RemoteUtilities(urlbase);
 
-            Integer host = roomObject.get("host").getAsInt();
-
-            JsonArray userList = jsonObject.get("activeUsers").getAsJsonArray();
-
-            List<Integer> users = new ArrayList<>();
-            for (JsonElement userElement : userList) {
-                JsonObject userObject = userElement.getAsJsonObject();
-                int userId = userObject.get("id").getAsInt();
-                users.add(userId);
-            }
-
-            return new RoomDBModel(roomID, users, host);
+            return remoteUtilities.ConvertToRoomDB(roomObject, jsonObject, roomID);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,6 +71,8 @@ public class RoomDBAccess implements RoomDBGateway {
 
             roomObject.addProperty("host", request.getHost());
             roomObject.addProperty("activeUsers", users.toString());
+
+            roomObject.addProperty("name", request.getName());
 
             JsonObject mainObject = new JsonObject();
             mainObject.add("room", roomObject);

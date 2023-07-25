@@ -18,9 +18,9 @@ public class HostRoomController {
      * @param host the userID of the room's host
      */
 
-    public void handleHostRoom(Integer host) {
+    public void handleHostRoom(Integer host, String name) {
         List<Integer> activeUsers = new ArrayList<>(host);
-        RoomModel request = new RoomModel(activeUsers, host);
+        RoomModel request = new RoomModel(activeUsers, host, name);
         inputBoundary.hostRoom(request);
     }
 }

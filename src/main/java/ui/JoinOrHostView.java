@@ -8,6 +8,8 @@ import java.awt.*;
 public class JoinOrHostView {
     private final HostRoomController controller;
     private final Integer userID;
+    private JTextField roomField;
+
 
     public JoinOrHostView (HostRoomController controller, Integer userID) {
         this.controller = controller;
@@ -35,15 +37,20 @@ public class JoinOrHostView {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JButton hostButton = createHostButton();
 
+        JLabel roomLabel = new JLabel("Room Name:");
+        roomField = new JTextField();
 
+        panel.add(roomLabel);
+        panel.add(roomField);
         panel.add(new JLabel());
         panel.add(hostButton);
         return panel;
     }
     private JButton createHostButton() {
+
         JButton submitButton = new JButton("Host");
         submitButton.addActionListener(e -> {
-            controller.handleHostRoom(userID);
+            controller.handleHostRoom(userID, roomField.getText());
         });
         return submitButton;
     }

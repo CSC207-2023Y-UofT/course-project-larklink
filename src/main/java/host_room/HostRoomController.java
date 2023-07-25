@@ -12,6 +12,12 @@ public class HostRoomController {
         this.inputBoundary = inputBoundary;
     }
 
+    /**
+     * Creates a RoomModel using the userID of the specified host and delegates the handling to HostRoomInteractor
+     * through HostRoomInputBoundary.
+     * @param host the userID of the room's host
+     */
+
     public void handleHostRoom(Integer host) {
         List<Integer> activeUsers = new ArrayList<>(host);
         RoomModel request = new RoomModel(activeUsers, host);

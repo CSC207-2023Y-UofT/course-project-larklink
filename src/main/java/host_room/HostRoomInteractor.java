@@ -19,13 +19,20 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
         this.presenter = presenter;
     }
 
+    /**
+     * Creates a new room and stores it in the database.
+     * If a room is found with the same host, then the room is not created and a duplicateHostView is prepared
+     *
+     * @param request the room model containing the host, active users, and roomID of the room to be created
+     */
+
     public void hostRoom(RoomModel request) {
         List<RoomDBModel> existingRooms = database.loadRooms();
 
         for (RoomDBModel existingRoom : existingRooms) {
             // user already hosting room
             if (existingRoom.getHost().equals(request.getHost())) {
-                // NEED TO FIX
+                // TODO: Not RoomNameAlreadyTaken but host already hosting a room
                 presenter.prepareRoomNameAlreadyTaken();
                 return;
             }

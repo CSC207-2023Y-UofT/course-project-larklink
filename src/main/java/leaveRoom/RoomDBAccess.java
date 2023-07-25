@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomDBAccess implements RoomDBGateway {
-    private Map<Integer, List<Integer>> activeRooms = new HashMap<>();
     final private String urlbase;
 
     public RoomDBAccess(String urlbase) {
@@ -93,7 +92,7 @@ public class RoomDBAccess implements RoomDBGateway {
             }
 
             roomObject.addProperty("host", request.getHost());
-            roomObject.add("activeUsers", users);
+            roomObject.addProperty("activeUsers", users.toString());
 
             JsonObject mainObject = new JsonObject();
             mainObject.add("room", roomObject);
@@ -106,20 +105,19 @@ public class RoomDBAccess implements RoomDBGateway {
     }
 
     @Override
-    public void updateRoomActiveUsers(RoomDBModel roomDBModel) {
-        int roomId = roomDBModel.getRoomID();
-        List<Integer> activeUsers = roomDBModel.getActiveUsers();
-        activeRooms.put(roomId, activeUsers);
+    public void joinRoom(RoomDBModel roomDBModel, String currUserID) {
+        // TODO: implement
     }
 
     @Override
     public void leaveRoom(String roomId, String currUserId) {
-        if (activeRooms.containsKey(roomId)) {
-            List<Integer> activeUsers = activeRooms.get(roomId);
-            if (activeUsers.contains(currUserId)) {
-                activeUsers.remove(currUserId);
-            }
-        }
+        // TODO: Needs to find which room user is in and remove user
+        //if (activeRooms.containsKey(roomId)) {
+        //    List<Integer> activeUsers = activeRooms.get(roomId);
+        //    if (activeUsers.contains(currUserId)) {
+        //        activeUsers.remove(currUserId);
+        //    }
+        // }
     }
 
     private String performHttpRequest(String method, String jsonInputString, Integer id) throws Exception {

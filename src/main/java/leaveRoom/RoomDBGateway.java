@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface RoomDBGateway {
     List<RoomDBModel> loadRooms();
-    void updateRoomActiveUsers(RoomDBModel requestModel);
-    void leaveRoom(String roomId, String currUserId);
+    void joinRoom(RoomDBModel requestModel, String currUserID);
+    void leaveRoom(String roomId, String currUserID);
 
     RoomDBModel fetchRoom(int roomID);
 

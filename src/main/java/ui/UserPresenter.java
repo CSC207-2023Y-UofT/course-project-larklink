@@ -21,7 +21,6 @@ public class UserPresenter implements UserOutputBoundary {
     public void prepareJoinOrHostView(int userID) {
         ViewUtilities viewUtilities = new ViewUtilities(roomDBAccess, userID);
         viewUtilities.prepareJoinOrHostView();
-
     }
 
     /**

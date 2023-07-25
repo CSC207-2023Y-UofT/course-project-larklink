@@ -10,9 +10,11 @@ import java.nio.charset.StandardCharsets;
 public class RemoteUtilities {
     /**
      Performs an HTTP request to the specified URL with the given method and JSON input.
-     This method is used internally by the UserDBAccess class.
+     This method is used internally by the UserDBAccess and the RoomDBAccess class.
      @param method the HTTP method (e.g., GET, POST)
      @param jsonInputString the JSON input string for POST requests, null for GET requests
+     @param id optional id for queries
+     @param route api route to request from
      @return the response from the HTTP request
      @throws Exception if an error occurs during the HTTP request
      **/

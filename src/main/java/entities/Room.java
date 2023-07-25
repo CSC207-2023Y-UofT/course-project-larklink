@@ -4,12 +4,14 @@ import java.util.*;
 import java.util.ArrayList;
 
 public class Room {
-    private String name;
-    private User host;
+    private final int roomID;
+    private final String name;
+    private final User host;
     private List<User> activeUsers;
     private List<Message> messageHistory;
 
-    public Room(String name, User host) {
+    public Room(int roomID, String name, User host) {
+        this.roomID = roomID;
         this.name = name;
         this.host = host;
         this.activeUsers = new ArrayList<User>();
@@ -25,10 +27,11 @@ public class Room {
         activeUsers.remove(person);
     }
 
+    public int getRoomID() { return this.roomID; }
     public String getName() {
-        return name;
+        return this.name;
     }
     public User getHost() {
-        return host;
+        return this.host;
     }
 }

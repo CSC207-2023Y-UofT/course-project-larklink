@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomDBAccess implements RoomDBGateway {
-    private Map<String, List<String>> activeRooms = new HashMap<>();
+    private Map<Integer, List<Integer>> activeRooms = new HashMap<>();
 
 //    public RoomDBAccess() {
 //        createRooms();
@@ -27,8 +27,8 @@ public class RoomDBAccess implements RoomDBGateway {
     @Override
     public List<RoomDBRequestModel> loadRooms() {
         List<RoomDBRequestModel> rooms = new ArrayList<>();
-        for (String roomID : activeRooms.keySet()) {
-            List<String> activeUsers = activeRooms.get(roomID);
+        for (Integer roomID : activeRooms.keySet()) {
+            List<Integer> activeUsers = activeRooms.get(roomID);
             RoomDBRequestModel room = new RoomDBRequestModel(roomID, activeUsers);
             rooms.add(room);
         }
@@ -37,15 +37,15 @@ public class RoomDBAccess implements RoomDBGateway {
 
     @Override
     public void updateRoomActiveUsers(RoomDBRequestModel requestModel) {
-        String roomID = requestModel.getRoomId();
-        List<String> activeUsers = requestModel.getActiveUsers();
+        Integer roomID = requestModel.getRoomId();
+        List<Integer> activeUsers = requestModel.getActiveUsers();
         activeRooms.put(roomID, activeUsers);
     }
 
     @Override
-    public void leaveRoom(String roomID, String userID) {
+    public void leaveRoom(Integer roomID, Integer userID) {
         if (activeRooms.containsKey(roomID)) {
-            List<String> activeUsers = activeRooms.get(roomID);
+            List<Integer> activeUsers = activeRooms.get(roomID);
             if (activeUsers.contains(userID)) {
                 activeUsers.remove(userID);
             }

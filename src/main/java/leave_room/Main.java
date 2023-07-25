@@ -6,7 +6,7 @@ public class Main {
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBGateway, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
-        RoomView roomView = new RoomView(leaveRoomController, "room1", "user1");
+        RoomView roomView = new RoomView(leaveRoomController, 123, 111);
         roomView.prepareGUI();
     }
 }

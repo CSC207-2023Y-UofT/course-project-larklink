@@ -7,7 +7,7 @@ public class LeaveRoomController {
         this.leaveRoomInputBoundary = leaveRoomInputBoundary;
     }
 
-    public void handleLeaveRoom(String roomID, String userID) {
+    public void handleLeaveRoom(Integer roomID,Integer userID) {
         leaveRoomInputBoundary.leaveRoom(roomID, userID);
     }
 }

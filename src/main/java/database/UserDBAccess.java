@@ -3,22 +3,40 @@ package database;
 import com.google.gson.JsonObject;
 import models.UserDBModel;
 
-import javax.swing.plaf.synth.SynthMenuBarUI;
 import java.util.List;
 
 public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway {
+
     public UserDBAccess(String urlBase) {
         super(urlBase);
     }
 
     @Override
+    public UserDBModel fetchUser(Integer userID) {
+        return fetch(userID);
+    }
+
+    @Override
+    public void saveNewUser(UserDBModel request) {
+        add(request);
+    }
+
+    @Override
+    public List<UserDBModel> loadUsers() {
+        return loadAll();
+    }
+
+    @Override
     protected UserDBModel parseJsonToObject(JsonObject jsonObject) {
-        Integer userId = jsonObject.get("id").getAsInt();
-        System.out.println(userId);
+
+        // when we fetch one row we get "user: <information here>" so here we "skip" it
+        if (jsonObject.has("user")) {
+            jsonObject = jsonObject.get("user").getAsJsonObject();
+        }
+
+        int userId = jsonObject.get("id").getAsInt();
         String username = jsonObject.get("username").getAsString();
-        System.out.println(username);
         String password = jsonObject.get("password").getAsString();
-        System.out.println(password);
 
         return new UserDBModel(userId, username, password);
     }
@@ -39,20 +57,4 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
     protected String getRoute() {
         return "users";
     }
-
-    @Override
-    public UserDBModel fetchUser(Integer userID) {
-        return fetch(userID);
-    }
-
-    @Override
-    public void saveNewUser(UserDBModel request) {
-        add(request);
-    }
-
-    @Override
-    public List<UserDBModel> loadUsers() {
-        return loadAll();
-    }
-
 }

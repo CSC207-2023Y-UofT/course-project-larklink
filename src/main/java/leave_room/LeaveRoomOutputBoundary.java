@@ -1,16 +1,21 @@
 package leave_room;
 
 /**
- * After a user exits a room, the contract for setting up the view is defined by the LeaveRoomOutputBoundary interface.
- * The prepareHostOrJoinView function must be implemented by classes that implement this interface.
+ * The LeaveRoomOutputBoundary interface defines the contract for setting up the view
+ * after a user exits a room. Classes that implement this interface must provide
+ * implementations for the prepareJoinOrHostView and prepareFailedToLeaveRoomView methods.
  */
 public interface LeaveRoomOutputBoundary {
 
     /**
-     * Processes the supplied LeaveRoomResponseModel to prepare the view once a user exits a room.
-     *
-     * @param responseModel The response model includes data on the operation's
-     *                      success or failure in the leave room as well as any other information required for the view.
+     * Prepares and sets up the view for a successful exit from the room.
+     * This method is called when the leave room operation is successful.
      */
-    void prepareHostOrJoinView(LeaveRoomResponseModel responseModel);
+    void prepareJoinOrHostView();
+
+    /**
+     * Prepares and sets up the view for a failed exit from the room.
+     * This method is called when the leave room operation fails.
+     */
+    void prepareFailedToLeaveRoomView();
 }

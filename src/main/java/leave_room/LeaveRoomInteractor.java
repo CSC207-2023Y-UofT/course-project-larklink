@@ -3,15 +3,15 @@ package leave_room;
 import java.util.List;
 
 /**
- * The business logic for exiting a room is handled by the LeaveRoomInteractor class.
- * To offer the leaveRoom method implementation, it implements the LeaveRoomInputBoundary interface.
+ * The business logic for leaving a room is handled by the LeaveRoomInteractor class.
+ * It implements the LeaveRoomInputBoundary interface to provide the leaveRoom method implementation.
  */
 public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     private RoomDBGateway roomDBGateway;
     private LeaveRoomOutputBoundary leaveRoomOutputBoundary;
 
     /**
-     * Constructs a new LeaveRoomInteractor with the given dependencies.
+     * Constructs a new LeaveRoomInteractor with the specified dependencies.
      *
      * @param roomDBGateway          The gateway to access room data from the database.
      * @param leaveRoomOutputBoundary The output boundary to handle the response after leaving the room.
@@ -22,12 +22,12 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     }
 
     /**
-     * Leaves a room for the given user after completing the action.
-     * The user is taken off the list of active users if they are currently in the room.
-     * Notifies the right response to the LeaveRoomOutputBoundary.
+     * Leaves a room for the given user.
+     * The user is removed from the list of active users if they are currently in the room.
+     * The appropriate response is then notified to the LeaveRoomOutputBoundary.
      *
-     * @param roomID The unique id of the room to leave.
-     * @param userID The unique id of the user who wants to leave the room.
+     * @param roomID The unique ID of the room to leave.
+     * @param userID The unique ID of the user who wants to leave the room.
      */
     @Override
     public void leaveRoom(Integer roomID, Integer userID) {
@@ -39,11 +39,13 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
                 if (activeUsers.contains(userID)) {
                     activeUsers.remove(userID);
                     roomDBGateway.updateRoomActiveUsers(room);
-                    leaveRoomOutputBoundary.prepareHostOrJoinView(new LeaveRoomResponseModel(true, false));
+                    leaveRoomOutputBoundary.prepareJoinOrHostView();
+                    return;
                 }
             }
         }
-
-        leaveRoomOutputBoundary.prepareHostOrJoinView(new LeaveRoomResponseModel(false, true));
+        // The user was not found in the room or an error occurred during the leave process.
+        // Notify the LeaveRoomOutputBoundary about the failure to leave the room.
+        leaveRoomOutputBoundary.prepareFailedToLeaveRoomView();
     }
 }

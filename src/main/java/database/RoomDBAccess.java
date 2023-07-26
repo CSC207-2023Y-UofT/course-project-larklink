@@ -15,32 +15,32 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     }
 
     @Override
-    public RoomDBModel fetchRoom(Integer roomID) {
-        return fetch(roomID);
+    public List<RoomDBModel> retrieveEveryRoom() {
+        return retrieveEveryRow();
     }
 
     @Override
-    public void saveRoom(RoomDBModel request) {
-        add(request);
+    public RoomDBModel retrieveARoom(Integer roomID) {
+        return retrieveARow(roomID);
     }
 
     @Override
-    public List<RoomDBModel> loadRooms() {
-        return loadAll();
+    public void addARoom(RoomDBModel request) {
+        addARow(request);
     }
 
     @Override
-    public void joinRoom(RoomDBModel request, Integer currUserID) {
+    public void joinARoom(RoomDBModel request, Integer currUserID) {
         // implement join room
     }
 
     @Override
-    public void leaveRoom(Integer roomId, Integer currUserID) {
+    public void leaveARoom(Integer roomId, Integer currUserID) {
         // implement leave room
     }
 
     @Override
-    protected RoomDBModel parseJsonToObject(JsonObject jsonObject) {
+    protected RoomDBModel jsonToObject(JsonObject jsonObject) {
 
         // when we fetch one row we get "room: <information here>" so here we "skip" it
         if (jsonObject.has("room")) {
@@ -65,7 +65,7 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     }
 
     @Override
-    protected JsonObject createJsonObjectFromModel(RoomDBModel model) {
+    protected JsonObject objectToJson(RoomDBModel model) {
         JsonObject roomObject = new JsonObject();
         roomObject.addProperty("host", model.getHost());
         roomObject.addProperty("name", model.getName());

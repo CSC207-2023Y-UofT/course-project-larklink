@@ -23,7 +23,7 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
      */
 
     public void hostRoom(RoomModel request) {
-        List<RoomDBModel> existingRooms = database.loadRooms();
+        List<RoomDBModel> existingRooms = database.retrieveEveryRoom();
 
         for (RoomDBModel existingRoom : existingRooms) {
             // user already hosting room
@@ -35,7 +35,7 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
 
         RoomDBModel newRoom = new RoomDBModel(existingRooms.size() + 2, request.getActiveUsers(),
                 request.getHost(), request.getName());
-        database.saveRoom(newRoom);
+        database.addARoom(newRoom);
         presenter.prepareRoomView(newRoom.getHost());
     }
 }

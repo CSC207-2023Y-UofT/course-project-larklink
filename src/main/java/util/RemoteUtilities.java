@@ -32,43 +32,7 @@ public class RemoteUtilities {
         this.url_base = url_base;
     }
 
-    public String performHttpRequest(String method, String jsonInputString, Integer id,
-                                      String route) throws Exception {
-        URL url;
-        if (id != null) {
-            url = new URL(url_base + "/" + route + "/" + id);
-        } else {
-            url = new URL(url_base + "/" + route);
-        }
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod(method);
 
-        if (method.equals("POST")) {
-            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setDoOutput(true);
-            try (OutputStream os = conn.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-                os.flush();
-            }
-        }
-
-        int responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            System.err.println("HTTP request failed with response code: " + responseCode);
-        }
-
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            conn.disconnect();
-            return response.toString();
-        }
-    }
 
     public RoomDBModel ConvertToRoomDB(JsonObject roomObject, JsonObject jsonObject,
                                        Integer roomID) {

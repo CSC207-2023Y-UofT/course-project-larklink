@@ -12,22 +12,22 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
     }
 
     @Override
-    public UserDBModel fetchUser(Integer userID) {
-        return fetch(userID);
+    public List<UserDBModel> retrieveEveryUser() {
+        return retrieveEveryRow();
     }
 
     @Override
-    public void saveNewUser(UserDBModel request) {
-        add(request);
+    public UserDBModel retrieveAUser(Integer userID) {
+        return retrieveARow(userID);
     }
 
     @Override
-    public List<UserDBModel> loadUsers() {
-        return loadAll();
+    public void addAUser(UserDBModel request) {
+        addARow(request);
     }
 
     @Override
-    protected UserDBModel parseJsonToObject(JsonObject jsonObject) {
+    protected UserDBModel jsonToObject(JsonObject jsonObject) {
 
         // when we fetch one row we get "user: <information here>" so here we "skip" it
         if (jsonObject.has("user")) {
@@ -42,7 +42,7 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
     }
 
     @Override
-    protected JsonObject createJsonObjectFromModel(UserDBModel model) {
+    protected JsonObject objectToJson(UserDBModel model) {
         JsonObject userObject = new JsonObject();
         userObject.addProperty("username", model.getUsername());
         userObject.addProperty("password", model.getPassword());

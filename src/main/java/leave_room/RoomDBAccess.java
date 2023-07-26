@@ -5,25 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * In order to offer access to room data, the RoomDBAccess class implements the RoomDBGateway interface.
+ * For storing and retrieving active rooms and their active users, it simulates database access.
+ */
 public class RoomDBAccess implements RoomDBGateway {
     private Map<Integer, List<Integer>> activeRooms = new HashMap<>();
 
-//    public RoomDBAccess() {
-//        createRooms();
-//    }
-//
-//    private void createRooms() {
-//        List<String> activeUsers1 = new ArrayList<>();
-//        activeUsers1.add("user1");
-//        activeUsers1.add("user2");
-//        activeRooms.put("room1", activeUsers1);
-//        List<String> activeUsers2 = new ArrayList<>();
-//        activeUsers2.add("user3");
-//        activeUsers2.add("user4");
-//        activeRooms.put("room2", activeUsers2);
-//    }
-
-
+    /**
+     * Retrieves the list of active rooms from the "database".
+     *
+     * @return A list of RoomDBRequestModel containing information about active rooms and their active users.
+     */
     @Override
     public List<RoomDBRequestModel> loadRooms() {
         List<RoomDBRequestModel> rooms = new ArrayList<>();
@@ -35,6 +28,11 @@ public class RoomDBAccess implements RoomDBGateway {
         return rooms;
     }
 
+    /**
+     * Updates the active users of a specific room in the "database".
+     *
+     * @param requestModel The RoomDBRequestModel containing the updated information for the room.
+     */
     @Override
     public void updateRoomActiveUsers(RoomDBRequestModel requestModel) {
         Integer roomID = requestModel.getRoomId();
@@ -42,6 +40,12 @@ public class RoomDBAccess implements RoomDBGateway {
         activeRooms.put(roomID, activeUsers);
     }
 
+    /**
+     * Removes users from the "database"'s list of active users to simulate a user leaving a room.
+     *
+     * @param roomID The unique id of the room from which the user wants to leave.
+     * @param userID The unique id of the user who wants to leave the room.
+     */
     @Override
     public void leaveRoom(Integer roomID, Integer userID) {
         if (activeRooms.containsKey(roomID)) {

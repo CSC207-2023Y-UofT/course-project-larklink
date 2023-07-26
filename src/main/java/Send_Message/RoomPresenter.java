@@ -7,14 +7,18 @@ import java.io.IOException;
 public class RoomPresenter implements SendMessageOutputBoundary{
     private List<String> messageList;
     private JTextArea chatTextArea;
+    private RoomView view;
+
+
     @Override
-    public void prepareRoomView(String RoomID) {
+    public void prepareRoomView(Integer RoomID, Integer currUserID, String message) {
         //Updating the messages being shown
-        // list of message content
-        for (String message : messageList) {
-            chatTextArea.append(message + "\n"); // Append each message to the JTextArea
-        }
+
+//        view.displayMessage(message, localtime);
     }
+
+
+
 
     @Override
     public void prepareRoomViewForLark() {

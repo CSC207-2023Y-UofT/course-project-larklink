@@ -1,5 +1,7 @@
 package send_message;
 
+import java.time.LocalDateTime;
+
 public class SendMessageController {
     private final MessageInputBoundary inputBoundary;
 
@@ -8,14 +10,10 @@ public class SendMessageController {
         this.inputBoundary = inputBoundary;
     }
     /**
-     * Formats the username and password into a SendMessageRequestModel and delegates the handling to SendMessageInteractor
-     * through UserInputBoundary.
-     * @param s the content entered by the user
-     * @param sender the username of the sender
-     * @param roomID the ID of the room
+
      */
-    public void handleSendMessage(String s, String sender, String roomID){
-        MessageInputModel request = new MessageInputModel(s, sender, roomID);
+    public void handleSendMessage(String content, String sender, LocalDateTime timestamp){
+        MessageModel request = new MessageModel(content, sender, timestamp);
         inputBoundary.handleSendMessage(request);
     }
 }

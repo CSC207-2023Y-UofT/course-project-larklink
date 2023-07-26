@@ -1,20 +1,22 @@
 package send_message;
-//The MessageModel is similar to the MessageEnt except that it handles incoming messages
-public class MessageInputModel {
+
+import java.time.LocalDateTime;
+
+public class MessageModel {
     private final String content;
     private final String sender;
-    private final Integer roomID;
+    private final LocalDateTime timestamp;
 
     /**
      * Construct a message model
      * @param s a content
      * @param sender a sender
-     * @param roomID the id of a room
+     * @param timestamp the id of a room
      */
-    public MessageInputModel(String s, String sender, Integer roomID){
-        this.content = s;
+    public MessageModel(String content, String sender, LocalDateTime timestamp){
+        this.content = content;
         this.sender = sender;
-        this.roomID = roomID;
+        this.timestamp = timestamp;
     }
 
     /**
@@ -35,9 +37,10 @@ public class MessageInputModel {
 
     /**
      * Get the id of the room of this message model
+     *
      * @return the id of a room this message is sent through
      */
-    public Integer getRoomID() {
-        return this.roomID;
+    public LocalDateTime getTimestamp(){
+        return this.timestamp;
     }
 }

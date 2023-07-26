@@ -1,5 +1,7 @@
 package send_message;
 import javax.swing.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.sound.sampled.*;
 import java.io.File;
@@ -8,13 +10,25 @@ public class RoomPresenter implements SendMessageOutputBoundary{
     private List<String> messageList;
     private JTextArea chatTextArea;
     private RoomView view;
+    private JTextField chatTextField;
 
 
     @Override
     public void prepareRoomView(Integer RoomID, Integer currUserID, String message) {
-        //Updating the messages being shown
+        LocalDateTime localtime = LocalDateTime.now();
+        String messageWithTime = "[" + localtime.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] " + currUserID+ ": " + message;
+        messageList.add(messageWithTime);
+        StringBuilder sb = new StringBuilder();
+        for (String msg : messageList) {
+            sb.append(msg).append("\n");
+        }
+        chatTextArea.setText(sb.toString());
+        chatTextArea.setEditable(false);
 
-//        view.displayMessage(message, localtime);
+        // Create a JScrollPane to scroll through the messages
+        JScrollPane scrollPane = new JScrollPane(chatTextArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //do this tomorrow
     }
 
 

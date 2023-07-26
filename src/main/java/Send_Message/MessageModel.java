@@ -5,18 +5,18 @@ import java.time.LocalDateTime;
 public class MessageModel {
     private final String content;
     private final String sender;
-    private final LocalDateTime timestamp;
+    private final Boolean isLark;
 
     /**
      * Construct a message model
-     * @param s a content
+     * @param content the content
      * @param sender a sender
-     * @param timestamp the id of a room
+     * @param isLark whether the message was a Lark
      */
-    public MessageModel(String content, String sender, LocalDateTime timestamp){
+    public MessageModel(String content, String sender, Boolean isLark){
         this.content = content;
         this.sender = sender;
-        this.timestamp = timestamp;
+        this.isLark = isLark;
     }
 
     /**
@@ -36,11 +36,10 @@ public class MessageModel {
     }
 
     /**
-     * Get the id of the room of this message model
-     *
-     * @return the id of a room this message is sent through
+
+     * @return whether the message is sent as a Lark
      */
-    public LocalDateTime getTimestamp(){
-        return this.timestamp;
+    public Boolean getTimestamp(){
+        return this.isLark;
     }
 }

@@ -12,8 +12,8 @@ public class SendMessageController {
     /**
 
      */
-    public void handleSendMessage(String content, String sender, LocalDateTime timestamp){
-        MessageModel request = new MessageModel(content, sender, timestamp);
+    public void handleSendMessage( String sender, String content, Boolean isLark){
+        MessageModel request = new MessageModel(content, sender, isLark);
         inputBoundary.handleSendMessage(request);
     }
 }

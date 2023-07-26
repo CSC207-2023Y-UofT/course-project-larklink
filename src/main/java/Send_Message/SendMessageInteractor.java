@@ -15,25 +15,23 @@ public class SendMessageInteractor implements MessageInputBoundary {
 
     /**
      * Handles the user request for sending a message.
-     * @param msgModel the message model containing sender, recipient, and message content
      */
 //     if (username.isEmpty()) {
 //        JOptionPane.showMessageDialog(null, "Username field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
 //        return;
 //    }
     @Override
-    public void handleSendMessage(MessageModel msgModel) {
-        if  (msgModel.getContent() == null) {
-            // Invalid input, notify the presenter with an error message
-            presenter.prepareMessageErrorView();
-            return;
-        }
-        String sender = msgModel.getSender();
-        String content = msgModel.getContent();
-        LocalDateTime time = msgModel.getTimestamp();
+    public void handleSendMessage(MessageModel request) {
 
-        MessageDBModel new_message = new MessageDBModel(sender, content, time);
-        messageDatabase.addMessage(new_message);
+        String sender = request.getSender();
+        String content = request.getContent();
+        if (content == null || content.isEmpty()) {
+            return; // Return early if the content is null or empty
+        }
+        LocalDateTime timestamp = LocalDateTime.now();
+        //Create a MessageDBModel from a MessageModel by using only the sender and the content and adding timestamp
+        MessageDBModel messageDBModel = new MessageDBModel(sender, content, timestamp);
+        messageDatabase.addMessage(messageDBModel);
         presenter.prepareRoomView(1, 1, content);
 
     }

@@ -24,7 +24,6 @@ public abstract class DBAccess<T> {
         try {
             String response = performHttpRequest("GET", null, id);
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
-            System.out.println(jsonObject);
             return parseJsonToObject(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,7 +51,6 @@ public abstract class DBAccess<T> {
     public void add(T model) {
         try {
             String jsonInputString = createJsonObjectFromModel(model).toString();
-            System.out.println(jsonInputString);
             performHttpRequest("POST", jsonInputString, null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,12 +58,7 @@ public abstract class DBAccess<T> {
     }
 
     public void edit(Integer id, T model) {
-        try {
-            String jsonInputString = createJsonObjectFromModel(model).toString();
-            performHttpRequest("PUT", jsonInputString, id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // to implement
     }
 
     protected abstract T parseJsonToObject(JsonObject jsonObject);

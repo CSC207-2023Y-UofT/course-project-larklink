@@ -3,6 +3,7 @@ package database;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import models.RoomDBModel;
 
 import java.util.ArrayList;
@@ -38,17 +39,22 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
         // implement leave room
     }
 
-
     @Override
     protected RoomDBModel parseJsonToObject(JsonObject jsonObject) {
 
-        Integer roomID = jsonObject.get("id").getAsInt();
+        // when we fetch one row we get "room: <information here>" so here we "skip" it
+        if (jsonObject.has("room")) {
+            jsonObject = jsonObject.get("room").getAsJsonObject();
+        }
+
+        int roomID = jsonObject.get("id").getAsInt();
         Integer host = jsonObject.get("host").getAsInt();
         String name = jsonObject.get("name").getAsString();
         List<Integer> activeUsers = new ArrayList<>();
 
         if (jsonObject.get("activeUsers") != null) {
-            JsonArray userList = jsonObject.get("activeUsers").getAsJsonArray();
+            // parse the string back to a JsonArray
+            JsonArray userList = JsonParser.parseString(jsonObject.get("activeUsers").getAsString()).getAsJsonArray();
             for (JsonElement userElement : userList) {
                 JsonObject userObject = userElement.getAsJsonObject();
                 int userId = userObject.get("id").getAsInt();

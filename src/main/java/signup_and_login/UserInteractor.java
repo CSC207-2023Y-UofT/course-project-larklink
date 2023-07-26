@@ -43,7 +43,6 @@ public class UserInteractor implements UserInputBoundary {
                 request.getUsername(),
                 User.hashPassword(request.getPassword()));
         database.saveNewUser(newUser);
-        System.out.println(database.fetchUser(newUser.getUserID()).getUsername());
         presenter.prepareJoinOrHostView(newUser.getUserID());
     }
 }

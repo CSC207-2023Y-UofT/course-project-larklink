@@ -1,5 +1,8 @@
 package signup_and_login;
+import database.UserDBGateway;
+import models.UserDBModel;
 import entities.User;
+import models.UserModel;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package ui;
 
-import host_room.HostRoomController;
-import host_room.HostRoomInteractor;
+import database.UserDBGateway;
 import database.RoomDBGateway;
 import signup_and_login.UserOutputBoundary;
 import util.ViewUtilities;
@@ -10,8 +9,10 @@ import javax.swing.*;
 
 public class UserPresenter implements UserOutputBoundary {
     private RoomDBGateway roomDBAccess;
-    public UserPresenter(RoomDBGateway roomDBAccess) {
+    private UserDBGateway userDBAccess;
+    public UserPresenter(RoomDBGateway roomDBAccess, UserDBGateway userDBAccess) {
         this.roomDBAccess = roomDBAccess;
+        this.userDBAccess = userDBAccess;
     }
     /**
      * Displays the JoinOrHostView passing in the specified user ID.
@@ -19,7 +20,7 @@ public class UserPresenter implements UserOutputBoundary {
      */
     @Override
     public void prepareJoinOrHostView(int userID) {
-        ViewUtilities viewUtilities = new ViewUtilities(roomDBAccess, userID);
+        ViewUtilities viewUtilities = new ViewUtilities(roomDBAccess, userDBAccess, userID);
         viewUtilities.prepareJoinOrHostView();
     }
 

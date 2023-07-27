@@ -13,7 +13,7 @@ public class Main {
         UserDBGateway userDBAccess = new UserDBAccess(API_URL);
         RoomDBGateway roomDBAccess = new RoomDBAccess(API_URL);
 
-        UserPresenter userPresenter = new UserPresenter(roomDBAccess);
+        UserPresenter userPresenter = new UserPresenter(roomDBAccess, userDBAccess);
         UserInteractor userInteractor = new UserInteractor(userPresenter, userDBAccess);
         UserController userController = new UserController(userInteractor);
         WelcomeView welcomeView = new WelcomeView(userController);

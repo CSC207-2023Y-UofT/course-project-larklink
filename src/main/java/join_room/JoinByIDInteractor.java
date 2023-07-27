@@ -11,8 +11,8 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary{
     private final UserDBGateway userDBGateway;
     private final JoinByIDOutputBoundary presenter;
 
-    public JoinByIDInteractor(RoomDBGateway roomDBGateway, JoinByIDOutputBoundary presenter,
-                              UserDBGateway userDBGateway){
+    public JoinByIDInteractor(RoomDBGateway roomDBGateway, UserDBGateway userDBGateway,
+                              JoinByIDOutputBoundary presenter){
         this.roomDBGateway = roomDBGateway;
         this.userDBGateway = userDBGateway;
         this.presenter = presenter;

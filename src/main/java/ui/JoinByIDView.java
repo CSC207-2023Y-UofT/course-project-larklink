@@ -1,13 +1,12 @@
-package join_room;
+package ui;
+
+import join_room.JoinByIDController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.regex.Pattern;
 
 public class JoinByIDView {
 
-    private static final Pattern ROOM_NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
-    private static final int MIN_ROOMNAME_LENGTH = 5;
     private JTextField roomNameField;
     private final JoinByIDController joinByIDController;
     private final Integer currUserID;
@@ -49,22 +48,6 @@ public class JoinByIDView {
         JButton submitButton = new JButton("Join");
         submitButton.addActionListener(e -> {
             String roomName = roomNameField.getText();
-
-            if (roomName.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please Enter Room Name",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!ROOM_NAME_PATTERN.matcher(roomName).matches()) {
-                JOptionPane.showMessageDialog(null, "Invalid name! Use only alphanumeric characters. Minimum length: 5", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (roomName.length() < MIN_ROOMNAME_LENGTH) {
-                JOptionPane.showMessageDialog(null, "Name too short! Minimum length: " + MIN_ROOMNAME_LENGTH, "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             joinByIDController.formatAndHandleJoinByID(roomName, currUserID);
         });
         return submitButton;

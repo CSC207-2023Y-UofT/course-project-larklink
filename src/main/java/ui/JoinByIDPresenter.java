@@ -1,5 +1,7 @@
-package join_room;
+package ui;
 
+
+import join_room.JoinByIDOutputBoundary;
 
 import javax.swing.*;
 

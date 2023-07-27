@@ -15,8 +15,8 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     }
 
     @Override
-    public List<RoomDBModel> retrieveEveryRoom() {
-        return retrieveEveryRow();
+    public List<RoomDBModel> getRooms() {
+        return getRows();
     }
 
     @Override

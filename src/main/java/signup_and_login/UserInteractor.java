@@ -25,7 +25,7 @@ public class UserInteractor implements UserInputBoundary {
      */
     @Override
     public void handleUser(UserModel request) {
-        List<UserDBModel> existingUsers = database.retrieveEveryUser();
+        List<UserDBModel> existingUsers = database.getUsers();
 
         for (UserDBModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {

@@ -5,6 +5,6 @@ import models.UserDBModel;
 import java.util.List;
 
 public interface UserDBGateway {
-    List<UserDBModel> retrieveEveryUser();
+    List<UserDBModel> getUsers();
     void addAUser(UserDBModel request);
 }

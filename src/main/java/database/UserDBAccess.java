@@ -12,8 +12,8 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
     }
 
     @Override
-    public List<UserDBModel> retrieveEveryUser() {
-        return retrieveEveryRow();
+    public List<UserDBModel> getUsers() {
+        return getRows();
     }
 
     @Override

@@ -18,7 +18,7 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     public void leaveRoom(Integer roomId, Integer currUserId) {
         // TODO: FIX
         // shouldn't fetch all rooms
-        List<RoomDBModel> rooms = roomDBGateway.retrieveEveryRoom();
+        List<RoomDBModel> rooms = roomDBGateway.getRooms();
 
         for (RoomDBModel room : rooms) {
             if (room.getRoomID() == roomId) {

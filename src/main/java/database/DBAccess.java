@@ -24,7 +24,7 @@ public abstract class DBAccess<T> {
         this.gson = new Gson();
     }
 
-    public List<T> retrieveEveryRow() {
+    public List<T> getRows() {
         try {
             String response = performGETRequest(null);
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
@@ -41,9 +41,7 @@ public abstract class DBAccess<T> {
         return new ArrayList<>();
     }
 
-    // if no one ends up using this
-    // remove it
-    // simplify GETrequest URL creation
+    // if no one ends up using this just remove it, simplify performGETRequest URL creation and,
     // remove both jsonToObjects initially checks for object (object)
     public T retrieveARow(Integer id) {
         try {

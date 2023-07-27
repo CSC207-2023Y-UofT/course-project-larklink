@@ -23,7 +23,8 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary{
 
         for (RoomDBModel room : rooms) {
             if (room.getName().equals(requestModel.getRoomName())){
-                List<UserDBModel> users = userDBGateway.loadUsers();
+                List<UserDBModel> users = userDBGateway.getUsers();
+                // why retrieve every user ?
                 for (UserDBModel user : users){
                     if (user.getUserID() == requestModel.getCurrUserID()){
                         roomDBGateway.updateRoomActiveUsers(user);

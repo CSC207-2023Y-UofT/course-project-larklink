@@ -6,8 +6,8 @@ import models.RoomDBModel;
 import java.util.List;
 
 public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
-    private RoomDBGateway roomDBGateway;
-    private LeaveRoomOutputBoundary leaveRoomOutputBoundary;
+    private final RoomDBGateway roomDBGateway;
+    private final LeaveRoomOutputBoundary leaveRoomOutputBoundary;
 
     public LeaveRoomInteractor(RoomDBGateway roomDBGateway, LeaveRoomOutputBoundary leaveRoomOutputBoundary) {
         this.roomDBGateway = roomDBGateway;
@@ -18,7 +18,7 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     public void leaveRoom(Integer roomId, Integer currUserId) {
         // TODO: FIX
         // shouldn't fetch all rooms
-        List<RoomDBModel> rooms = roomDBGateway.loadRooms();
+        List<RoomDBModel> rooms = roomDBGateway.getRooms();
 
         for (RoomDBModel room : rooms) {
             if (room.getRoomID() == roomId) {

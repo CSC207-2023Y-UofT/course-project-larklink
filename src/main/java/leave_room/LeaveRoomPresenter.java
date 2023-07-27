@@ -1,7 +1,4 @@
-package ui;
-
-import leave_room.LeaveRoomOutputBoundary;
-import leave_room.LeaveRoomResponseModel;
+package leave_room;
 
 import javax.swing.JOptionPane;
 

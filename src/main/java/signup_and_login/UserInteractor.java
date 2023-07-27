@@ -25,7 +25,7 @@ public class UserInteractor implements UserInputBoundary {
      */
     @Override
     public void handleUser(UserModel request) {
-        List<UserDBModel> existingUsers = database.loadUsers();
+        List<UserDBModel> existingUsers = database.getUsers();
 
         for (UserDBModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
@@ -42,7 +42,7 @@ public class UserInteractor implements UserInputBoundary {
                 (existingUsers.size() + 2),
                 request.getUsername(),
                 User.hashPassword(request.getPassword()));
-        database.saveNewUser(newUser);
+        database.addAUser(newUser);
         presenter.prepareJoinOrHostView(newUser.getUserID());
     }
 }

@@ -1,26 +1,18 @@
-package ui;
-
-import host_room.HostRoomController;
-import host_room.HostRoomInteractor;
-import database.RoomDBGateway;
-import signup_and_login.UserOutputBoundary;
-import util.ViewUtilities;
+package signup_and_login;
 
 import javax.swing.*;
+import ui.View;
 
 public class UserPresenter implements UserOutputBoundary {
-    private RoomDBGateway roomDBAccess;
-    public UserPresenter(RoomDBGateway roomDBAccess) {
-        this.roomDBAccess = roomDBAccess;
-    }
+    private View view;
     /**
      * Displays the JoinOrHostView passing in the specified user ID.
      * @param userID the ID of the user
      */
     @Override
     public void prepareJoinOrHostView(int userID) {
-        ViewUtilities viewUtilities = new ViewUtilities(roomDBAccess, userID);
-        viewUtilities.prepareJoinOrHostView();
+        View.userID = userID;
+        view.prepareGUI();
     }
 
     /**
@@ -29,5 +21,9 @@ public class UserPresenter implements UserOutputBoundary {
     @Override
     public void prepareInvalidCredentialsView() {
         JOptionPane.showMessageDialog(null, "Password doesn't match existing Username.");
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

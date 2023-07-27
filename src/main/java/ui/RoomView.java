@@ -3,32 +3,24 @@ package ui;
 import leave_room.LeaveRoomController;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.*;
 
+public class RoomView extends View {
+    private final LeaveRoomController leaveRoomController;
 
-public class RoomView {
-    private int roomId;
-    private Integer currUserId;
-    private LeaveRoomController leaveRoomController;
-
-    public RoomView(LeaveRoomController leaveRoomController, Integer roomId, Integer currUserId ){
+    public RoomView(LeaveRoomController leaveRoomController){
         this.leaveRoomController = leaveRoomController;
-        this.roomId = roomId;
-        this.currUserId = currUserId;
     }
-    public void prepareGUI(){
-        JFrame frame  = new JFrame();
+
+    @Override
+    protected JPanel createPanel() {
+        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         JButton leaveButton = new JButton("Leave Room");
-        leaveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                leaveRoomController.handleLeaveRoom(roomId, currUserId);
-            }
-        });
-        frame.add(leaveButton);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID, userID));
+
+        panel.add(leaveButton);
+        return panel;
     }
 }

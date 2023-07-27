@@ -33,7 +33,6 @@ public abstract class DBAccess<T> {
             for (JsonElement element : jsonArray) {
                 result.add(jsonToObject(element.getAsJsonObject()));
             }
-
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,8 +40,6 @@ public abstract class DBAccess<T> {
         return new ArrayList<>();
     }
 
-    // if no one ends up using this just remove it, simplify performGETRequest URL creation and,
-    // remove both jsonToObjects initially checks for object (object)
     public T retrieveARow(Integer id) {
         try {
             String response = performGETRequest(id);
@@ -54,10 +51,10 @@ public abstract class DBAccess<T> {
         return null;
     }
 
-    public void addARow(T model) {
+    public void addARow(Integer id, T model) {
         try {
             String jsonInputString = objectToJson(model).toString();
-            performPOSTRequest(jsonInputString);
+            performPUTRequest(id, jsonInputString);
         } catch (IOException e) {
             e.printStackTrace();
         }

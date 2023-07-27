@@ -1,5 +1,7 @@
 package leave_room;
 
+import ui.View;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -8,13 +10,14 @@ import javax.swing.JOptionPane;
  * by implementing the LeaveRoomOutputBoundary interface.
  */
 public class LeaveRoomPresenter implements LeaveRoomOutputBoundary {
+    private View view;
 
     /**
      * Prepares and displays the view for successful leave by showing a success message.
      */
     @Override
     public void prepareJoinOrHostView() {
-        JOptionPane.showMessageDialog(null, "You joined or hosted a room");
+        view.prepareGUI();
     }
 
     /**
@@ -23,5 +26,8 @@ public class LeaveRoomPresenter implements LeaveRoomOutputBoundary {
     @Override
     public void prepareFailedToLeaveRoomView() {
         JOptionPane.showMessageDialog(null, "Failed to leave the room");
+    }
+    public void setView(View view) {
+        this.view = view;
     }
 }

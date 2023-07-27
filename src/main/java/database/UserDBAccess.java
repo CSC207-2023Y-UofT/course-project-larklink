@@ -18,7 +18,7 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
 
     @Override
     public void addAUser(UserDBModel request) {
-        addARow(request);
+        addARow(request.getUserID(), request);
     }
 
     @Override

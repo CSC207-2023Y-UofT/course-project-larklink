@@ -27,11 +27,37 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     @Override
     public void joinARoom(RoomDBModel request, Integer currUserID) {
         // implement join room
+        RoomDBModel existingRoom = retrieveARow(request.getRoomID());
+        if (existingRoom != null) {
+            List<Integer> activeUsers = existingRoom.getActiveUsers();
+            if (!activeUsers.contains(currUserID)) {
+                activeUsers.add(currUserID);
+                modifyARow(existingRoom.getRoomID(), existingRoom);
+                System.out.println("join the room.");
+            } else {
+                System.out.println("User already in the room");
+            }
+        } else {
+            System.out.println("room does not exist.");
+        }
     }
 
     @Override
     public void leaveARoom(Integer roomId, Integer currUserID) {
         // implement leave room
+        RoomDBModel existingRoom = retrieveARow(roomId);
+        if (existingRoom != null) {
+            List<Integer> activeUsers = existingRoom.getActiveUsers();
+            if (activeUsers.contains(currUserID)) {
+                activeUsers.remove(currUserID);
+                modifyARow(existingRoom.getRoomID(), existingRoom);
+                System.out.println("Left the room.");
+            } else {
+                System.out.println("User not in the room.");
+            }
+        } else {
+            System.out.println("room does not exist.");
+        }
     }
 
     @Override

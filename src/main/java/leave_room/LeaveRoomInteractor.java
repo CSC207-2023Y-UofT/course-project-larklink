@@ -25,12 +25,11 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
                 List<Integer> activeUsers = room.getActiveUsers();
                 if (activeUsers.contains(currUserId)) {
                     activeUsers.remove(currUserId);
-                    //roomDBGateway.updateRoomActiveUsers(room);
-                    leaveRoomOutputBoundary.prepareHostOrJoinView(new LeaveRoomResponseModel(true, false));
+                    leaveRoomOutputBoundary.prepareJoinOrHostView();
                 }
             }
         }
 
-        leaveRoomOutputBoundary.prepareHostOrJoinView(new LeaveRoomResponseModel(false, true));
+        leaveRoomOutputBoundary.prepareFailedToLeaveRoomView();
     }
 }

@@ -64,7 +64,12 @@ public abstract class DBAccess<T> {
     }
 
     public void modifyARow(Integer id, T model) {
-        // to implement
+        try {
+            String jsonInputString = objectToJson(model).toString();
+            performPUTRequest(id, jsonInputString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected abstract T jsonToObject(JsonObject jsonObject);
@@ -72,6 +77,23 @@ public abstract class DBAccess<T> {
     protected abstract JsonObject objectToJson(T model);
 
 
+    private void performPUTRequest(Integer id, String jsonInputString) throws IOException {
+        URL url = new URL(urlBase + "/" + getRoute() + "/" + id);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("PUT");
+        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setDoOutput(true);
+        try (OutputStream os = conn.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+            os.flush();
+        }
+        int responseCode = conn.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            System.err.println("HTTP request failed with response code: " + responseCode);
+        }
+    }
     private String performGETRequest(Integer id) throws Exception {
         URL url = new URL(urlBase + "/" + getRoute() + (id == null ? "" : "/" + id));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

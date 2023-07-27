@@ -20,11 +20,6 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     }
 
     @Override
-    public RoomDBModel retrieveARoom(Integer roomID) {
-        return retrieveARow(roomID);
-    }
-
-    @Override
     public void addARoom(RoomDBModel request) {
         addARow(request);
     }

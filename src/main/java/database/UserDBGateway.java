@@ -7,5 +7,4 @@ import java.util.List;
 public interface UserDBGateway {
     List<UserDBModel> retrieveEveryUser();
     void addAUser(UserDBModel request);
-    UserDBModel retrieveAUser(Integer userID);
 }

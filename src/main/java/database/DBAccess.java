@@ -41,6 +41,10 @@ public abstract class DBAccess<T> {
         return new ArrayList<>();
     }
 
+    // if no one ends up using this
+    // remove it
+    // simplify GETrequest URL creation
+    // remove both jsonToObjects initially checks for object (object)
     public T retrieveARow(Integer id) {
         try {
             String response = performGETRequest(id);

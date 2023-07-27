@@ -7,8 +7,8 @@ import models.RoomModel;
 import java.util.List;
 
 public class HostRoomInteractor implements HostRoomInputBoundary{
-    private RoomDBGateway database;
-    private HostRoomOutputBoundary presenter;
+    private final RoomDBGateway database;
+    private final HostRoomOutputBoundary presenter;
 
     public HostRoomInteractor(RoomDBGateway database, HostRoomOutputBoundary presenter) {
         this.database = database;

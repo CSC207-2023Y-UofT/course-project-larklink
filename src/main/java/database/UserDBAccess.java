@@ -17,11 +17,6 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
     }
 
     @Override
-    public UserDBModel retrieveAUser(Integer userID) {
-        return retrieveARow(userID);
-    }
-
-    @Override
     public void addAUser(UserDBModel request) {
         addARow(request);
     }

@@ -6,8 +6,8 @@ import models.RoomDBModel;
 import java.util.List;
 
 public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
-    private RoomDBGateway roomDBGateway;
-    private LeaveRoomOutputBoundary leaveRoomOutputBoundary;
+    private final RoomDBGateway roomDBGateway;
+    private final LeaveRoomOutputBoundary leaveRoomOutputBoundary;
 
     public LeaveRoomInteractor(RoomDBGateway roomDBGateway, LeaveRoomOutputBoundary leaveRoomOutputBoundary) {
         this.roomDBGateway = roomDBGateway;

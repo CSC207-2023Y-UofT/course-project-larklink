@@ -12,7 +12,7 @@ public class HostRoomPresenter implements HostRoomOutputBoundary {
     @Override
     public void prepareRoomView(int roomID) {
         Main.roomID = roomID;
-        Main.updateViews(Main.State.ROOM);
+        Main.roomView.prepareGUI();
     }
 
     @Override

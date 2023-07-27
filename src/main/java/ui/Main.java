@@ -1,15 +1,8 @@
 package ui;
 
-import database.RoomDBAccess;
-import database.RoomDBGateway;
-import database.UserDBAccess;
-import database.UserDBGateway;
-import host_room.HostRoomController;
-import host_room.HostRoomInteractor;
-import host_room.HostRoomPresenter;
-import leave_room.LeaveRoomController;
-import leave_room.LeaveRoomInteractor;
-import leave_room.LeaveRoomPresenter;
+import database.*;
+import host_room.*;
+import leave_room.*;
 import signup_and_login.*;
 
 public class Main {
@@ -42,21 +35,8 @@ public class Main {
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
         joinOrHostView = new JoinOrHostView(hostRoomController);
 
-        // Assuming you have HostView and JoinView classes similar to the other Views.
         // hostView = new HostView(hostRoomController);
         // joinView = new JoinView(userController);
-        updateViews(State.WELCOME); // launch app
+        welcomeView.prepareGUI(); // launch app
     }
-
-    public static void updateViews(State state) {
-        switch(state) {
-            case WELCOME: welcomeView.prepareGUI(); break;
-            case JOIN_OR_HOST: joinOrHostView.prepareGUI(); break;
-            // case HOST: hostView.prepareGUI(); break;
-            // case JOIN: joinView.prepareGUI(); break;
-            case ROOM: roomView.prepareGUI(); break;
-        }
-    }
-
-    public enum State {WELCOME, JOIN_OR_HOST, HOST, JOIN, ROOM}
 }

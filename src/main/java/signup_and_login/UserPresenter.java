@@ -11,7 +11,7 @@ public class UserPresenter implements UserOutputBoundary {
     @Override
     public void prepareJoinOrHostView(int id) {
         Main.userID = id;
-        Main.updateViews(ui.Main.State.JOIN_OR_HOST);
+        Main.joinOrHostView.prepareGUI();
     }
 
     /**

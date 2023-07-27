@@ -5,8 +5,6 @@ import leave_room.LeaveRoomController;
 import javax.swing.*;
 import java.awt.*;
 
-
-
 public class RoomView extends View {
     private final LeaveRoomController leaveRoomController;
 

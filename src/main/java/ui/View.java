@@ -3,7 +3,6 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
-
 public abstract class View {
     private static final String TITLE = "Larklink";
     private static final int WIDTH = 300;

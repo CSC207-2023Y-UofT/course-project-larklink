@@ -24,7 +24,7 @@ public class JoinByIDView {
         frame.setVisible(true);
     }
     private JFrame createFrame() {
-        JFrame frame = new JFrame("Please Enter a Room Name");
+        JFrame frame = new JFrame("Please Enter Room Name");
         frame.setLayout(new BorderLayout());
         frame.setSize(300, 200);
         frame.setResizable(false);

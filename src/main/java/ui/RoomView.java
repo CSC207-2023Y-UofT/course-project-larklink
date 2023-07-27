@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 
 
 public class RoomView {
-    private int roomId;
+    private Integer roomId;
     private Integer currUserId;
     private LeaveRoomController leaveRoomController;
 

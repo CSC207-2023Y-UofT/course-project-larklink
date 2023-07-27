@@ -9,7 +9,7 @@ import ui.JoinOrHostView;
 
 public class ViewUtilities {
 
-    private final int userID;
+    private final Integer userID;
     private final RoomDBGateway roomDBAccess;
 
     public ViewUtilities(RoomDBGateway roomDBAccess, int userID) {

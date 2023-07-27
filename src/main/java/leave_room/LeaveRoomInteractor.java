@@ -15,13 +15,13 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     }
 
     @Override
-    public void leaveRoom(Integer roomId, Integer currUserId) {
+    public void leaveRoom(Integer roomID, Integer currUserId) {
         // TODO: FIX
         // shouldn't fetch all rooms
         List<RoomDBModel> rooms = roomDBGateway.retrieveEveryRoom();
 
         for (RoomDBModel room : rooms) {
-            if (room.getRoomID() == roomId) {
+            if (room.getRoomID() == roomID) {
                 List<Integer> activeUsers = room.getActiveUsers();
                 if (activeUsers.contains(currUserId)) {
                     activeUsers.remove(currUserId);

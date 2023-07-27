@@ -35,7 +35,7 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     }
 
     @Override
-    public void leaveARoom(Integer roomId, Integer currUserID) {
+    public void leaveARoom(Integer roomID, Integer currUserID) {
         // implement leave room
     }
 

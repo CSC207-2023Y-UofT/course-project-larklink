@@ -6,7 +6,7 @@ import javax.swing.*;
 public class JoinByIDPresenter implements JoinByIDOutputBoundary {
     @Override
     //modify later when RoomView is implemented
-    public void prepareRoomView(int roomID){
+    public void prepareRoomView(Integer roomID){
         JOptionPane.showMessageDialog(null,
                 "Join "+roomID);
     }

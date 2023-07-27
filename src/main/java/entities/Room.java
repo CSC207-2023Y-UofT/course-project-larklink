@@ -4,13 +4,13 @@ import java.util.*;
 import java.util.ArrayList;
 
 public class Room {
-    private final int roomID;
+    private final Integer roomID;
     private final String name;
     private final User host;
     private List<User> activeUsers;
     private List<Message> messageHistory;
 
-    public Room(int roomID, String name, User host) {
+    public Room(Integer roomID, String name, User host) {
         this.roomID = roomID;
         this.name = name;
         this.host = host;
@@ -27,7 +27,7 @@ public class Room {
         activeUsers.remove(person);
     }
 
-    public int getRoomID() { return this.roomID; }
+    public Integer getRoomID() { return this.roomID; }
     public String getName() {
         return this.name;
     }

@@ -3,17 +3,17 @@ package entities;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
-    final private int userID;
+    final private Integer userID;
     final private String username;
     final private String password;
 
-    public User(int userID, String username, String password) {
+    public User(Integer userID, String username, String password) {
         this.userID = userID;
         this.username = username;
         this.password = password;
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return this.userID;
     }
 

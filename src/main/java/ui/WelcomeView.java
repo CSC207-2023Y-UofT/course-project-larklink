@@ -6,48 +6,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.regex.Pattern;
 
-public class WelcomeView {
+public class WelcomeView extends View {
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
     private static final int MIN_PASSWORD_LENGTH = 8;
 
+    private final UserController controller;
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private final UserController controller;
 
-    public WelcomeView(UserController controller){
+    public WelcomeView(UserController controller) {
         this.controller = controller;
     }
 
-    public void prepareGUI() {
-        JFrame frame = createFrame();
-        JPanel panel = createPanel();
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setVisible(true);
-    }
-
-    private JFrame createFrame() {
-        JFrame frame = new JFrame("User Registration");
-        frame.setLayout(new BorderLayout());
-        frame.setSize(300, 200);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        return frame;
-    }
-
-    private JPanel createPanel() {
+    @Override
+    protected JPanel createPanel() {
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField();
-        JLabel passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField();
+        this.usernameField = new JTextField();
+        this.passwordField = new JPasswordField();
         JButton submitButton = createSubmitButton();
 
-        panel.add(usernameLabel);
+        panel.add(new JLabel("Username:"));
         panel.add(usernameField);
-        panel.add(passwordLabel);
+        panel.add(new JLabel("Password:"));
         panel.add(passwordField);
         panel.add(new JLabel());
         panel.add(submitButton);

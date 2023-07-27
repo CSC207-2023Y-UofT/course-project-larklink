@@ -1,17 +1,18 @@
 package signup_and_login;
 
 import javax.swing.*;
-import ui.Main;
+import ui.View;
 
 public class UserPresenter implements UserOutputBoundary {
+    private View view;
     /**
      * Displays the JoinOrHostView passing in the specified user ID.
-     * @param id the ID of the user
+     * @param userID the ID of the user
      */
     @Override
-    public void prepareJoinOrHostView(int id) {
-        Main.userID = id;
-        Main.joinOrHostView.prepareGUI();
+    public void prepareJoinOrHostView(int userID) {
+        View.userID = userID;
+        view.prepareGUI();
     }
 
     /**
@@ -20,5 +21,9 @@ public class UserPresenter implements UserOutputBoundary {
     @Override
     public void prepareInvalidCredentialsView() {
         JOptionPane.showMessageDialog(null, "Password doesn't match existing Username.");
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

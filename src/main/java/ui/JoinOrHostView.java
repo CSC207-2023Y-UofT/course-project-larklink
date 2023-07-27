@@ -33,7 +33,7 @@ public class JoinOrHostView extends View {
 
         JButton submitButton = new JButton("Host");
         submitButton.addActionListener(e -> {
-            controller.handleHostRoom(Main.userID, roomField.getText());
+            controller.handleHostRoom(userID, roomField.getText());
         });
         return submitButton;
     }

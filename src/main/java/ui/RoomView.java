@@ -18,7 +18,7 @@ public class RoomView extends View {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JButton leaveButton = new JButton("Leave Room");
-        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(Main.roomID, Main.userID));
+        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID, userID));
 
         panel.add(leaveButton);
         return panel;

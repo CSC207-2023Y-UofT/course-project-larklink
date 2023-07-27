@@ -7,6 +7,8 @@ public abstract class View {
     private static final String TITLE = "Larklink";
     private static final int WIDTH = 300;
     private static final int HEIGHT = 200;
+    public static Integer userID;
+    public static Integer roomID;
 
     public void prepareGUI() {
         JFrame frame = new JFrame(TITLE);

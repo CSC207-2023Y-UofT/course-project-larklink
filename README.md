@@ -18,8 +18,15 @@ If you try to set username and password shorter than each minimum length, you wi
 If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
 ### Join a Room
 ### Host a Room
+A user can host a group chat in the program using the Host Room feature.
+The user is asked to input a unique room ID when a user hosts a room, and it will then store the user's ID as the room's host. One user can only host a room. Once the host leave the room, the room will dissapear.
+<br>
+![](images/Screenshots/host_room.png)<br>
 ### Send Messages (and _lark_)
 ### Leave a Room
+Users can leave the groupchat by using the Leave Room feature. The user will be removed from the list of active users in a room when they decide to leave it and the list of active users of that room will be updated. The user can only exit a room if they are on the list of users who are actively using it right now. An error message will appear if the user is not present in that room.
+<br>
+![](images/Screenshots/leave_room.png)<br>
 ## Design Patterns
 TODO - Mention View Builder Pattern and ??? 
 

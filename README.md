@@ -22,7 +22,7 @@ In addition, you are allowed to host only one room.
 ### Join a Room
 ![](images/Screenshots/join.png)<br>
 When you click **Join** button on host or join screen, you'll be prompted to enter the name of room that you try to join. 
-If you enter the room name which does not exist or which is invalid, an error message will be shown.
+If you enter the room name which does not exist, an error message will be shown.
 ### Send Messages (and _lark_)
 ### Leave a Room
 ## Clean Architecture

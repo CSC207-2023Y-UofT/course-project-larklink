@@ -24,36 +24,41 @@ public class UserInteractorTest {
     @Mock
     private UserDBGateway database;
 
+    private Integer testUserID;
+    private String testUsername;
+    private String testPassword;
+    private List<UserDBModel> users;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         userInteractor = new UserInteractor(presenter, database);
+
+        // initialize shared variables
+        testUserID = 2;
+        testUsername = "testUser";
+        testPassword = "testPassword";
+        String hashedPassword = User.hashPassword(testPassword);
+        users = List.of(new UserDBModel(testUserID, testUsername, hashedPassword));
     }
 
     @Test
     public void testHandleUser_existingUser() {
-        String testUsername = "testUser";
-        String testPassword = "testPassword";
-        String hashedPassword = User.hashPassword(testPassword);
-        List<UserDBModel> users = List.of(new UserDBModel(2, testUsername, hashedPassword));
         when(database.getUsers()).thenReturn(users);
 
-        userInteractor.handleUser(new UserModel(testUsername, testPassword));
+        UserModel existingUser = new UserModel(testUsername, testPassword);
+        userInteractor.handleUser(existingUser);
 
-        verify(presenter).prepareJoinOrHostView(2);
+        verify(presenter).prepareJoinOrHostView(testUserID);
         verify(database, never()).addAUser(any(UserDBModel.class));
     }
 
     @Test
     public void testHandleUser_invalidPassword() {
-        String testUsername = "testUser";
-        String correctPassword = "correctPassword";
-        String incorrectPassword = "incorrectPassword";
-        String hashedPassword = User.hashPassword(correctPassword);
-        List<UserDBModel> users = List.of(new UserDBModel(2, testUsername, hashedPassword));
         when(database.getUsers()).thenReturn(users);
 
-        userInteractor.handleUser(new UserModel(testUsername, incorrectPassword));
+        UserModel invalidUser = new UserModel(testUsername, "incorrectPassword");
+        userInteractor.handleUser(invalidUser);
 
         verify(presenter).prepareInvalidCredentialsView();
         verify(database, never()).addAUser(any(UserDBModel.class));
@@ -61,20 +66,18 @@ public class UserInteractorTest {
 
     @Test
     public void testHandleUser_newUser() {
-        String testUsername = "newUser";
-        String testPassword = "newPassword";
-        List<UserDBModel> users = List.of(new UserDBModel(2, "existingUser", User.hashPassword("existingPassword")));
         when(database.getUsers()).thenReturn(users);
 
-        userInteractor.handleUser(new UserModel(testUsername, testPassword));
+        UserModel newUser = new UserModel("newUser", "newPassword");
+        userInteractor.handleUser(newUser);
 
         ArgumentCaptor<UserDBModel> captor = ArgumentCaptor.forClass(UserDBModel.class);
-        verify(database).addAUser(captor.capture());
+        verify(database).addAUser(captor.capture()); // check that we did add a user to the database
         UserDBModel addedUser = captor.getValue();
 
-        assert addedUser.getUserID() == 3;
-        assert addedUser.getUsername().equals(testUsername);
-        assert User.checkPassword(testPassword, addedUser.getPassword());
+        assert addedUser.getUserID() == 3; // since testUserID == 2
+        assert addedUser.getUsername().equals(newUser.getUsername());
+        assert User.checkPassword(newUser.getPassword(), addedUser.getPassword());
         verify(presenter).prepareJoinOrHostView(3);
     }
 }

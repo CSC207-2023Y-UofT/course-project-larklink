@@ -27,10 +27,9 @@ When you click Join button on host or join screen,
 TODO - Mention View Builder Pattern and ??? 
 
 ## Test Coverage
-TODO - Aim for 100% and justify what we miss
-
+We intended to test the controller, interactor and presenter for each feature and test for the database (room db and user db).
 ## Java Doc
 TODO
-
 ## Packaging
-TODO - short explanation that it's by use case unless it's low level ?
+We divide the package based on our use case such as send messsage, sign up and login, join or host a room, leave a room.
+

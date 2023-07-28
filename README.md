@@ -20,7 +20,7 @@ To host a room, you need to enter room name with alphanumeric characters. Room n
 and if you try to set the room name shorter than the minimum length, you will see an error message. 
 In addition, you are not allowed to host multiple rooms. 
 ### Join a Room
-When you click **Join** button on host or join screen, 
+When you click Join button on host or join screen, 
 ### Send Messages (and _lark_)
 ### Leave a Room
 ## Design Patterns

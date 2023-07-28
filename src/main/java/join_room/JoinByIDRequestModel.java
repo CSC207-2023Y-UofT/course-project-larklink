@@ -1,19 +1,19 @@
 package join_room;
 
 public class JoinByIDRequestModel {
-    private final String roomName;
-    private final int currUserID;
+    private final String name;
+    private final Integer userID;
 
-    public JoinByIDRequestModel(String roomName, int currUserID){
-        this.roomName = roomName;
-        this.currUserID = currUserID;
+    public JoinByIDRequestModel(String name, Integer userID){
+        this.name = name;
+        this.userID = userID;
     }
 
-    String getRoomName(){
-        return roomName;
+    String getName(){
+        return name;
     }
 
-    int getCurrUserID(){
-        return currUserID;
+    int getUserID(){
+        return userID;
     }
 }

@@ -1,5 +1,8 @@
 import database.*;
 import host_room.*;
+import join_room.JoinByIDController;
+import join_room.JoinByIDInteractor;
+import join_room.JoinByIDPresenter;
 import leave_room.*;
 import signup_and_login.*;
 import ui.*;
@@ -23,8 +26,13 @@ public class Main {
         HostRoomPresenter hostRoomPresenter = new HostRoomPresenter();
         HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
-        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController);
 
+        JoinByIDPresenter joinByIDPresenter = new JoinByIDPresenter();
+        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(roomDBAccess, joinByIDPresenter);
+        JoinByIDController joinByIDController = new JoinByIDController(joinByIDInteractor);
+        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinByIDController);
+
+        joinByIDPresenter.setView(roomView);
         userPresenter.setView(joinOrHostView);
         hostRoomPresenter.setView(roomView);
         leaveRoomPresenter.setView(joinOrHostView);

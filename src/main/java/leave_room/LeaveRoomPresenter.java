@@ -1,15 +1,33 @@
 package leave_room;
 
+import ui.View;
+
 import javax.swing.JOptionPane;
 
+/**
+ * The LeaveRoomPresenter class handles the view presentation after a user leaves a room.
+ * It provides an implementation of the prepareJoinOrHostView and prepareFailedToLeaveRoomView methods
+ * by implementing the LeaveRoomOutputBoundary interface.
+ */
 public class LeaveRoomPresenter implements LeaveRoomOutputBoundary {
+    private View view;
+
+    /**
+     * Prepares and displays the view for successful leave by showing a success message.
+     */
     @Override
-    public void prepareHostOrJoinView(LeaveRoomResponseModel responseModel) {
-        if (responseModel.wasSuccess()) {
-            JOptionPane.showMessageDialog(null, "You left the room");
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Fail" );
-        }
+    public void prepareJoinOrHostView() {
+        view.prepareGUI();
+    }
+
+    /**
+     * Prepares and displays the view for a failed leave by showing a failure notice.
+     */
+    @Override
+    public void prepareFailedToLeaveRoomView() {
+        JOptionPane.showMessageDialog(null, "Failed to leave the room");
+    }
+    public void setView(View view) {
+        this.view = view;
     }
 }

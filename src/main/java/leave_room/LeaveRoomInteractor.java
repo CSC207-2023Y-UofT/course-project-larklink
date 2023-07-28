@@ -15,22 +15,16 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     }
 
     @Override
-    public void leaveRoom(Integer roomId, Integer currUserId) {
-        // TODO: FIX
-        // shouldn't fetch all rooms
-        List<RoomDBModel> rooms = roomDBGateway.getRooms();
-
-        for (RoomDBModel room : rooms) {
-            if (room.getRoomID() == roomId) {
-                List<Integer> activeUsers = room.getActiveUsers();
-                if (activeUsers.contains(currUserId)) {
-                    activeUsers.remove(currUserId);
-                    //roomDBGateway.updateRoomActiveUsers(room);
-                    leaveRoomOutputBoundary.prepareHostOrJoinView(new LeaveRoomResponseModel(true, false));
-                }
-            }
+    public void leaveRoom(Integer roomID, Integer currUserId) {
+        RoomDBModel room = roomDBGateway.getARoom(roomID);
+        List<Integer> activeUsers = room.getActiveUsers();
+        if (activeUsers.contains(currUserId)) {
+            activeUsers.remove(currUserId);
+            room.setActiveUsers(activeUsers);
+            roomDBGateway.leaveARoom(room);
+            leaveRoomOutputBoundary.prepareJoinOrHostView();
+            return;
         }
-
-        leaveRoomOutputBoundary.prepareHostOrJoinView(new LeaveRoomResponseModel(false, true));
+        leaveRoomOutputBoundary.prepareFailedToLeaveRoomView();
     }
 }

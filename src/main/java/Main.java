@@ -27,6 +27,7 @@ public class Main {
 
         userPresenter.setView(joinOrHostView);
         hostRoomPresenter.setView(roomView);
+        leaveRoomPresenter.setView(joinOrHostView);
 
         welcomeView.prepareGUI(); // launch app
     }

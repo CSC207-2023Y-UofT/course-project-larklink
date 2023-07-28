@@ -20,18 +20,23 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     }
 
     @Override
+    public RoomDBModel getARoom(Integer roomID) {
+        return retrieveARow(roomID);
+    }
+
+    @Override
     public void addARoom(RoomDBModel request) {
-        addARow(request);
+        addARow(request.getRoomID(), request);
     }
 
     @Override
-    public void joinARoom(RoomDBModel request, Integer currUserID) {
-        // implement join room
+    public void joinARoom(Integer userID, RoomDBModel request) {
+        modifyARow(request.getRoomID(), request);
     }
 
     @Override
-    public void leaveARoom(Integer roomId, Integer currUserID) {
-        // implement leave room
+    public void leaveARoom(RoomDBModel room) {
+        modifyARow(room.getRoomID(), room);
     }
 
     @Override
@@ -50,10 +55,8 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
         if (jsonObject.get("activeUsers") != null) {
             // parse the string back to a JsonArray
             JsonArray userList = JsonParser.parseString(jsonObject.get("activeUsers").getAsString()).getAsJsonArray();
-            for (JsonElement userElement : userList) {
-                JsonObject userObject = userElement.getAsJsonObject();
-                int userId = userObject.get("id").getAsInt();
-                activeUsers.add(userId);
+            for (JsonElement userID : userList) {
+                activeUsers.add(userID.getAsInt());
             }
         }
         return new RoomDBModel(roomID, activeUsers, host, name);

@@ -33,7 +33,6 @@ public abstract class DBAccess<T> {
             for (JsonElement element : jsonArray) {
                 result.add(jsonToObject(element.getAsJsonObject()));
             }
-
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,8 +40,6 @@ public abstract class DBAccess<T> {
         return new ArrayList<>();
     }
 
-    // if no one ends up using this just remove it, simplify performGETRequest URL creation and,
-    // remove both jsonToObjects initially checks for object (object)
     public T retrieveARow(Integer id) {
         try {
             String response = performGETRequest(id);
@@ -54,17 +51,22 @@ public abstract class DBAccess<T> {
         return null;
     }
 
-    public void addARow(T model) {
+    public void addARow(Integer id, T model) {
         try {
             String jsonInputString = objectToJson(model).toString();
-            performPOSTRequest(jsonInputString);
+            performPUTRequest(id, jsonInputString);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void modifyARow(Integer id, T model) {
-        // to implement
+        try {
+            String jsonInputString = objectToJson(model).toString();
+            performPUTRequest(id, jsonInputString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     protected abstract T jsonToObject(JsonObject jsonObject);
@@ -72,6 +74,23 @@ public abstract class DBAccess<T> {
     protected abstract JsonObject objectToJson(T model);
 
 
+    private void performPUTRequest(Integer id, String jsonInputString) throws IOException {
+        URL url = new URL(urlBase + "/" + getRoute() + "/" + id);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("PUT");
+        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        conn.setRequestProperty("Accept", "application/json");
+        conn.setDoOutput(true);
+        try (OutputStream os = conn.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+            os.flush();
+        }
+        int responseCode = conn.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            System.err.println("HTTP request failed with response code: " + responseCode);
+        }
+    }
     private String performGETRequest(Integer id) throws Exception {
         URL url = new URL(urlBase + "/" + getRoute() + (id == null ? "" : "/" + id));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

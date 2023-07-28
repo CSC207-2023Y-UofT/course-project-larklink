@@ -28,4 +28,7 @@ public class RoomDBModel {
 
     public String getName() { return this.name; }
 
+    public void setActiveUsers(List<Integer> activeUsers) {
+        this.activeUsers = activeUsers;
+    }
 }

@@ -7,15 +7,20 @@ Once inside the room, you can send and receive normal messages or if you'd like 
 Running LarkLink is as simple as navigating to our `Main` class under `src/main/java` and running the `main` method.
 It allows you to initialize and start LarkLink.
 ### Signup and Login
-If you don't have an account for LarkLink yet, you need to register first. To register, LarkLink requires you to enter
-username and password.<br>
-![](images/Screenshots/user_registration.png)<br>
+First you'll be prompted to either create an account or sign in to an existing one.<br>
+![](images/Screenshots/main.png)<br>
+Here, you can create an account or login by entering username and password. 
 LarkLink allows alphanumeric characters for username and password. Username must be at least 3 characters long and
 must not overlap with existing usernames. Password must be at least 8 characters long. 
 If you try to set username and password shorter than each minimum length, you will see an error message.
 If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
-### Join a Room
 ### Host a Room
+![](images/Screenshots/hostorjoin.png)<br>
+To host a room, you need to enter room name with alphanumeric characters. Room name must be at least 5 characters long
+and if you try to set the room name shorter than the minimum length, you will see an error message. 
+In addition, you are not allowed to host multiple rooms. 
+### Join a Room
+When you click **Join** button on host or join screen, 
 ### Send Messages (and _lark_)
 ### Leave a Room
 ## Design Patterns

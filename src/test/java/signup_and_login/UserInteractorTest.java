@@ -73,11 +73,11 @@ public class UserInteractorTest {
 
         ArgumentCaptor<UserDBModel> captor = ArgumentCaptor.forClass(UserDBModel.class);
         verify(database).addAUser(captor.capture()); // check that we did add a user to the database
-        UserDBModel addedUser = captor.getValue();
+        UserDBModel addedUser = captor.getValue(); // get the argument that was passed to addAUser
 
         assert addedUser.getUserID() == 3; // since testUserID == 2
-        assert addedUser.getUsername().equals(newUser.getUsername());
-        assert User.checkPassword(newUser.getPassword(), addedUser.getPassword());
+        assert addedUser.getUsername().equals(newUser.getUsername()); // check that we passed in the right username
+        assert User.checkPassword(newUser.getPassword(), addedUser.getPassword()); // check that we passed in the right password
         verify(presenter).prepareJoinOrHostView(3);
     }
 }

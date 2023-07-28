@@ -25,6 +25,9 @@ When you click **Join** button on host or join screen, you'll be prompted to ent
 If you enter the room name which does not exist or which is invalid, an error message will be shown.
 ### Send Messages (and _lark_)
 ### Leave a Room
+## Clean Architecture
+Separation of Concerns: The nteractor is part of the application core, and it is responsible for handling the business logic related to sending and retrieving messages. It communicates with the outer layers (presenter and database) through interfaces (InputBoundary, OutputBoundary, and DBGateway), ensuring a clear separation of concerns between different layers of the application.
+The Interactor does not have any direct dependencies on specific frameworks or libraries. Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. This design ensures that the core business logic remains agnostic of the technologies used in the outer layers.
 ## Solid Principle
 Single Responsibility Principle (SRP): All Interactor classes appears to have a single responsibility, which is to handle the interaction between the presenter and the database for feature related operations. 
 

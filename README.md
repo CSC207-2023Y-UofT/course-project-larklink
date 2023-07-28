@@ -25,6 +25,14 @@ When you click **Join** button on host or join screen, you'll be prompted to ent
 If you enter the room name which does not exist or which is invalid, an error message will be shown.
 ### Send Messages (and _lark_)
 ### Leave a Room
+## Solid Principle
+Single Responsibility Principle (SRP): All Interactor classes appears to have a single responsibility, which is to handle the interaction between the presenter and the database for feature related operations. 
+
+Open/Closed Principle (OCP): The Interactor class seems to be open for extension, as it is designed to interact with abstractions (InputBoundary and OutputBoundary) rather than concrete implementations. This allows for potential extensions or modifications to the behavior of the interactor without modifying its existing code.
+
+Liskov Substitution Principle (LSP): Since the Interactor implements the InputBoundary interface, it can be used interchangeably with other implementations of that interface. Any class that expects a InputBoundary can work correctly with the Interactor.
+
+Dependency Inversion Principle (DIP): The Interactor depends on abstractions (MessageInputBoundary and MessageOutputBoundary) rather than concrete implementations. This inversion of dependencies allows for easier swapping of different implementations without affecting the MessageInteractor class.
 ## Design Patterns
 TODO - Mention View Builder Pattern and ??? 
 

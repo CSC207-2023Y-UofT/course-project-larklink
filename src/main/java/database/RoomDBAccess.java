@@ -40,6 +40,11 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     }
 
     @Override
+    public void sendAMessage(RoomDBModel room) {
+        modifyARow(room.getRoomID(), room);
+    }
+
+    @Override
     protected RoomDBModel jsonToObject(JsonObject jsonObject) {
 
         // when we fetch one row we get "room: <information here>" so here we "skip" it
@@ -51,7 +56,6 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
         Integer host = jsonObject.get("host").getAsInt();
         String name = jsonObject.get("name").getAsString();
         List<Integer> activeUsers = new ArrayList<>();
-
         if (jsonObject.get("activeUsers") != null) {
             // parse the string back to a JsonArray
             JsonArray userList = JsonParser.parseString(jsonObject.get("activeUsers").getAsString()).getAsJsonArray();
@@ -59,7 +63,10 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
                 activeUsers.add(userID.getAsInt());
             }
         }
-        return new RoomDBModel(roomID, activeUsers, host, name);
+
+        String messageHistory = jsonObject.get("messageHistory") != null ? jsonObject.get("messageHistory").getAsString() : "";
+
+        return new RoomDBModel(roomID, activeUsers, host, name, messageHistory);
     }
 
     @Override
@@ -73,6 +80,8 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
             activeUsers.add(userId);
         }
         roomObject.addProperty("activeUsers", activeUsers.toString());
+
+        roomObject.addProperty("messageHistory", model.getMessageHistory());
 
         JsonObject mainObject = new JsonObject();
         mainObject.add("room", roomObject);

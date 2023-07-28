@@ -8,12 +8,15 @@ public class RoomDBModel {
     private List<Integer> activeUsers;
     private final Integer host;
     private final String name;
+    private String messageHistory;
 
-    public RoomDBModel(int roomID, List<Integer> activeUsers, Integer host, String name) {
+
+    public RoomDBModel(int roomID, List<Integer> activeUsers, Integer host, String name, String messageHistory) {
         this.roomID = roomID;
         this.activeUsers = activeUsers;
         this.host = host;
         this.name = name;
+        this.messageHistory = messageHistory;
     }
 
     public int getRoomID() {
@@ -27,8 +30,15 @@ public class RoomDBModel {
     }
 
     public String getName() { return this.name; }
+    public String getMessageHistory() { return this.messageHistory; }
+
 
     public void setActiveUsers(List<Integer> activeUsers) {
         this.activeUsers = activeUsers;
     }
+
+    public void setMessageHistory(String messageHistory) {
+        this.messageHistory = messageHistory;
+    }
+
 }

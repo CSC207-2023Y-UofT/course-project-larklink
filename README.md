@@ -5,9 +5,7 @@ Once inside the room, you can send and receive normal messages or if you'd like 
 ## Overview
 ### Main
 Running LarkLink is as simple as navigating to our `Main` class under `src/main/java` and running the `main` method.
-It allows you to initialize and start LarkLink.<br>
-(Screenshot of main screen) <br>
-First you'll be prompted to either create an account or sign in to an existing one.
+It allows you to initialize and start LarkLink.
 ### Signup and Login
 If you don't have an account for LarkLink yet, you need to register first. To register, LarkLink requires you to enter
 username and password.<br>

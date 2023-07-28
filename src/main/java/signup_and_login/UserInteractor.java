@@ -32,7 +32,7 @@ public class UserInteractor implements UserInputBoundary {
                 if (User.checkPassword(request.getPassword(), existingUser.getPassword())) {
                     presenter.prepareJoinOrHostView(existingUser.getUserID()); // "log in" the existing user
                 } else {
-                    presenter.prepareInvalidCredentialsView();
+                    presenter.prepareInvalidCredentialsView(); // reject the invalid login credentials
                 }
                 return; // found existing user, no need to check further
             }

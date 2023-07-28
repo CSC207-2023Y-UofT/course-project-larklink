@@ -17,12 +17,14 @@ must not overlap with existing usernames. Password must be at least 8 characters
 If you try to set username and password shorter than each minimum length, you will see an error message.
 If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
 ### Join a Room
+A user can join a room by the room id. If the room id exists, the user can join in successfully. The user will be added to the list of active users. The list of active users of that room will be updated.
 ### Host a Room
 A user can host a group chat in the program using the Host Room feature.
 The user is asked to input a unique room ID when a user hosts a room, and it will then store the user's ID as the room's host. One user can only host a room. Once the host leave the room, the room will dissapear.
 <br>
 ![](images/Screenshots/host_room.png)<br>
 ### Send Messages (and _lark_)
+Users can send messages when they are inside the room. Users can also choose to send the lark.
 ### Leave a Room
 Users can leave the groupchat by using the Leave Room feature. The user will be removed from the list of active users in a room when they decide to leave it and the list of active users of that room will be updated. The user can only exit a room if they are on the list of users who are actively using it right now. An error message will appear if the user is not present in that room.
 <br>

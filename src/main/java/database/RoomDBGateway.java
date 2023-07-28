@@ -10,4 +10,5 @@ public interface RoomDBGateway {
     void joinARoom(Integer userID, RoomDBModel request);
     RoomDBModel getARoom(Integer roomID);
     void leaveARoom(RoomDBModel room);
+    void sendAMessage(RoomDBModel room);
 }

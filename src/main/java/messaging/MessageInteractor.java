@@ -1,6 +1,7 @@
 package messaging;
 
 import database.RoomDBGateway;
+import entities.User;
 import models.MessageModel;
 import models.RoomDBModel;
 
@@ -30,10 +31,9 @@ public class MessageInteractor implements MessageInputBoundary {
         }
 
         LocalDateTime timestamp = LocalDateTime.now();
-        // pass username to View like we do UserID vs. User Singleton vs. Fetch User to fix sender
         String formattedMessage = "[" +
                 timestamp.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] "
-                + request.getSender() + ": " + request.getContent() + "\n";
+                + User.getUsername() + ": " + request.getContent() + "\n";
 
         String updatedMessageHistory = room.getMessageHistory() + formattedMessage;
         room.setMessageHistory(updatedMessageHistory);

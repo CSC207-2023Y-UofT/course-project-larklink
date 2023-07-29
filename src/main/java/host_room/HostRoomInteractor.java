@@ -1,9 +1,10 @@
 package host_room;
 
 import database.RoomDBGateway;
+import entities.User;
 import models.RoomDBModel;
-import models.RoomModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HostRoomInteractor implements HostRoomInputBoundary{
@@ -19,24 +20,23 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
      * Creates a new room and stores it in the database.
      * If a room is found with the same host, then the room is not created and a duplicateHostView is prepared
      *
-     * @param request the room model containing the host, active users, and roomID of the room to be created
      */
 
-    public void hostRoom(RoomModel request) {
+    public void hostRoom(String roomName) {
         List<RoomDBModel> existingRooms = database.getRooms();
-        System.out.println(existingRooms.size());
+        Integer hostID = User.getUserID();
 
         for (RoomDBModel existingRoom : existingRooms) {
-            // user already hosting room
-            if (existingRoom.getHost().equals(request.getHost())) {
-                presenter.prepareMultipleHostingView();
+            if (existingRoom.getHost().equals(hostID)) {
+                presenter.prepareMultipleHostingView(); // user already hosting room
                 return;
             }
         }
-        List<Integer> activeUsers = request.getActiveUsers();
-        activeUsers.add(request.getHost());
+        List<Integer> activeUsers = new ArrayList<>();
+        activeUsers.add(hostID);
+        System.out.println(activeUsers);
         RoomDBModel newRoom = new RoomDBModel(existingRooms.size() + 2, activeUsers,
-                request.getHost(), request.getName(), "");
+                hostID, roomName, "");
         database.addARoom(newRoom);
         presenter.prepareRoomView(newRoom.getRoomID());
     }

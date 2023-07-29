@@ -39,7 +39,7 @@ public class RoomView extends View {
 
         // Create a SendMessage
         JButton sendMessageButton = new JButton("Send Message");
-        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText()));
+        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, messageTextField.getText()));
 
 
         // Send Lark Button
@@ -49,11 +49,11 @@ public class RoomView extends View {
 
         // Leave Room
         JButton leaveButton = new JButton("Leave Room");
-        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID, userID));
+        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID));
 
         // Refresh Button
         JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages(roomID, userID,messageTextField.getText()));
+        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages(roomID, messageTextField.getText()));
 
         JPanel inputPanel = new JPanel(new BorderLayout(10, 0));
         inputPanel.add(messageTextField, BorderLayout.CENTER);

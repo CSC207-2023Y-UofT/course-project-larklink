@@ -66,7 +66,7 @@ public class JoinOrHostView extends View {
                 JOptionPane.showMessageDialog(null, "Room Name too short! Minimum length: " + MIN_PASSWORD_LENGTH, "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            hostRoomController.handleHostRoom(userID, roomField);
+            hostRoomController.handleHostRoom(roomField);
         });
         return hostButton;
     }

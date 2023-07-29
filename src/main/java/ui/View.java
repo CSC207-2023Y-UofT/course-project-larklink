@@ -8,7 +8,6 @@ public abstract class View extends JFrame {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    public static Integer userID;
     public static Integer roomID;
     protected String messageHistory = ""; // TODO update during join room
 

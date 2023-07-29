@@ -38,7 +38,7 @@ public class JoinByIDView extends View {
                 return;
             }
 
-            controller.formatAndHandleJoinByID(roomName, JoinByIDView.userID);
+            controller.formatAndHandleJoinByID(roomName);
         });
         return submitButton;
     }

@@ -5,7 +5,7 @@ package leave_room;
  * by invoking the leaveRoom method on the supplied LeaveRoomInputBoundary object.
  */
 public class LeaveRoomController {
-    private LeaveRoomInputBoundary leaveRoomInputBoundary;
+    private final LeaveRoomInputBoundary leaveRoomInputBoundary;
 
     /**
      * Using the supplied LeaveRoomInputBoundary, creates a new LeaveRoomController.
@@ -20,10 +20,9 @@ public class LeaveRoomController {
      * Handles the request to leave a room.
      *
      * @param roomID The unique id of the room to leave.
-     * @param userID The unique id of the user who wants to leave the room.
      */
-    public void handleLeaveRoom(Integer roomID, Integer userID) {
-        leaveRoomInputBoundary.leaveRoom(roomID, userID);
+    public void handleLeaveRoom(Integer roomID) {
+        leaveRoomInputBoundary.leaveRoom(roomID);
     }
 }
 

@@ -5,7 +5,7 @@ Once inside the room, you can send and receive normal messages or if you'd like 
 ## Overview
 ### Main
 Running LarkLink is as simple as navigating to our `Main` class under `src/main/java` and running the `main` method.
-It allows you to initialize and start LarkLink.
+It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one joining that room.
 ### Signup and Login
 First you'll be prompted to either create an account or sign in to an existing one.<br>
 ![](images/Screenshots/main.png)<br>
@@ -24,7 +24,12 @@ In addition, you are allowed to host only one room.
 When you click **Join** button on host or join screen, you'll be prompted to enter the name of room that you try to join. 
 If you enter the room name which does not exist, an error message will be shown.
 ### Send Messages (and _lark_)
+![](images/Screenshots/room.png)<br>
+Here you can send a message and get messages from other users. If you try to send an empty message, you will get an error message.
+(The implementation of sending lark is still in progress.)
+
 ### Leave a Room
+If you click **Leave Room** on chat room screen, you can leave the room and you'll be prompted to host or join screen again.
 ## Clean Architecture
 Separation of Concerns: The nteractor is part of the application core, and it is responsible for handling the business logic related to sending and retrieving messages. It communicates with the outer layers (presenter and database) through interfaces (InputBoundary, OutputBoundary, and DBGateway), ensuring a clear separation of concerns between different layers of the application.
 The Interactor does not have any direct dependencies on specific frameworks or libraries. Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. This design ensures that the core business logic remains agnostic of the technologies used in the outer layers.

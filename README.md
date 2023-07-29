@@ -52,9 +52,11 @@ This allows for potential extensions or modifications to the behavior of the int
 and all classes that implement interfaces implemented all methods in corresponding interfaces appropriately. Therefore, all these classes
 can be used interchangeably with `View` or each corresponding interface without unexpected error.
 
-**Dependency Inversion Principle (DIP)**: The Interactor depends on abstractions (MessageInputBoundary and MessageOutputBoundary) 
-rather than concrete implementations. This inversion of dependencies allows for easier swapping of different implementations 
-without affecting the Message Interactor class.
+**Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object(which is called models here), dependencies between 
+layers could be inverted and therefore, high level classes does not directly depend on lower level classes. 
+For example, `UserInteractor` can receive data from users through `UserModel` object and `UserInputBoundary` and interact with 
+database through `UserDBGateway`. Hence, `UserInteractor` does not depend on outer layers such as controller and database.
+This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
 ## Design Patterns
 TODO - Mention View Builder Pattern and ??? 

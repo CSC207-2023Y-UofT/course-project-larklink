@@ -71,9 +71,17 @@ We intended to test the controller, interactor and presenter for each feature an
 TODO
 
 ## Packaging
-Entity: `src/main/java/entities`<br>
-Use case: `src/main/java/use_case`<br>
-Input and data model: `src/main/java/models`<br>
-Gateway and DBAccess: `src/main/java/database`<br>
-View: `src/main/java/ui`<br>
+Entity:<br> `src/main/java/entities`<br>
+
+Use case:<br> `src/main/java/host_room`<br>
+<hspace>`src/main/java/join_room`<br>
+`src/main/java/leave_room`<br>
+`src/main/java/messaging`<br>
+`src/main/java/sinup_and_login`<br>
+
+Input and data model:<br> `src/main/java/models`<br>
+
+Gateway and DBAccess:<br> `src/main/java/database`<br>
+
+View:<br> `src/main/java/ui`<br>
 

@@ -39,12 +39,12 @@ public class RoomView extends View {
 
         // Create a SendMessage
         JButton sendMessageButton = new JButton("Send Message");
-        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText()));
+        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText(),false));
 
 
         // Send Lark Button
         JButton sendLarkButton = new JButton("Send Lark");
-        // sendLarkButton.addActionListener(e -> sendMessageController.handleSendMessage(userID, "sent a lark!", true));
+        sendLarkButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText(), true));
 
 
         // Leave Room

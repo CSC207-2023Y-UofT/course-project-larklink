@@ -12,8 +12,8 @@ public class MessageController {
     /**
 
      */
-    public void handleSendMessage(Integer roomID, Integer sender, String content){
-        MessageModel request = new MessageModel(roomID, content, sender, false);
+    public void handleSendMessage(Integer roomID, Integer sender, String content, Boolean isLark){
+        MessageModel request = new MessageModel(roomID, content, sender, isLark);
         inputBoundary.handleSendMessage(request);
     }
 

@@ -1,7 +1,7 @@
 package ui;
 
-import use_case.host_room.HostRoomController;
-import use_case.join_room.JoinByIDController;
+import host_room.HostRoomController;
+import join_room.JoinByIDController;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,6 @@
 package leave_room;
 
 import org.junit.jupiter.api.Test;
-import use_case.leave_room.LeaveRoomController;
-import use_case.leave_room.LeaveRoomInputBoundary;
 
 import static org.mockito.Mockito.*;
 

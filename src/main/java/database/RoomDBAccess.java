@@ -26,7 +26,7 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
 
     @Override
     public void addARoom(RoomDBModel request) {
-        addARow(request.getRoomID(), request);
+        modifyARow(request.getRoomID(), request);
     }
 
     @Override

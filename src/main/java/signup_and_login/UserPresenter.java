@@ -5,6 +5,7 @@ import ui.View;
 
 public class UserPresenter implements UserOutputBoundary {
     private View view;
+
     /**
      * Displays the JoinOrHostView passing in the specified user ID.
      * @param userID the ID of the user
@@ -23,6 +24,9 @@ public class UserPresenter implements UserOutputBoundary {
         JOptionPane.showMessageDialog(null, "Password doesn't match existing Username.");
     }
 
+    /**
+     * Sets the view this presenter displays next (in this case JoinOrHostView).
+     */
     public void setView(View view) {
         this.view = view;
     }

@@ -1,6 +1,10 @@
 import database.*;
 import host_room.*;
+import join_room.JoinByIDController;
+import join_room.JoinByIDInteractor;
+import join_room.JoinByIDPresenter;
 import leave_room.*;
+import messaging.*;
 import signup_and_login.*;
 import ui.*;
 
@@ -18,16 +22,25 @@ public class Main {
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
-        RoomView roomView = new RoomView(leaveRoomController);
+        MessagePresenter sendMessagePresenter = new MessagePresenter();
+        MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter);
+        MessageController sendMessageController = new MessageController(interactor);
+        RoomView roomView = new RoomView(leaveRoomController, sendMessageController);
 
         HostRoomPresenter hostRoomPresenter = new HostRoomPresenter();
         HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
-        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController);
 
+        JoinByIDPresenter joinByIDPresenter = new JoinByIDPresenter();
+        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(roomDBAccess, joinByIDPresenter);
+        JoinByIDController joinByIDController = new JoinByIDController(joinByIDInteractor);
+        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinByIDController);
+
+        joinByIDPresenter.setView(roomView);
         userPresenter.setView(joinOrHostView);
         hostRoomPresenter.setView(roomView);
         leaveRoomPresenter.setView(joinOrHostView);
+        sendMessagePresenter.setView(roomView);
 
         welcomeView.prepareGUI(); // launch app
     }

@@ -1,39 +1,88 @@
-# Project Template
+# LarkLink
+## Introduction
+LarkLink is a chat system that allows you to host a room or join existing rooms to chat with other users.
+Once inside the room, you can send and receive normal messages or if you'd like to annoy your friends you can send a _lark_!
+## Overview
+### Main
+Running LarkLink is as simple as navigating to our `Main` class under `src/main/java` and running the `main` method.
+It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one joining that room.
+### Signup and Login
+First you'll be prompted to either create an account or sign in to an existing one.<br>
+![](images/Screenshots/main.png)<br>
+Here, you can create an account or login by entering username and password and click `Submit` button. 
+LarkLink allows alphanumeric characters for username and password. Username must be at least 3 characters long and
+must not overlap with existing usernames. Password must be at least 8 characters long. 
+If you try to set username and password shorter than each minimum length, you will see an error message.
+If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
+### Host a Room
+![](images/Screenshots/host_or_join.png)<br>
+To host a room, you need to enter room name with alphanumeric characters and click `Host` button. 
+Room name must be at least 5 characters long and if you try to set the room name shorter than the minimum length, you will see an error message. 
+In addition, you are allowed to host only one room. 
+### Join a Room
+![](images/Screenshots/join.png)<br>
+When you click `Join` button on host or join screen, you'll be prompted to enter the name of room that you try to join. 
+If you enter the room name which does not exist, an error message will be shown.
+### Send Messages (and _lark_)
+![](images/Screenshots/room.png)<br>
+Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
+If you try to send an empty message, you will get an error message.
+(The implementation of sending lark is still in progress.)
 
-This is a template repository for CSC 207 projects. 
-This repository contains starter code for a gradle project.
-It also contains workflow documents that give instructions on how to manage your GitHub repository and how to use GitHub Projects for efficient collaboration.
+### Leave a Room
+If you click `Leave Room` on chat room screen, you can leave the room and you'll be prompted to host or join screen again.
+## Clean Architecture
+Separation of Concerns: 
+The interactor is part of the application core, and it is responsible for handling the business logic related to corresponding use case. 
+It communicates with the outer layers (controller, presenter and database) through interfaces (InputBoundary, OutputBoundary, and DBGateway), 
+ensuring a clear separation of concerns between different layers of the application.
+The Interactor does not have any direct dependencies on specific frameworks or libraries. 
+Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. 
+This design ensures that the core business logic remains agnostic of the technologies used in the outer layers.
+In addition, inputs from users and data from DB are encapsulated as input models and DB models to decouple the layers. 
+## Solid Principle
+**Single Responsibility Principle (SRP)**: All classes and interfaces appears to have a single responsibility, 
+which is to handle the interaction between layers for feature related operations. 
 
-## Checklist For Your Project
-- [x] Verify the correct settings for your project repository
-- [x] Set up GitHub Projects
-- [x] Create the implementation plan using issues and GitHub Projects
-- [x] Create development branches for your features
-- [ ] Use pull requests to merge finished features into main branch
-- [ ] Conduct code reviews
+**Open/Closed Principle (OCP)**: The Interactor class seems to be open for extension, 
+as it is designed to interact with abstractions (InputBoundary and OutputBoundary) rather than concrete implementations. 
+This allows for potential extensions or modifications to the behavior of the interactor without modifying its existing code.
 
-**If your team has trouble with any of these steps, please ask on Piazza. For example, with how GitHub Classroom works, your team *may* not have permissions to do some of the first few steps, in which case we'll post alternative instructions as needed.**
+**Interface Segregation Principle (ISP)**: Since we aimed to break down the classes into small pieces according to SRP, all interfaces are 
+specific to each class which each interface is implemented. 
 
-## Workflow Documents
+**Liskov Substitution Principle (LSP)**: All subclasses that inherit superclass `View` are overriding the abstract method `prepareGUI`
+and all classes that implement interfaces implemented all methods in corresponding interfaces appropriately. Therefore, all these classes
+can be used interchangeably with `View` or each corresponding interface without unexpected error.
 
-* GitHub Workflow: Please refer to the workflow that was introduced in the first lab. You should follow this when working on your code. The following document provides additional details too.
+**Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object(which is called models here), dependencies between 
+layers could be inverted and therefore, high level classes does not directly depend on lower level classes. 
+For example, `UserInteractor` can receive data from users through `UserModel` object and `UserInputBoundary` and interact with 
+database through `UserDBGateway`. Hence, `UserInteractor` does not depend on outer layers such as controller and database.
+This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
-* [Project Planning and Development Guide](project_plan_dev.md): This document helps you to understand how to create and maintain a project plan for your class project. **This document helps you to complete the Implementation Plan Milestone.**
+## Design Patterns
+TODO - Singleton pattern
 
-## Gradle Project
-Import this project into your Intellij editor. It should automatically recognise this as a gradle repository.
-The starter code was built using SDK version 11.0.1. Ensure that you are using this version for this project. (You can, of course, change the SDK version as per your requirement if your team has all agreed to use a different version)
+## Test Coverage
+We intended to test the controller, interactor and presenter for each feature and test for the database (room db and user db).
+TODO
 
-You have been provided with two starter files for demonstration: HelloWorld and HelloWorldTest.
+## Java Doc
+TODO
 
-You will find HelloWorld in `src/main/java/tutorial` directory. Right-click on the HelloWorld file and click on `Run HelloWorld.main()`.
-This should run the program and print on your console.
+## Packaging
+Entity:<br> `src/main/java/entities`<br>
 
-You will find HelloWorldTest in `src/test/java/tutorial` directory. Right-click on the HelloWorldTest file and click on `Run HelloWorldTest`.
-All tests should pass. Your team can remove this sample of how testing works once you start adding your project code to the repo.
+Use case:<br> `src/main/java/host_room`<br>
+<hspace>`src/main/java/join_room`<br>
+`src/main/java/leave_room`<br>
+`src/main/java/messaging`<br>
+`src/main/java/sinup_and_login`<br>
 
-Moving forward, we expect you to maintain this project structure. You *should* use Gradle as the build environment, but it is fine if your team prefers to use something else -- just remove the gradle files and push your preferred project setup. Assuming you stick with Gradle, your source code should go into `src/main/java` (you can keep creating more subdirectories as per your project requirement). Every source class can auto-generate a test file for you. For example, open HelloWorld.java file and click on the `HelloWorld` variable as shown in the image below. You should see an option `Generate` and on clicking this you should see an option `Test`. Clicking on this will generate a JUnit test file for `HelloWorld` class. This was used to generate the `HelloWorldTest`.
+Input and data model:<br> `src/main/java/models`<br>
 
-![image](https://user-images.githubusercontent.com/5333020/196066655-d3c97bf4-fdbd-46b0-b6ae-aeb8dbcf351d.png)
+Gateway and DBAccess:<br> `src/main/java/database`<br>
 
-You can create another simple class and try generating a test for this class.
+View:<br> `src/main/java/ui`<br>
+

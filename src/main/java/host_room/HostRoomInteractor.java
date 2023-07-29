@@ -3,7 +3,6 @@ package host_room;
 import database.RoomDBGateway;
 import models.RoomDBModel;
 import models.RoomModel;
-import models.UserDBModel;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
         List<Integer> activeUsers = request.getActiveUsers();
         activeUsers.add(request.getHost());
         RoomDBModel newRoom = new RoomDBModel(existingRooms.size() + 2, activeUsers,
-                request.getHost(), request.getName());
+                request.getHost(), request.getName(), "");
         database.addARoom(newRoom);
         presenter.prepareRoomView(newRoom.getRoomID());
     }

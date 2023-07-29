@@ -1,41 +1,34 @@
 package join_room;
 
-import database.UserDBGateway;
-import models.UserDBModel;
+import database.*;
+import models.*;
+
 
 import java.util.List;
 
-public class JoinByIDInteractor implements JoinByIDInputBoundary{
+public class JoinByIDInteractor implements JoinByIDInputBoundary {
     private final RoomDBGateway roomDBGateway;
-    private final UserDBGateway userDBGateway;
     private final JoinByIDOutputBoundary presenter;
 
-    public JoinByIDInteractor(RoomDBGateway roomDBGateway, JoinByIDOutputBoundary presenter,
-                              UserDBGateway userDBGateway){
+    public JoinByIDInteractor(RoomDBGateway roomDBGateway, JoinByIDOutputBoundary presenter) {
         this.roomDBGateway = roomDBGateway;
-        this.userDBGateway = userDBGateway;
         this.presenter = presenter;
     }
 
     @Override
-    public void handleJoinByID(JoinByIDRequestModel requestModel){
-        List<RoomDBModel> rooms = roomDBGateway.loadRooms();
-
+    public void handleJoinByID(JoinByIDRequestModel requestModel) {
+        List<RoomDBModel> rooms = roomDBGateway.getRooms();
         for (RoomDBModel room : rooms) {
-            if (room.getName().equals(requestModel.getRoomName())){
-                List<UserDBModel> users = userDBGateway.getUsers();
-                // why retrieve every user ?
-                for (UserDBModel user : users){
-                    if (user.getUserID() == requestModel.getCurrUserID()){
-                        roomDBGateway.updateRoomActiveUsers(user);
-                        presenter.prepareRoomView(room.getRoomID());
-                        break;
-                    }
-                }
+        if (room.getName().equals(requestModel.getName())) {
+                List<Integer> activeUsers = room.getActiveUsers();
+                activeUsers.add(requestModel.getUserID());
+                room.setActiveUsers(activeUsers);
+                roomDBGateway.joinARoom(requestModel.getUserID(), room);
+                presenter.prepareRoomView(room.getRoomID());
+                return; // return here so that prepareFailView is not called in this case
             }
         }
+        // prepareFailView is only called if no matching room is found
         presenter.prepareFailView();
-        }
-
     }
-
+}

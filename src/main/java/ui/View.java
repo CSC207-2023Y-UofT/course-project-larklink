@@ -3,13 +3,14 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class View {
+public abstract class View extends JFrame {
     private static final String TITLE = "Larklink";
-    private static final int WIDTH = 300;
-    private static final int HEIGHT = 200;
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 400;
 
     public static Integer userID;
     public static Integer roomID;
+    protected String messageHistory = ""; // TODO update during join room
 
     private static JFrame currentFrame = null;
 
@@ -22,7 +23,7 @@ public abstract class View {
         JFrame frame = new JFrame(TITLE);
         frame.setLayout(new BorderLayout());
         frame.setSize(WIDTH, HEIGHT);
-        frame.setResizable(false);
+        frame.setResizable(false); //set to false before
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = createPanel();
@@ -33,5 +34,9 @@ public abstract class View {
     }
 
     abstract protected JPanel createPanel();
+
+    public void setMessageHistory(String messageHistory){
+        this.messageHistory = messageHistory;
+    }
 
 }

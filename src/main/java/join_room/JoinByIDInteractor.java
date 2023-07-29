@@ -1,6 +1,7 @@
 package join_room;
 
 import database.*;
+import entities.Room;
 import entities.User;
 import models.*;
 
@@ -17,15 +18,17 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary {
     }
 
     @Override
-    public void handleJoinByID(JoinByIDRequestModel requestModel) {
-        List<RoomDBModel> rooms = roomDBGateway.getRooms();
-        for (RoomDBModel room : rooms) {
-        if (room.getName().equals(requestModel.getName())) {
-                List<Integer> activeUsers = room.getActiveUsers();
+    public void handleJoinByID(String roomName) {
+        List<RoomDBModel> existingRooms = roomDBGateway.getRooms();
+        for (RoomDBModel room : existingRooms) {
+        if (room.getRoomName().equals(roomName)) {
+                List<Integer> activeUsers = room.getActiveUserIDs();
                 activeUsers.add(User.getUserID());
-                room.setActiveUsers(activeUsers);
+                room.setActiveUserIDs(activeUsers);
                 roomDBGateway.joinARoom(User.getUserID(), room);
-                presenter.prepareRoomView(room.getRoomID());
+                Room.setRoom(room.getRoomID(), room.getRoomName(),
+                        room.getHostID(), room.getActiveUserIDs(), room.getMessageHistory());
+                presenter.prepareRoomView(Room.getMessageHistory());
                 return; // return here so that prepareFailView is not called in this case
             }
         }

@@ -12,13 +12,13 @@ public class MessageController {
     /**
 
      */
-    public void handleSendMessage(Integer roomID, String content){
-        MessageModel request = new MessageModel(roomID, content, false);
+    public void handleSendMessage(String content){
+        MessageModel request = new MessageModel(content, false);
         inputBoundary.handleSendMessage(request);
     }
 
-    public void handleRetrieveMessages(Integer roomID, String content){
-        MessageModel request = new MessageModel(roomID, content, false);
+    public void handleRetrieveMessages(String content){
+        MessageModel request = new MessageModel(content, false);
         inputBoundary.handleRetrieveMessages(request);
     }
 }

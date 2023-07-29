@@ -8,9 +8,7 @@ public abstract class View extends JFrame {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    public static Integer roomID;
-    protected String messageHistory = ""; // TODO update during join room
-
+    public static String messageHistory = ""; // TODO update during join room
     private static JFrame currentFrame = null;
 
     public void prepareGUI() {
@@ -33,9 +31,5 @@ public abstract class View extends JFrame {
     }
 
     abstract protected JPanel createPanel();
-
-    public void setMessageHistory(String messageHistory){
-        this.messageHistory = messageHistory;
-    }
 
 }

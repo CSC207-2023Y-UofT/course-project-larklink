@@ -9,8 +9,8 @@ public class JoinByIDPresenter implements JoinByIDOutputBoundary {
     private View view;
     @Override
     //modify later when RoomView is implemented
-    public void prepareRoomView(Integer roomID){
-        View.roomID = roomID;
+    public void prepareRoomView(String messageHistory){
+        View.messageHistory = messageHistory;
         view.prepareGUI();
     }
     @Override

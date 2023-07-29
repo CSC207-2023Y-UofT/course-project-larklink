@@ -1,12 +1,11 @@
 package messaging;
 
 import database.RoomDBGateway;
+import entities.Message;
+import entities.Room;
 import entities.User;
 import models.MessageModel;
 import models.RoomDBModel;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class MessageInteractor implements MessageInputBoundary {
     private final MessageOutputBoundary presenter;
@@ -23,23 +22,21 @@ public class MessageInteractor implements MessageInputBoundary {
      */
     @Override
     public void handleSendMessage(MessageModel request) {
-        RoomDBModel room = database.getARoom(request.getRoomID());
-
-        // If message is empty
+        // if message is empty
         if (request.getContent() == null || request.getContent().isEmpty()) {
             presenter.prepareMessageErrorView();
+            return;
         }
 
-        LocalDateTime timestamp = LocalDateTime.now();
-        String formattedMessage = "[" +
-                timestamp.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] "
-                + User.getUsername() + ": " + request.getContent() + "\n";
+        // create message entity
+        Message msg = new Message(User.getUsername(), request.getContent());
 
-        String updatedMessageHistory = room.getMessageHistory() + formattedMessage;
+        // create roomDBModel to update the DB w/ new message
+        RoomDBModel room = database.getARoom(Room.getRoomID());
+        String updatedMessageHistory = room.getMessageHistory() + msg.getContent();
         room.setMessageHistory(updatedMessageHistory);
-        System.out.println(room.getMessageHistory());
-        database.sendAMessage(room);
 
+        database.sendAMessage(room);
         presenter.prepareRoomView(updatedMessageHistory);
     }
 
@@ -48,7 +45,7 @@ public class MessageInteractor implements MessageInputBoundary {
      */
     @Override
     public void handleRetrieveMessages(MessageModel request) {
-        RoomDBModel room = database.getARoom(request.getRoomID());
+        RoomDBModel room = database.getARoom(Room.getRoomID());
         presenter.prepareRoomView(room.getMessageHistory());
     }
 }

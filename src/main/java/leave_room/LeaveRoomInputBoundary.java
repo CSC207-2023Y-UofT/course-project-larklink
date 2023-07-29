@@ -8,8 +8,6 @@ public interface LeaveRoomInputBoundary {
 
     /**
      * Performs leaving a room for the specified user.
-     *
-     * @param roomID The unique id of the room to leave.
      */
-    void leaveRoom(Integer roomID);
+    void leaveRoom();
 }

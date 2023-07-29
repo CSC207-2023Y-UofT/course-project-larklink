@@ -1,37 +1,39 @@
 package entities;
 
 import java.util.*;
-import java.util.ArrayList;
 
 public class Room {
-    private final int roomID;
-    private final String name;
-    private final User host;
-    private List<User> activeUsers;
-    private List<Message> messageHistory;
+    static private Integer roomID;
+    static private String roomName;
+    static private Integer hostID;
+    static private List<Integer> activeUserIDs;
+    static private String messageHistory;
 
-    public Room(int roomID, String name, User host) {
-        this.roomID = roomID;
-        this.name = name;
-        this.host = host;
-        this.activeUsers = new ArrayList<User>();
-        this.messageHistory = new ArrayList<Message>();
-
-        activeUsers.add(host);
+    public static void setRoom(Integer roomID, String roomName, Integer hostID, List<Integer> activeUserIDs, String messageHistory) {
+        Room.roomID = roomID;
+        Room.roomName = roomName;
+        Room.hostID = hostID;
+        Room.activeUserIDs = activeUserIDs;
+        Room.messageHistory = messageHistory;
     }
 
-    public void addUser(User person) {
-        activeUsers.add(person);
-    }
-    public void removeUser(User person) {
-        activeUsers.remove(person);
+    public static Integer getRoomID() {
+        return Room.roomID;
     }
 
-    public int getRoomID() { return this.roomID; }
-    public String getName() {
-        return this.name;
+    public static String getRoomName() {
+        return Room.roomName;
     }
-    public User getHost() {
-        return this.host;
+
+    public static Integer getHostID() {
+        return Room.hostID;
+    }
+
+    public static List<Integer> getActiveUserIDs() {
+        return Room.activeUserIDs;
+    }
+
+    public static String getMessageHistory() {
+        return Room.messageHistory;
     }
 }

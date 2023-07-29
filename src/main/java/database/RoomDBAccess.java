@@ -66,17 +66,17 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
 
         String messageHistory = jsonObject.get("messageHistory") != null ? jsonObject.get("messageHistory").getAsString() : "";
 
-        return new RoomDBModel(roomID, activeUsers, host, name, messageHistory);
+        return new RoomDBModel(roomID, name, host, activeUsers, messageHistory);
     }
 
     @Override
     protected JsonObject objectToJson(RoomDBModel model) {
         JsonObject roomObject = new JsonObject();
-        roomObject.addProperty("host", model.getHost());
-        roomObject.addProperty("name", model.getName());
+        roomObject.addProperty("host", model.getHostID());
+        roomObject.addProperty("name", model.getRoomName());
 
         JsonArray activeUsers = new JsonArray();
-        for (Integer userId : model.getActiveUsers()) {
+        for (Integer userId : model.getActiveUserIDs()) {
             activeUsers.add(userId);
         }
         roomObject.addProperty("activeUsers", activeUsers.toString());

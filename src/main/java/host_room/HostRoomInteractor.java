@@ -1,6 +1,7 @@
 package host_room;
 
 import database.RoomDBGateway;
+import entities.Room;
 import entities.User;
 import models.RoomDBModel;
 
@@ -21,23 +22,25 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
      * If a room is found with the same host, then the room is not created and a duplicateHostView is prepared
      *
      */
-
     public void hostRoom(String roomName) {
         List<RoomDBModel> existingRooms = database.getRooms();
         Integer hostID = User.getUserID();
 
         for (RoomDBModel existingRoom : existingRooms) {
-            if (existingRoom.getHost().equals(hostID)) {
+            if (existingRoom.getHostID().equals(hostID)) {
                 presenter.prepareMultipleHostingView(); // user already hosting room
                 return;
             }
         }
         List<Integer> activeUsers = new ArrayList<>();
         activeUsers.add(hostID);
-        System.out.println(activeUsers);
-        RoomDBModel newRoom = new RoomDBModel(existingRooms.size() + 2, activeUsers,
-                hostID, roomName, "");
+        Room.setRoom((existingRooms.size() + 2), roomName, hostID, activeUsers, "");
+
+        RoomDBModel newRoom = new RoomDBModel(
+                Room.getRoomID(), Room.getRoomName(), Room.getHostID(),
+                Room.getActiveUserIDs(), Room.getMessageHistory());
+
         database.addARoom(newRoom);
-        presenter.prepareRoomView(newRoom.getRoomID());
+        presenter.prepareRoomView(Room.getMessageHistory());
     }
 }

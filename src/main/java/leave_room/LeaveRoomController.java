@@ -19,10 +19,9 @@ public class LeaveRoomController {
     /**
      * Handles the request to leave a room.
      *
-     * @param roomID The unique id of the room to leave.
      */
-    public void handleLeaveRoom(Integer roomID) {
-        leaveRoomInputBoundary.leaveRoom(roomID);
+    public void handleLeaveRoom() {
+        leaveRoomInputBoundary.leaveRoom();
     }
 }
 

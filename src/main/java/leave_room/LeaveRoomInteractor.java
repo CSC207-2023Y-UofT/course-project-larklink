@@ -1,6 +1,7 @@
 package leave_room;
 
 import database.RoomDBGateway;
+import entities.Room;
 import entities.User;
 import models.RoomDBModel;
 
@@ -16,12 +17,12 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
     }
 
     @Override
-    public void leaveRoom(Integer roomID) {
-        RoomDBModel room = roomDBGateway.getARoom(roomID);
-        List<Integer> activeUsers = room.getActiveUsers();
+    public void leaveRoom() {
+        RoomDBModel room = roomDBGateway.getARoom(Room.getRoomID());
+        List<Integer> activeUsers = room.getActiveUserIDs();
         if (activeUsers.contains(User.getUserID())) {
             activeUsers.remove(User.getUserID());
-            room.setActiveUsers(activeUsers);
+            room.setActiveUserIDs(activeUsers);
             roomDBGateway.leaveARoom(room);
             leaveRoomOutputBoundary.prepareJoinOrHostView();
             return;

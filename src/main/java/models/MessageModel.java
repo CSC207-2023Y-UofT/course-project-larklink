@@ -1,7 +1,6 @@
 package models;
 
 public class MessageModel {
-    private final Integer roomID;
     private final String content;
     private final Boolean isLark;
 
@@ -11,14 +10,9 @@ public class MessageModel {
      * @param content the content
      * @param isLark  whether the message was a Lark
      */
-    public MessageModel(Integer roomID, String content, Boolean isLark){
-        this.roomID = roomID;
+    public MessageModel(String content, Boolean isLark){
         this.content = content;
         this.isLark = isLark;
-    }
-
-    public Integer getRoomID(){
-        return this.roomID;
     }
 
     /**

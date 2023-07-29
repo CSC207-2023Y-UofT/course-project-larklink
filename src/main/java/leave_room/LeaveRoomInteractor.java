@@ -22,7 +22,7 @@ public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
             activeUsers.remove(currUserId);
             room.setActiveUsers(activeUsers);
             roomDBGateway.leaveARoom(room);
-            leaveRoomOutputBoundary.prepareJoinOrHostView();
+            leaveRoomOutputBoundary.prepareJoinOrHostView(currUserId);
             return;
         }
         leaveRoomOutputBoundary.prepareFailedToLeaveRoomView();

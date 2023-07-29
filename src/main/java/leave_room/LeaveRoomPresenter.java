@@ -16,7 +16,8 @@ public class LeaveRoomPresenter implements LeaveRoomOutputBoundary {
      * Prepares and displays the view for successful leave by showing a success message.
      */
     @Override
-    public void prepareJoinOrHostView() {
+    public void prepareJoinOrHostView(int userID) {
+        View.userID = userID;
         view.prepareGUI();
     }
 

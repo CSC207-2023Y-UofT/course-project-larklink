@@ -1,7 +1,6 @@
 package database;
 
 import com.google.gson.JsonObject;
-import models.UserDBModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

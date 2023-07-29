@@ -1,4 +1,4 @@
-package models;
+package messaging;
 
 public class MessageModel {
     private final String content;

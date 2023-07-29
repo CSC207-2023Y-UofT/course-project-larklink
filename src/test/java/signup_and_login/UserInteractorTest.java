@@ -1,8 +1,6 @@
 package signup_and_login;
 
-import database.UserDBGateway;
-import models.UserModel;
-import models.UserDBModel;
+import database.UserDBModel;
 import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

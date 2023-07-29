@@ -1,18 +1,16 @@
 package messaging;
 
-import database.RoomDBGateway;
 import entities.Message;
 import entities.Room;
 import entities.User;
-import models.MessageModel;
-import models.RoomDBModel;
+import database.RoomDBModel;
 
 public class MessageInteractor implements MessageInputBoundary {
     private final MessageOutputBoundary presenter;
-    private final RoomDBGateway database;
+    private final MessageDBGateway database;
 
 
-    public MessageInteractor(RoomDBGateway database, MessageOutputBoundary presenter) {
+    public MessageInteractor(MessageDBGateway database, MessageOutputBoundary presenter) {
         this.presenter = presenter;
         this.database = database;
     }

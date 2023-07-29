@@ -1,18 +1,17 @@
 package host_room;
 
-import database.RoomDBGateway;
 import entities.Room;
 import entities.User;
-import models.RoomDBModel;
+import database.RoomDBModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HostRoomInteractor implements HostRoomInputBoundary{
-    private final RoomDBGateway database;
+    private final HostRoomDBGateway database;
     private final HostRoomOutputBoundary presenter;
 
-    public HostRoomInteractor(RoomDBGateway database, HostRoomOutputBoundary presenter) {
+    public HostRoomInteractor(HostRoomDBGateway database, HostRoomOutputBoundary presenter) {
         this.database = database;
         this.presenter = presenter;
     }

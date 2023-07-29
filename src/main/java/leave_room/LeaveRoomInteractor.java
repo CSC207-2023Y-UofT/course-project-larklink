@@ -1,17 +1,16 @@
 package leave_room;
 
-import database.RoomDBGateway;
 import entities.Room;
 import entities.User;
-import models.RoomDBModel;
+import database.RoomDBModel;
 
 import java.util.List;
 
 public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
-    private final RoomDBGateway roomDBGateway;
+    private final LeaveRoomDBGateway roomDBGateway;
     private final LeaveRoomOutputBoundary leaveRoomOutputBoundary;
 
-    public LeaveRoomInteractor(RoomDBGateway roomDBGateway, LeaveRoomOutputBoundary leaveRoomOutputBoundary) {
+    public LeaveRoomInteractor(LeaveRoomDBGateway roomDBGateway, LeaveRoomOutputBoundary leaveRoomOutputBoundary) {
         this.roomDBGateway = roomDBGateway;
         this.leaveRoomOutputBoundary = leaveRoomOutputBoundary;
     }

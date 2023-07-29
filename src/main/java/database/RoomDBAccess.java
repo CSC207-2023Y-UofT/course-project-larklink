@@ -4,12 +4,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import models.RoomDBModel;
+import host_room.HostRoomDBGateway;
+import join_room.JoinByIDDBGateway;
+import leave_room.LeaveRoomDBGateway;
+import messaging.MessageDBGateway;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway {
+public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinByIDDBGateway,
+        LeaveRoomDBGateway, MessageDBGateway {
     public RoomDBAccess(String urlBase) {
         super(urlBase);
     }
@@ -17,11 +21,6 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     @Override
     public List<RoomDBModel> getRooms() {
         return getRows();
-    }
-
-    @Override
-    public RoomDBModel getARoom(Integer roomID) {
-        return retrieveARow(roomID);
     }
 
     @Override
@@ -37,6 +36,11 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements RoomDBGateway
     @Override
     public void leaveARoom(RoomDBModel room) {
         modifyARow(room.getRoomID(), room);
+    }
+
+    @Override
+    public RoomDBModel getARoom(Integer roomID) {
+        return retrieveARow(roomID);
     }
 
     @Override

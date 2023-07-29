@@ -1,7 +1,5 @@
 package messaging;
 
-import models.MessageModel;
-
 public class MessageController {
     private final MessageInputBoundary inputBoundary;
 

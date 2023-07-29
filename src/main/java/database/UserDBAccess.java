@@ -1,7 +1,7 @@
 package database;
 
 import com.google.gson.JsonObject;
-import models.UserDBModel;
+import signup_and_login.UserDBGateway;
 
 import java.util.List;
 

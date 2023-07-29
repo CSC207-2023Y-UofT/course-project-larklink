@@ -1,18 +1,16 @@
 package join_room;
 
-import database.*;
 import entities.Room;
 import entities.User;
-import models.*;
-
+import database.RoomDBModel;
 
 import java.util.List;
 
 public class JoinByIDInteractor implements JoinByIDInputBoundary {
-    private final RoomDBGateway roomDBGateway;
+    private final JoinByIDDBGateway roomDBGateway;
     private final JoinByIDOutputBoundary presenter;
 
-    public JoinByIDInteractor(RoomDBGateway roomDBGateway, JoinByIDOutputBoundary presenter) {
+    public JoinByIDInteractor(JoinByIDDBGateway roomDBGateway, JoinByIDOutputBoundary presenter) {
         this.roomDBGateway = roomDBGateway;
         this.presenter = presenter;
     }

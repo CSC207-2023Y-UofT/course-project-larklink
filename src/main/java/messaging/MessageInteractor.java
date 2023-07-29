@@ -72,7 +72,7 @@ public class MessageInteractor implements MessageInputBoundary {
     public void handleRetrieveMessages(MessageModel request) {
         RoomDBModel room = database.getARoom(request.getRoomID());
         String messageHistory = room.getMessageHistory();
-        if (messageHistory.contains("Lark")) {
+        if (messageHistory.toLowerCase().contains(" lark ")) {
             playLarkSound();
         }
         presenter.prepareRoomView(messageHistory);

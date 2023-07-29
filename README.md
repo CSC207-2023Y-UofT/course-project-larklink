@@ -48,6 +48,9 @@ which is to handle the interaction between layers for feature related operations
 as it is designed to interact with abstractions (InputBoundary and OutputBoundary) rather than concrete implementations. 
 This allows for potential extensions or modifications to the behavior of the interactor without modifying its existing code.
 
+**Interface Segregation Principle (ISP)**: Since we aimed to break down the classes into small pieces according to SRP, all interfaces are 
+specific to each class which each interface is implemented. 
+
 **Liskov Substitution Principle (LSP)**: All subclasses that inherit superclass `View` are overriding the abstract method `prepareGUI`
 and all classes that implement interfaces implemented all methods in corresponding interfaces appropriately. Therefore, all these classes
 can be used interchangeably with `View` or each corresponding interface without unexpected error.
@@ -59,7 +62,7 @@ database through `UserDBGateway`. Hence, `UserInteractor` does not depend on out
 This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
 ## Design Patterns
-TODO - Mention View Builder Pattern and ??? 
+TODO - Singleton pattern
 
 ## Test Coverage
 We intended to test the controller, interactor and presenter for each feature and test for the database (room db and user db).

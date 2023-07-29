@@ -1,5 +1,6 @@
 package leave_room;
 
+import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,8 +23,8 @@ class LeaveRoomPresenterTest {
     @Test
     void testPrepareJoinOrHostView() {
         int userID = 1;
-        leaveRoomPresenter.prepareJoinOrHostView(userID);
-        assert(View.userID == userID);
+        leaveRoomPresenter.prepareJoinOrHostView();
+        assert(User.getUserID() == userID);
         verify(mockView, times(1)).prepareGUI();
     }
 }

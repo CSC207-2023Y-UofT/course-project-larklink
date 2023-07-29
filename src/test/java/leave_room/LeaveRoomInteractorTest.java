@@ -32,18 +32,18 @@ public class LeaveRoomInteractorTest {
 
     @Test
     public void testLeaveRoomSuccessfully() {
-        RoomDBModel room = new RoomDBModel(roomID, new ArrayList<>(Arrays.asList(userID, userID2)), userID2, "Test Room", "");
+        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)),"");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
-        leaveRoomInteractor.leaveRoom(roomID, userID);
+        leaveRoomInteractor.leaveRoom();
         verify(roomDBGatewayMock, times(1)).leaveARoom(room);
-        verify(leaveRoomOutputBoundaryMock, times(1)).prepareJoinOrHostView(userID);
+        verify(leaveRoomOutputBoundaryMock, times(1)).prepareJoinOrHostView();
     }
 
     @Test
     public void testLeaveRoomFailed() {
-        RoomDBModel room = new RoomDBModel(roomID, new ArrayList<>(Arrays.asList(userID2)), userID2, "Test Room", "");
+        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID2)),"");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
-        leaveRoomInteractor.leaveRoom(roomID, userID);
+        leaveRoomInteractor.leaveRoom();
         verify(roomDBGatewayMock, never()).leaveARoom(room);
         verify(leaveRoomOutputBoundaryMock, times(1)).prepareFailedToLeaveRoomView();
     }

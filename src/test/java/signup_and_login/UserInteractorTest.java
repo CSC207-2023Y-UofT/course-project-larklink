@@ -24,7 +24,6 @@ public class UserInteractorTest {
     @Mock
     private UserDBGateway database;
 
-    private Integer testUserID;
     private String testUsername;
     private String testPassword;
     private List<UserDBModel> users;
@@ -35,7 +34,7 @@ public class UserInteractorTest {
         userInteractor = new UserInteractor(presenter, database);
 
         // initialize shared variables
-        testUserID = 2;
+        int testUserID = 2;
         testUsername = "testUser";
         testPassword = "testPassword";
         String hashedPassword = User.hashPassword(testPassword);
@@ -49,7 +48,7 @@ public class UserInteractorTest {
         UserModel existingUser = new UserModel(testUsername, testPassword);
         userInteractor.handleUser(existingUser);
 
-        verify(presenter).prepareJoinOrHostView(testUserID);
+        verify(presenter).prepareJoinOrHostView();
         verify(database, never()).addAUser(any(UserDBModel.class));
     }
 
@@ -78,6 +77,6 @@ public class UserInteractorTest {
         assert addedUser.getUserID() == 3; // since testUserID == 2
         assert addedUser.getUsername().equals(newUser.getUsername()); // check that we passed in the right username
         assert User.checkPassword(newUser.getPassword(), addedUser.getPassword()); // check that we passed in the right password
-        verify(presenter).prepareJoinOrHostView(3);
+        verify(presenter).prepareJoinOrHostView();
     }
 }

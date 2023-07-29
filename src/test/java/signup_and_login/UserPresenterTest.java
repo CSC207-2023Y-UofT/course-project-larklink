@@ -1,5 +1,6 @@
 package signup_and_login;
 
+import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,8 +23,8 @@ class UserPresenterTest {
     @Test
     void testPrepareJoinOrHostView() {
         int userID = 1;
-        userPresenter.prepareJoinOrHostView(userID);
-        assert(View.userID == userID); // check that View's userID was set properly
+        userPresenter.prepareJoinOrHostView();
+        assert(User.getUserID() == userID); // check that User's userID was set properly
         verify(mockView, times(1)).prepareGUI(); // check that prepareGUI was called
     }
 

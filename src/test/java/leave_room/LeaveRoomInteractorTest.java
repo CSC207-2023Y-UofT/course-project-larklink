@@ -7,6 +7,8 @@ import database.*;
 import models.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 public class LeaveRoomInteractorTest {
@@ -30,7 +32,7 @@ public class LeaveRoomInteractorTest {
 
     @Test
     public void testLeaveRoomSuccessfully() {
-        RoomDBModel room = new RoomDBModel(roomID, new ArrayList<>(Arrays.asList(userID, userID2)), userID2, "Test Room");
+        RoomDBModel room = new RoomDBModel(roomID, new ArrayList<>(Arrays.asList(userID, userID2)), userID2, "Test Room", "");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom(roomID, userID);
         verify(roomDBGatewayMock, times(1)).leaveARoom(room);
@@ -39,7 +41,7 @@ public class LeaveRoomInteractorTest {
 
     @Test
     public void testLeaveRoomFailed() {
-        RoomDBModel room = new RoomDBModel(roomID, new ArrayList<>(Arrays.asList(userID2)), userID2, "Test Room");
+        RoomDBModel room = new RoomDBModel(roomID, new ArrayList<>(Arrays.asList(userID2)), userID2, "Test Room", "");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom(roomID, userID);
         verify(roomDBGatewayMock, never()).leaveARoom(room);

@@ -31,23 +31,43 @@ Here you can send a message and get messages from other users. If you try to sen
 ### Leave a Room
 If you click **Leave Room** on chat room screen, you can leave the room and you'll be prompted to host or join screen again.
 ## Clean Architecture
-Separation of Concerns: The nteractor is part of the application core, and it is responsible for handling the business logic related to sending and retrieving messages. It communicates with the outer layers (presenter and database) through interfaces (InputBoundary, OutputBoundary, and DBGateway), ensuring a clear separation of concerns between different layers of the application.
-The Interactor does not have any direct dependencies on specific frameworks or libraries. Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. This design ensures that the core business logic remains agnostic of the technologies used in the outer layers.
+Separation of Concerns: 
+The interactor is part of the application core, and it is responsible for handling the business logic related to corresponding use case. 
+It communicates with the outer layers (controller, presenter and database) through interfaces (InputBoundary, OutputBoundary, and DBGateway), 
+ensuring a clear separation of concerns between different layers of the application.
+The Interactor does not have any direct dependencies on specific frameworks or libraries. 
+Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. 
+This design ensures that the core business logic remains agnostic of the technologies used in the outer layers.
+In addition, inputs from users and data from DB are encapsulated as input models and DB models to decouple the layers. 
 ## Solid Principle
-Single Responsibility Principle (SRP): All Interactor classes appears to have a single responsibility, which is to handle the interaction between the presenter and the database for feature related operations. 
+Single Responsibility Principle (SRP): All classes and interfaces appears to have a single responsibility, 
+which is to handle the interaction between layers for feature related operations. 
 
-Open/Closed Principle (OCP): The Interactor class seems to be open for extension, as it is designed to interact with abstractions (InputBoundary and OutputBoundary) rather than concrete implementations. This allows for potential extensions or modifications to the behavior of the interactor without modifying its existing code.
+Open/Closed Principle (OCP): The Interactor class seems to be open for extension, 
+as it is designed to interact with abstractions (InputBoundary and OutputBoundary) rather than concrete implementations. 
+This allows for potential extensions or modifications to the behavior of the interactor without modifying its existing code.
 
-Liskov Substitution Principle (LSP): Since the Interactor implements the InputBoundary interface, it can be used interchangeably with other implementations of that interface. Any class that expects a InputBoundary can work correctly with the Interactor.
+Liskov Substitution Principle (LSP): Since the Interactor implements the InputBoundary interface, 
+it can be used interchangeably with other implementations of that interface. 
+Any class that expects a InputBoundary can work correctly with the Interactor.
 
-Dependency Inversion Principle (DIP): The Interactor depends on abstractions (MessageInputBoundary and MessageOutputBoundary) rather than concrete implementations. This inversion of dependencies allows for easier swapping of different implementations without affecting the MessageInteractor class.
+Dependency Inversion Principle (DIP): The Interactor depends on abstractions (MessageInputBoundary and MessageOutputBoundary) 
+rather than concrete implementations. This inversion of dependencies allows for easier swapping of different implementations 
+without affecting the Message Interactor class.
+
 ## Design Patterns
 TODO - Mention View Builder Pattern and ??? 
 
 ## Test Coverage
 We intended to test the controller, interactor and presenter for each feature and test for the database (room db and user db).
+
 ## Java Doc
 TODO
+
 ## Packaging
-We divide the package based on our use case such as send messsage, sign up and login, join or host a room, leave a room.
+Entity: `src/main/java/entities`
+Use case: `src/main/java/use_case`
+Input and data model: `src/main/java/models`
+Gateway and DBAccess: `src/main/java/database`
+View: `src/main/java/ui`
 

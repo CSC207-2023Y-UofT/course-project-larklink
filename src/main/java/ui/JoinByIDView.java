@@ -1,6 +1,6 @@
 package ui;
 
-import join_room.JoinByIDController;
+import use_case.join_room.JoinByIDController;
 
 import javax.swing.*;
 import java.awt.*;

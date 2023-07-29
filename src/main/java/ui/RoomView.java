@@ -1,7 +1,7 @@
 package ui;
 
-import leave_room.LeaveRoomController;
-import messaging.MessageController;
+import use_case.leave_room.LeaveRoomController;
+import use_case.messaging.MessageController;
 import javax.swing.*;
 import java.awt.*;
 

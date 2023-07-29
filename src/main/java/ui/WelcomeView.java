@@ -1,6 +1,6 @@
 package ui;
 
-import signup_and_login.UserController;
+import use_case.signup_and_login.UserController;
 
 import javax.swing.*;
 import java.awt.*;

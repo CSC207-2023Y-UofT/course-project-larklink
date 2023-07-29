@@ -1,11 +1,14 @@
 package leave_room;
 
+import entities.Room;
+import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import database.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -30,6 +33,9 @@ public class LeaveRoomInteractorTest {
 
     @Test
     public void testLeaveRoomSuccessfully() {
+        Room.setRoom(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)), ""); // simulate getting a room
+        User.setUser(userID, "", ""); // simulate logging in a user
+
         RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)),"");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
@@ -39,7 +45,10 @@ public class LeaveRoomInteractorTest {
 
     @Test
     public void testLeaveRoomFailed() {
-        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID2)),"");
+        Room.setRoom(roomID, "Test Room", userID2, new ArrayList<>(List.of(userID2)), ""); // simulate getting a room
+        User.setUser(userID, "", ""); // simulate logging in a user
+
+        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(List.of(userID2)),"");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
         verify(roomDBGatewayMock, never()).leaveARoom(room);

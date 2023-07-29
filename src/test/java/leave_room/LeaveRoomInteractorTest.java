@@ -4,16 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import database.*;
-import models.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
 
 public class LeaveRoomInteractorTest {
     private LeaveRoomInteractor leaveRoomInteractor;
-    private RoomDBGateway roomDBGatewayMock;
+    private LeaveRoomDBGateway roomDBGatewayMock;
     private LeaveRoomOutputBoundary leaveRoomOutputBoundaryMock;
     private int roomID;
     private int userID;
@@ -25,7 +23,7 @@ public class LeaveRoomInteractorTest {
         userID = 111;
         userID2 = 222;
 
-        roomDBGatewayMock = Mockito.mock(RoomDBGateway.class);
+        roomDBGatewayMock = Mockito.mock(LeaveRoomDBGateway.class);
         leaveRoomOutputBoundaryMock = Mockito.mock(LeaveRoomOutputBoundary.class);
         leaveRoomInteractor = new LeaveRoomInteractor(roomDBGatewayMock, leaveRoomOutputBoundaryMock);
     }

@@ -3,7 +3,6 @@ package host_room;
 import database.RoomDBGateway;
 import models.RoomDBModel;
 import models.RoomModel;
-import models.UserDBModel;
 
 import java.util.List;
 

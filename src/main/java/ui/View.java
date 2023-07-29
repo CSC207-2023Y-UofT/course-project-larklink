@@ -23,7 +23,7 @@ public abstract class View extends JFrame {
         JFrame frame = new JFrame(TITLE);
         frame.setLayout(new BorderLayout());
         frame.setSize(WIDTH, HEIGHT);
-        frame.setResizable(false); //set to false before
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = createPanel();

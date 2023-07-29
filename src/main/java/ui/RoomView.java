@@ -71,7 +71,3 @@ public class RoomView extends View {
         return panel;
     }
 }
-//Tasks
-//Todo: handleRetrieveMessages
-//ToDO: Update Messages
-//ToDo: SendLark

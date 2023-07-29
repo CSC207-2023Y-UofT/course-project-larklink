@@ -66,6 +66,7 @@ TODO - Singleton pattern
 
 ## Test Coverage
 We intended to test the controller, interactor and presenter for each feature and test for the database (room db and user db).
+TODO
 
 ## Java Doc
 TODO

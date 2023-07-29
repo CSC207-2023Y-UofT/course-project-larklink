@@ -1,20 +1,12 @@
 import database.*;
-import host_room.HostRoomController;
-import host_room.HostRoomInteractor;
-import host_room.HostRoomPresenter;
+import host_room.*;
 import join_room.JoinByIDController;
 import join_room.JoinByIDInteractor;
 import join_room.JoinByIDPresenter;
+import leave_room.*;
+import messaging.*;
+import signup_and_login.*;
 import ui.*;
-import leave_room.LeaveRoomController;
-import leave_room.LeaveRoomInteractor;
-import leave_room.LeaveRoomPresenter;
-import messaging.MessageController;
-import messaging.MessageInteractor;
-import messaging.MessagePresenter;
-import signup_and_login.UserController;
-import signup_and_login.UserInteractor;
-import signup_and_login.UserPresenter;
 
 public class Main {
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";

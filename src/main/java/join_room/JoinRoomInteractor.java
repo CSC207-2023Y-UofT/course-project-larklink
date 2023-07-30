@@ -6,17 +6,29 @@ import database.RoomDBModel;
 
 import java.util.List;
 
-public class JoinByIDInteractor implements JoinByIDInputBoundary {
-    private final JoinByIDDBGateway roomDBGateway;
-    private final JoinByIDOutputBoundary presenter;
+/**
+ * An interactor for join room use case.
+ * This class implements JoinRoomInputBoundary to interact with user inputs from outer layer.
+ */
+public class JoinRoomInteractor implements JoinRoomInputBoundary {
+    private final JoinRoomDBGateway roomDBGateway;
+    private final JoinRoomOutputBoundary presenter;
 
-    public JoinByIDInteractor(JoinByIDDBGateway roomDBGateway, JoinByIDOutputBoundary presenter) {
+    public JoinRoomInteractor(JoinRoomDBGateway roomDBGateway, JoinRoomOutputBoundary presenter) {
         this.roomDBGateway = roomDBGateway;
         this.presenter = presenter;
     }
 
+    /**
+     * Handles join room use case using inputs from user which are encapsulated in requestModel.
+     * If a room with the given room name does not exist in room DB, it prepares a fail view showing error message.
+     * If a room with the given room name exists in room DB, it prepares RoomView and user is saved to that room.
+     *
+     * @param roomName the name of room that user tries to join in
+     */
+
     @Override
-    public void handleJoinByID(String roomName) {
+    public void handleJoinRoom(String roomName) {
         List<RoomDBModel> existingRooms = roomDBGateway.getRooms();
         for (RoomDBModel room : existingRooms) {
         if (room.getRoomName().equals(roomName)) {

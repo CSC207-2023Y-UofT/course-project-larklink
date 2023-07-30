@@ -1,7 +1,7 @@
 package ui;
 
 import host_room.HostRoomController;
-import join_room.JoinByIDController;
+import join_room.JoinRoomController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +11,13 @@ public class JoinOrHostView extends View {
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{5,}$");
     private static final int MIN_PASSWORD_LENGTH = 5;
     private final HostRoomController hostRoomController;
-    private final JoinByIDController joinByIDController;
+    private final JoinRoomController joinRoomController;
 
     private JTextField roomField;
 
-    public JoinOrHostView(HostRoomController hostRoomController, JoinByIDController joinByIDController) {
+    public JoinOrHostView(HostRoomController hostRoomController, JoinRoomController joinRoomController) {
         this.hostRoomController = hostRoomController;
-        this.joinByIDController = joinByIDController;
+        this.joinRoomController = joinRoomController;
     }
 
     @Override
@@ -75,8 +75,8 @@ public class JoinOrHostView extends View {
 
         JButton joinButton = new JButton("Join");
         joinButton.addActionListener(e -> {
-            JoinByIDView joinByIDView = new JoinByIDView(joinByIDController);
-            joinByIDView.prepareGUI();
+            JoinRoomView joinRoomView = new JoinRoomView(joinRoomController);
+            joinRoomView.prepareGUI();
         });
         return joinButton;
     }

@@ -1,16 +1,16 @@
 package ui;
 
-import join_room.JoinByIDController;
+import join_room.JoinRoomController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class JoinByIDView extends View {
+public class JoinRoomView extends View {
 
     private JTextField nameField;
-    private final JoinByIDController controller;
+    private final JoinRoomController controller;
 
-    public JoinByIDView(JoinByIDController controller){
+    public JoinRoomView(JoinRoomController controller){
         this.controller = controller;
     }
 
@@ -38,7 +38,7 @@ public class JoinByIDView extends View {
                 return;
             }
 
-            controller.formatAndHandleJoinByID(roomName);
+            controller.formatAndHandleJoinRoom(roomName);
         });
         return submitButton;
     }

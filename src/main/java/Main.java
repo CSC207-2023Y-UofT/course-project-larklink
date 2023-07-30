@@ -10,6 +10,7 @@ import ui.*;
 
 public class Main {
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";
+    private static final String larkSoundFilePath = "/src/main/assets/lark_sound.wav";
     public static void main(String[] args) {
         UserDBGateway userDBAccess = new UserDBAccess(API_URL);
         RoomDBGateway roomDBAccess = new RoomDBAccess(API_URL);
@@ -23,7 +24,7 @@ public class Main {
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
         MessagePresenter sendMessagePresenter = new MessagePresenter();
-        MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter);
+        MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter, larkSoundFilePath);
         MessageController sendMessageController = new MessageController(interactor);
         RoomView roomView = new RoomView(leaveRoomController, sendMessageController);
 

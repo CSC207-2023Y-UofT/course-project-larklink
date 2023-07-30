@@ -2,9 +2,9 @@ package ui;
 
 import leave_room.LeaveRoomController;
 import messaging.MessageController;
+
 import javax.swing.*;
 import java.awt.*;
-
 
 public class RoomView extends View {
     private final LeaveRoomController leaveRoomController;
@@ -12,7 +12,13 @@ public class RoomView extends View {
     private JTextField messageTextField;
     private JTextArea chatTextArea;
 
-    public RoomView(LeaveRoomController leaveRoomController, MessageController sendMessageController){
+    /**
+     * Constructs a RoomView object.
+     *
+     * @param leaveRoomController    The controller for leaving the room.
+     * @param sendMessageController  The controller for sending and retrieving messages in the room.
+     */
+    public RoomView(LeaveRoomController leaveRoomController, MessageController sendMessageController) {
         this.leaveRoomController = leaveRoomController;
         this.sendMessageController = sendMessageController;
     }
@@ -35,31 +41,22 @@ public class RoomView extends View {
         // Create a JTextField to enter messages
         messageTextField = new JTextField(30);
 
-
-
-        // Create a SendMessage
+        // Create a SendMessage Button
         JButton sendMessageButton = new JButton("Send Message");
-        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText(),false));
-
-
-        // Send Lark Button
-        JButton sendLarkButton = new JButton("Send Lark");
-        sendLarkButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText(), true));
-
-
-        // Leave Room
-        JButton leaveButton = new JButton("Leave Room");
-        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID, userID));
+        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText(), false));
 
         // Refresh Button
         JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages(roomID, userID,messageTextField.getText()));
+        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages(roomID, userID, messageTextField.getText()));
+
+        // Leave Room Button
+        JButton leaveButton = new JButton("Leave Room");
+        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID, userID));
 
         JPanel inputPanel = new JPanel(new BorderLayout(10, 0));
         inputPanel.add(messageTextField, BorderLayout.CENTER);
         inputPanel.add(sendMessageButton, BorderLayout.LINE_END);
-        inputPanel.add(sendLarkButton, BorderLayout.LINE_START);
-        inputPanel.add(refreshButton, BorderLayout.PAGE_END);
+        inputPanel.add(refreshButton, BorderLayout.LINE_START);
 
         JPanel chatPanel = new JPanel(new BorderLayout());
         chatPanel.add(scrollPane, BorderLayout.CENTER);

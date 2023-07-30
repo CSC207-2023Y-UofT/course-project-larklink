@@ -19,10 +19,9 @@ public class MessageController {
      * @param roomID  The ID of the room where the message is sent.
      * @param sender  The ID of the message sender.
      * @param content The content of the message.
-     * @param isLark  A boolean indicating whether the message is a lark.
      */
-    public void handleSendMessage(Integer roomID, Integer sender, String content, Boolean isLark) {
-        MessageModel request = new MessageModel(roomID, content, sender, isLark);
+    public void handleSendMessage(Integer roomID, Integer sender, String content) {
+        MessageModel request = new MessageModel(roomID, content, sender);
         inputBoundary.handleSendMessage(request);
     }
 
@@ -34,7 +33,7 @@ public class MessageController {
      * @param content The content of the message (not used in retrieval, set to a default value).
      */
     public void handleRetrieveMessages(Integer roomID, Integer sender, String content) {
-        MessageModel request = new MessageModel(roomID, content, sender, false);
+        MessageModel request = new MessageModel(roomID, content, sender);
         inputBoundary.handleRetrieveMessages(request);
     }
 }

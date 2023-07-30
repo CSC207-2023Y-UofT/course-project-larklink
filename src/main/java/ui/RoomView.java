@@ -43,7 +43,7 @@ public class RoomView extends View {
 
         // Create a SendMessage Button
         JButton sendMessageButton = new JButton("Send Message");
-        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText(), false));
+        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText()));
 
         // Refresh Button
         JButton refreshButton = new JButton("Refresh");

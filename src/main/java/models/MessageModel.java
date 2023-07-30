@@ -4,20 +4,17 @@ public class MessageModel {
     private final Integer roomID;
     private final String content;
     private final Integer sender;
-    private final Boolean isLark;
 
     /**
      * Construct a message model
      *
      * @param content the content
-     * @param sender  a sender
-     * @param isLark  whether the message was a Lark
+     * @param sender a sender
      */
-    public MessageModel(Integer roomID, String content, Integer sender, Boolean isLark){
+    public MessageModel(Integer roomID, String content, Integer sender){
         this.roomID = roomID;
         this.content = content;
         this.sender = sender;
-        this.isLark = isLark;
     }
 
     public Integer getRoomID(){
@@ -38,13 +35,5 @@ public class MessageModel {
      */
     public Integer getSender(){
         return this.sender;
-    }
-
-    /**
-
-     * @return whether the message is sent as a Lark
-     */
-    public Boolean getIsLark(){
-        return this.isLark;
     }
 }

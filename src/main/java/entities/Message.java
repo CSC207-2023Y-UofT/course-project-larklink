@@ -18,6 +18,8 @@ public class Message {
         return this.content;
     }
 
+    public LocalDateTime getTimestamp() { return this.timestamp; }
+
     private String formatMessage(String content) {
         return "[" + timestamp.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] "
                 + sender + ": " + content + "\n";

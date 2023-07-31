@@ -18,10 +18,8 @@ public class LeaveRoomControllerTest {
 
     @Test
     public void testHandleLeaveRoom() {
-        int roomID = 1;
-        int userID = 111;
-        leaveRoomController.handleLeaveRoom(roomID, userID);
-        verify(leaveRoomInputBoundaryMock, times(1)).leaveRoom(roomID, userID);
+        leaveRoomController.handleLeaveRoom();
+        verify(leaveRoomInputBoundaryMock, times(1)).leaveRoom();
     }
 }
 

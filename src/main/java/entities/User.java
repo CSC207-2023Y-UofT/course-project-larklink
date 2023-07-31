@@ -3,26 +3,26 @@ package entities;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
-    final private int userID;
-    final private String username;
-    final private String password;
+    static private Integer userID;
+    static private String username;
+    static private String password;
 
-    public User(int userID, String username, String password) {
-        this.userID = userID;
-        this.username = username;
-        this.password = password;
+    public static void setUser(Integer userID, String username, String plainPassword) {
+        User.userID = userID;
+        User.username = username;
+        User.password = hashPassword(plainPassword);
     }
 
-    public int getUserID() {
-        return this.userID;
+    public static Integer getUserID() {
+        return userID;
     }
 
-    public String getUsername() {
-        return this.username;
+    public static String getUsername() {
+        return username;
     }
 
-    public String getPassword() {
-        return this.password;
+    public static String getPassword() {
+        return password;
     }
 
     // hash a password for the first time

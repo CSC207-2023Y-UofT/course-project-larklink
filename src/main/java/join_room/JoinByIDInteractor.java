@@ -1,30 +1,32 @@
 package join_room;
 
-import database.*;
-import models.*;
-
+import entities.Room;
+import entities.User;
+import database.RoomDBModel;
 
 import java.util.List;
 
 public class JoinByIDInteractor implements JoinByIDInputBoundary {
-    private final RoomDBGateway roomDBGateway;
+    private final JoinByIDDBGateway roomDBGateway;
     private final JoinByIDOutputBoundary presenter;
 
-    public JoinByIDInteractor(RoomDBGateway roomDBGateway, JoinByIDOutputBoundary presenter) {
+    public JoinByIDInteractor(JoinByIDDBGateway roomDBGateway, JoinByIDOutputBoundary presenter) {
         this.roomDBGateway = roomDBGateway;
         this.presenter = presenter;
     }
 
     @Override
-    public void handleJoinByID(JoinByIDRequestModel requestModel) {
-        List<RoomDBModel> rooms = roomDBGateway.getRooms();
-        for (RoomDBModel room : rooms) {
-        if (room.getName().equals(requestModel.getName())) {
-                List<Integer> activeUsers = room.getActiveUsers();
-                activeUsers.add(requestModel.getUserID());
-                room.setActiveUsers(activeUsers);
-                roomDBGateway.joinARoom(requestModel.getUserID(), room);
-                presenter.prepareRoomView(room.getRoomID());
+    public void handleJoinByID(String roomName) {
+        List<RoomDBModel> existingRooms = roomDBGateway.getRooms();
+        for (RoomDBModel room : existingRooms) {
+        if (room.getRoomName().equals(roomName)) {
+                List<Integer> activeUsers = room.getActiveUserIDs();
+                activeUsers.add(User.getUserID());
+                room.setActiveUserIDs(activeUsers);
+                roomDBGateway.joinARoom(User.getUserID(), room);
+                Room.setRoom(room.getRoomID(), room.getRoomName(),
+                        room.getHostID(), room.getActiveUserIDs(), room.getMessageHistory());
+                presenter.prepareRoomView(Room.getMessageHistory());
                 return; // return here so that prepareFailView is not called in this case
             }
         }

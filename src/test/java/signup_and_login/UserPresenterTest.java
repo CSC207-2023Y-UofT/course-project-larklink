@@ -21,9 +21,7 @@ class UserPresenterTest {
 
     @Test
     void testPrepareJoinOrHostView() {
-        int userID = 1;
-        userPresenter.prepareJoinOrHostView(userID);
-        assert(View.userID == userID); // check that View's userID was set properly
+        userPresenter.prepareJoinOrHostView();
         verify(mockView, times(1)).prepareGUI(); // check that prepareGUI was called
     }
 

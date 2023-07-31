@@ -1,12 +1,11 @@
 package messaging;
 
-import database.RoomDBGateway;
-import models.MessageModel;
-import models.RoomDBModel;
+import entities.Message;
+import entities.Room;
+import entities.User;
+import database.RoomDBModel;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -15,7 +14,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class MessageInteractor implements MessageInputBoundary {
     private final MessageOutputBoundary presenter;
-    private final RoomDBGateway database;
+    private final MessageDBGateway database;
     private final String larkSoundFilePath;
 
     /**
@@ -25,7 +24,7 @@ public class MessageInteractor implements MessageInputBoundary {
      * @param presenter          The MessageOutputBoundary to present messages to the user.
      * @param larkSoundFilePath  The file path to the lark sound file.
      */
-    public MessageInteractor(RoomDBGateway database, MessageOutputBoundary presenter, String larkSoundFilePath) {
+    public MessageInteractor(MessageDBGateway database, MessageOutputBoundary presenter, String larkSoundFilePath) {
         this.presenter = presenter;
         this.database = database;
         this.larkSoundFilePath = larkSoundFilePath;
@@ -33,43 +32,36 @@ public class MessageInteractor implements MessageInputBoundary {
 
     /**
      * Handles the user request for sending a message.
-     *
-     * @param request The MessageModel representing the user's message.
      */
     @Override
-    public void handleSendMessage(MessageModel request) {
-        RoomDBModel room = database.getARoom(request.getRoomID());
-
-        LocalDateTime timestamp = LocalDateTime.now();
-
-        if (request.getContent() == null || request.getContent().isEmpty()) {
+    public void handleSendMessage(String content) {
+        // if message is empty
+        if (content == null || content.isEmpty()) {
             presenter.prepareMessageErrorView();
             return;
         }
 
-        if (request.getContent().contains("/lark")) {
+        if (content.contains("/lark")) {
             playLarkSound();
         }
 
-        String formattedMessage = "[" +
-                timestamp.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] "
-                + request.getSender() + ": " + request.getContent() + "\n";
+        // create message entity
+        Message msg = new Message(User.getUsername(), content);
 
-        String updatedMessageHistory = room.getMessageHistory() + formattedMessage;
+        // create roomDBModel to update the DB w/ new message
+        RoomDBModel room = database.getARoom(Room.getRoomID());
+        String updatedMessageHistory = room.getMessageHistory() + msg.getContent();
         room.setMessageHistory(updatedMessageHistory);
-        System.out.println(room.getMessageHistory());
         database.sendAMessage(room);
         presenter.prepareRoomView(updatedMessageHistory);
     }
 
     /**
-     * Retrieves the messages and passes them to the presenter.
-     *
-     * @param request The MessageModel representing the user's request for message retrieval.
+     * Retrieves the messages and passes to the presenter
      */
     @Override
-    public void handleRetrieveMessages(MessageModel request) {
-        RoomDBModel room = database.getARoom(request.getRoomID());
+    public void handleRetrieveMessages() {
+        RoomDBModel room = database.getARoom(Room.getRoomID());
         String messageHistory = room.getMessageHistory();
 
         if (messageHistory.contains("/lark")) {
@@ -81,7 +73,6 @@ public class MessageInteractor implements MessageInputBoundary {
 
     /**
      * Plays the Lark Sound.
-     *
      */
     private void playLarkSound() {
         try {

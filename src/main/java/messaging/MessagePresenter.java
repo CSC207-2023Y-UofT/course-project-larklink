@@ -12,7 +12,7 @@ public class MessagePresenter implements MessageOutputBoundary {
      */
     @Override
     public void prepareRoomView(String messageHistory) {
-        view.setMessageHistory(messageHistory);
+        View.messageHistory = messageHistory;
         view.prepareGUI();
     }
 

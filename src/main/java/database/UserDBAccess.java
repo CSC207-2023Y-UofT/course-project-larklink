@@ -1,7 +1,7 @@
 package database;
 
 import com.google.gson.JsonObject;
-import models.UserDBModel;
+import signup_and_login.UserDBGateway;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
 
     @Override
     public void addAUser(UserDBModel request) {
-        addARow(request.getUserID(), request);
+        modifyARow(request.getUserID(), request);
     }
 
     @Override

@@ -1,8 +1,6 @@
 package signup_and_login;
-import database.UserDBGateway;
-import models.UserDBModel;
+import database.UserDBModel;
 import entities.User;
-import models.UserModel;
 
 import java.util.List;
 
@@ -30,7 +28,8 @@ public class UserInteractor implements UserInputBoundary {
         for (UserDBModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
                 if (User.checkPassword(request.getPassword(), existingUser.getPassword())) {
-                    presenter.prepareJoinOrHostView(existingUser.getUserID()); // "log in" the existing user
+                    User.setUser((existingUsers.size() + 2), request.getUsername(), request.getPassword());
+                    presenter.prepareJoinOrHostView();
                 } else {
                     presenter.prepareInvalidCredentialsView(); // reject the invalid login credentials
                 }
@@ -38,11 +37,8 @@ public class UserInteractor implements UserInputBoundary {
             }
         }
         // no existing user found, so we hash their password and set their userID to save the new user
-        UserDBModel newUser = new UserDBModel(
-                (existingUsers.size() + 2),
-                request.getUsername(),
-                User.hashPassword(request.getPassword()));
-        database.addAUser(newUser);
-        presenter.prepareJoinOrHostView(newUser.getUserID());
+        User.setUser((existingUsers.size() + 2), request.getUsername(), request.getPassword());
+        database.addAUser(new UserDBModel(User.getUserID(), User.getUsername(), User.getPassword()));
+        presenter.prepareJoinOrHostView();
     }
 }

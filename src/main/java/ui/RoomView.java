@@ -10,7 +10,6 @@ public class RoomView extends View {
     private final LeaveRoomController leaveRoomController;
     private final MessageController sendMessageController;
     private JTextField messageTextField;
-    private JTextArea chatTextArea;
 
     /**
      * Constructs a RoomView object.
@@ -29,7 +28,7 @@ public class RoomView extends View {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Set up the JFrame
-        chatTextArea = new JTextArea(20, 50);
+        JTextArea chatTextArea = new JTextArea(20, 50);
         chatTextArea.setText(messageHistory);
         chatTextArea.setLineWrap(true); // Enable line wrapping
         chatTextArea.setEditable(false);
@@ -43,15 +42,15 @@ public class RoomView extends View {
 
         // Create a SendMessage Button
         JButton sendMessageButton = new JButton("Send Message");
-        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText()));
+        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(messageTextField.getText()));
 
         // Refresh Button
         JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages(roomID, userID, messageTextField.getText()));
+        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages());
 
         // Leave Room Button
         JButton leaveButton = new JButton("Leave Room");
-        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID, userID));
+        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom());
 
         JPanel inputPanel = new JPanel(new BorderLayout(10, 0));
         inputPanel.add(messageTextField, BorderLayout.CENTER);

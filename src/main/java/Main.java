@@ -1,8 +1,8 @@
 import database.*;
 import host_room.*;
-import join_room.JoinByIDController;
-import join_room.JoinByIDInteractor;
-import join_room.JoinByIDPresenter;
+import join_room.JoinRoomController;
+import join_room.JoinRoomInteractor;
+import join_room.JoinRoomPresenter;
 import leave_room.*;
 import messaging.*;
 import signup_and_login.user_login.UserLoginController;
@@ -41,12 +41,12 @@ public class Main {
         HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
 
-        JoinByIDPresenter joinByIDPresenter = new JoinByIDPresenter();
-        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(roomDBAccess, joinByIDPresenter);
-        JoinByIDController joinByIDController = new JoinByIDController(joinByIDInteractor);
-        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinByIDController);
+        JoinRoomPresenter joinRoomPresenter = new JoinRoomPresenter();
+        JoinRoomInteractor joinRoomInteractor = new JoinRoomInteractor(roomDBAccess, joinRoomPresenter);
+        JoinRoomController joinRoomController = new JoinRoomController(joinRoomInteractor);
+        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinRoomController);
 
-        joinByIDPresenter.setView(roomView);
+        joinRoomPresenter.setView(roomView);
         userLoginPresenter.setView(joinOrHostView);
         userSignupPresenter.setView(joinOrHostView);
         hostRoomPresenter.setView(roomView);

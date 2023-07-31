@@ -1,6 +1,9 @@
 package join_room;
 
-public interface JoinByIDOutputBoundary {
+/**
+ * An output boundary for join room use case.
+ */
+public interface JoinRoomOutputBoundary {
     void prepareRoomView(String messageHistory);
     void prepareFailView();
 

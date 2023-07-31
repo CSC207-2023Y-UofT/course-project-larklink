@@ -10,7 +10,6 @@ public class RoomView extends View {
     private final LeaveRoomController leaveRoomController;
     private final MessageController sendMessageController;
     private JTextField messageTextField;
-    private JTextArea chatTextArea;
 
     public RoomView(LeaveRoomController leaveRoomController, MessageController sendMessageController){
         this.leaveRoomController = leaveRoomController;
@@ -23,7 +22,7 @@ public class RoomView extends View {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Set up the JFrame
-        chatTextArea = new JTextArea(20, 50);
+        JTextArea chatTextArea = new JTextArea(20, 50);
         chatTextArea.setText(messageHistory);
         chatTextArea.setLineWrap(true); // Enable line wrapping
         chatTextArea.setEditable(false);
@@ -35,25 +34,21 @@ public class RoomView extends View {
         // Create a JTextField to enter messages
         messageTextField = new JTextField(30);
 
-
-
         // Create a SendMessage
         JButton sendMessageButton = new JButton("Send Message");
-        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(roomID, userID, messageTextField.getText()));
-
+        sendMessageButton.addActionListener(e -> sendMessageController.handleSendMessage(messageTextField.getText()));
 
         // Send Lark Button
         JButton sendLarkButton = new JButton("Send Lark");
         // sendLarkButton.addActionListener(e -> sendMessageController.handleSendMessage(userID, "sent a lark!", true));
 
-
         // Leave Room
         JButton leaveButton = new JButton("Leave Room");
-        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom(roomID, userID));
+        leaveButton.addActionListener(e -> leaveRoomController.handleLeaveRoom());
 
         // Refresh Button
         JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages(roomID, userID,messageTextField.getText()));
+        refreshButton.addActionListener(e -> sendMessageController.handleRetrieveMessages(messageTextField.getText()));
 
         JPanel inputPanel = new JPanel(new BorderLayout(10, 0));
         inputPanel.add(messageTextField, BorderLayout.CENTER);
@@ -71,7 +66,3 @@ public class RoomView extends View {
         return panel;
     }
 }
-//Tasks
-//Todo: handleRetrieveMessages
-//ToDO: Update Messages
-//ToDo: SendLark

@@ -1,19 +1,14 @@
-package models;
+package signup_and_login;
 
-public class UserDBModel {
-    private final int userID;
+public class UserModel {
     private final String username;
     private final String password;
 
-    public UserDBModel(int userID, String username, String password) {
-        this.userID = userID;
+    public UserModel(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public int getUserID() {
-        return this.userID;
-    }
     public String getUsername() {
         return this.username;
     }

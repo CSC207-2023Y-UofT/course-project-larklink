@@ -1,7 +1,5 @@
 package messaging;
 
-import models.MessageModel;
-
 public class MessageController {
     private final MessageInputBoundary inputBoundary;
 
@@ -12,13 +10,13 @@ public class MessageController {
     /**
 
      */
-    public void handleSendMessage(Integer roomID, Integer sender, String content){
-        MessageModel request = new MessageModel(roomID, content, sender, false);
+    public void handleSendMessage(String content){
+        MessageModel request = new MessageModel(content, false);
         inputBoundary.handleSendMessage(request);
     }
 
-    public void handleRetrieveMessages(Integer roomID, Integer sender, String content){
-        MessageModel request = new MessageModel(roomID, content, sender, false);
+    public void handleRetrieveMessages(String content){
+        MessageModel request = new MessageModel(content, false);
         inputBoundary.handleRetrieveMessages(request);
     }
 }

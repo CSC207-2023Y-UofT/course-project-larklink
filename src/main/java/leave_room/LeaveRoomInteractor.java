@@ -1,28 +1,29 @@
 package leave_room;
 
-import database.RoomDBGateway;
-import models.RoomDBModel;
+import entities.Room;
+import entities.User;
+import database.RoomDBModel;
 
 import java.util.List;
 
 public class LeaveRoomInteractor implements LeaveRoomInputBoundary {
-    private final RoomDBGateway roomDBGateway;
+    private final LeaveRoomDBGateway roomDBGateway;
     private final LeaveRoomOutputBoundary leaveRoomOutputBoundary;
 
-    public LeaveRoomInteractor(RoomDBGateway roomDBGateway, LeaveRoomOutputBoundary leaveRoomOutputBoundary) {
+    public LeaveRoomInteractor(LeaveRoomDBGateway roomDBGateway, LeaveRoomOutputBoundary leaveRoomOutputBoundary) {
         this.roomDBGateway = roomDBGateway;
         this.leaveRoomOutputBoundary = leaveRoomOutputBoundary;
     }
 
     @Override
-    public void leaveRoom(Integer roomID, Integer currUserId) {
-        RoomDBModel room = roomDBGateway.getARoom(roomID);
-        List<Integer> activeUsers = room.getActiveUsers();
-        if (activeUsers.contains(currUserId)) {
-            activeUsers.remove(currUserId);
-            room.setActiveUsers(activeUsers);
+    public void leaveRoom() {
+        RoomDBModel room = roomDBGateway.getARoom(Room.getRoomID());
+        List<Integer> activeUsers = room.getActiveUserIDs();
+        if (activeUsers.contains(User.getUserID())) {
+            activeUsers.remove(User.getUserID());
+            room.setActiveUserIDs(activeUsers);
             roomDBGateway.leaveARoom(room);
-            leaveRoomOutputBoundary.prepareJoinOrHostView(currUserId);
+            leaveRoomOutputBoundary.prepareJoinOrHostView();
             return;
         }
         leaveRoomOutputBoundary.prepareFailedToLeaveRoomView();

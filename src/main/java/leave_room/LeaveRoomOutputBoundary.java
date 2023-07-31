@@ -11,7 +11,7 @@ public interface LeaveRoomOutputBoundary {
      * Prepares and sets up the view for a successful exit from the room.
      * This method is called when the leave room operation is successful.
      */
-    void prepareJoinOrHostView(int userID);
+    void prepareJoinOrHostView();
 
     /**
      * Prepares and sets up the view for a failed exit from the room.

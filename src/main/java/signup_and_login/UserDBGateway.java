@@ -1,10 +1,10 @@
-package database;
+package signup_and_login;
 
-import models.UserDBModel;
+import database.UserDBModel;
 
 import java.util.List;
 
-public interface UserDBGateway {
+public interface UserDBGateway  {
     List<UserDBModel> getUsers();
     void addAUser(UserDBModel request);
 }

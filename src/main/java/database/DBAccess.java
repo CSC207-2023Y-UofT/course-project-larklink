@@ -24,7 +24,7 @@ public abstract class DBAccess<T> {
         this.gson = new Gson();
     }
 
-    public List<T> getRows() {
+    protected List<T> getRows() {
         try {
             String response = performGETRequest(null);
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
@@ -40,7 +40,7 @@ public abstract class DBAccess<T> {
         return new ArrayList<>();
     }
 
-    public T retrieveARow(Integer id) {
+    protected T retrieveARow(Integer id) {
         try {
             String response = performGETRequest(id);
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
@@ -51,16 +51,7 @@ public abstract class DBAccess<T> {
         return null;
     }
 
-    public void addARow(Integer id, T model) {
-        try {
-            String jsonInputString = objectToJson(model).toString();
-            performPUTRequest(id, jsonInputString);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void modifyARow(Integer id, T model) {
+    protected void modifyARow(Integer id, T model) {
         try {
             String jsonInputString = objectToJson(model).toString();
             performPUTRequest(id, jsonInputString);
@@ -73,6 +64,7 @@ public abstract class DBAccess<T> {
 
     protected abstract JsonObject objectToJson(T model);
 
+    protected abstract String getRoute();
 
     private void performPUTRequest(Integer id, String jsonInputString) throws IOException {
         URL url = new URL(urlBase + "/" + getRoute() + "/" + id);
@@ -91,6 +83,7 @@ public abstract class DBAccess<T> {
             System.err.println("HTTP request failed with response code: " + responseCode);
         }
     }
+
     private String performGETRequest(Integer id) throws Exception {
         URL url = new URL(urlBase + "/" + getRoute() + (id == null ? "" : "/" + id));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -101,28 +94,6 @@ public abstract class DBAccess<T> {
             System.err.println("HTTP request failed with response code: " + responseCode);
         }
 
-        return readResponse(conn);
-    }
-
-    private void performPOSTRequest(String jsonInputString) throws IOException {
-        URL url = new URL(urlBase + "/" + getRoute());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setDoOutput(true);
-        try (OutputStream os = conn.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
-            os.flush();
-        }
-        int responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            System.err.println("HTTP request failed with response code: " + responseCode);
-        }
-    }
-
-    private String readResponse(HttpURLConnection conn) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
             String responseLine;
@@ -133,6 +104,4 @@ public abstract class DBAccess<T> {
             return response.toString();
         }
     }
-
-    protected abstract String getRoute();
 }

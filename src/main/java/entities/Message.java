@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This Message class represents a message in a chat system.
- * Each message has a timestamp, a sender, and content.
+ * This Message class represents a message where each message has a timestamp, a sender, and content.
  */
 public class Message {
     private final LocalDateTime timestamp;

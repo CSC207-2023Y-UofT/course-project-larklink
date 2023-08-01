@@ -3,8 +3,9 @@ package entities;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
- * This User class represents a user in the system and employs a Singleton-like pattern with all static members.
- * It uses BCrypt for password hashing and checking.
+ * This class represents a logged-in user and employs a Singleton-like pattern with all static members since only one
+ * user can be logged in to the app at any given time. This design pattern allows other use cases to access user
+ * details easily. The class also uses BCrypt for password hashing and checking.
  */
 public class User {
     private static Integer userID;

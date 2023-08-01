@@ -38,9 +38,9 @@ public class UserDBAccessTest {
     @Test
     public void testAddAUser() {
         // here we are just checking that a call to addAUser is a call to modifyARow
-        doNothing().when(userDBAccess).modifyARow(anyInt(), any());
+        doNothing().when(userDBAccess).updateARow(anyInt(), any());
         userDBAccess.addAUser(mockUserDBModel);
-        verify(userDBAccess, times(1)).modifyARow(anyInt(), any());
+        verify(userDBAccess, times(1)).updateARow(anyInt(), any());
     }
 
     @Test
@@ -50,11 +50,9 @@ public class UserDBAccessTest {
         jsonObject.addProperty("id", 1);
         jsonObject.addProperty("username", "testUser");
         jsonObject.addProperty("password", "testPassword");
-        JsonObject mainObject = new JsonObject();
-        mainObject.add("user", jsonObject);
 
         // call the method (jsonToObject)
-        UserDBModel userDBModel = userDBAccess.jsonToObject(mainObject);
+        UserDBModel userDBModel = userDBAccess.jsonToObject(jsonObject);
 
         // check that the object returned by jsonToObject has the expected properties
         assertEquals(1, userDBModel.getUserID());

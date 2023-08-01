@@ -24,28 +24,13 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGat
     }
 
     @Override
-    public void addARoom(RoomDBModel request) {
-        modifyARow(request.getRoomID(), request);
-    }
-
-    @Override
-    public void joinARoom(Integer userID, RoomDBModel request) {
-        modifyARow(request.getRoomID(), request);
-    }
-
-    @Override
-    public void leaveARoom(RoomDBModel room) {
-        modifyARow(room.getRoomID(), room);
-    }
-
-    @Override
     public RoomDBModel getARoom(Integer roomID) {
-        return retrieveARow(roomID);
+        return getARow(roomID);
     }
 
     @Override
-    public void sendAMessage(RoomDBModel room) {
-        modifyARow(room.getRoomID(), room);
+    public void updateARoom(RoomDBModel request) {
+        updateARow(request.getRoomID(), request);
     }
 
     @Override

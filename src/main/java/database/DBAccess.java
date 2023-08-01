@@ -40,9 +40,9 @@ public abstract class DBAccess<T> {
         return new ArrayList<>();
     }
 
-    protected T retrieveARow(Integer id) {
+    protected T getARow(Integer rowID) {
         try {
-            String response = performGETRequest(id);
+            String response = performGETRequest(rowID);
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
             return jsonToObject(jsonObject);
         } catch (Exception e) {
@@ -51,10 +51,10 @@ public abstract class DBAccess<T> {
         return null;
     }
 
-    protected void modifyARow(Integer id, T model) {
+    protected void updateARow(Integer rowID, T model) {
         try {
             String jsonInputString = objectToJson(model).toString();
-            performPUTRequest(id, jsonInputString);
+            performPUTRequest(rowID, jsonInputString);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,7 +84,7 @@ public abstract class DBAccess<T> {
         }
     }
 
-    private String performGETRequest(Integer id) throws Exception {
+    private String performGETRequest(Integer id) throws IOException {
         URL url = new URL(urlBase + "/" + getRoute() + (id == null ? "" : "/" + id));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");

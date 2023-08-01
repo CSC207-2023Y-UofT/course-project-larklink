@@ -23,7 +23,7 @@ public class JoinByIDInteractor implements JoinByIDInputBoundary {
                 List<Integer> activeUsers = room.getActiveUserIDs();
                 activeUsers.add(User.getUserID());
                 room.setActiveUserIDs(activeUsers);
-                roomDBGateway.joinARoom(User.getUserID(), room);
+                roomDBGateway.updateARoom(room);
                 Room.setRoom(room.getRoomID(), room.getRoomName(),
                         room.getHostID(), room.getActiveUserIDs(), room.getMessageHistory());
                 presenter.prepareRoomView(Room.getMessageHistory());

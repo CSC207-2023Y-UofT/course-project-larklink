@@ -18,17 +18,11 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
 
     @Override
     public void addAUser(UserDBModel request) {
-        modifyARow(request.getUserID(), request);
+        updateARow(request.getUserID(), request);
     }
 
     @Override
     protected UserDBModel jsonToObject(JsonObject jsonObject) {
-
-        // when we fetch one row we get "user: <information here>" so here we "skip" it
-        if (jsonObject.has("user")) {
-            jsonObject = jsonObject.get("user").getAsJsonObject();
-        }
-
         int userId = jsonObject.get("id").getAsInt();
         String username = jsonObject.get("username").getAsString();
         String password = jsonObject.get("password").getAsString();

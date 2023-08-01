@@ -52,7 +52,7 @@ public class MessageInteractor implements MessageInputBoundary {
         RoomDBModel room = database.getARoom(Room.getRoomID());
         String updatedMessageHistory = room.getMessageHistory() + msg.getContent();
         room.setMessageHistory(updatedMessageHistory);
-        database.sendAMessage(room);
+        database.updateARoom(room);
         presenter.prepareRoomView(updatedMessageHistory);
     }
 

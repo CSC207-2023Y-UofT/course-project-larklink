@@ -4,7 +4,7 @@ import database.RoomDBModel;
 
 import java.util.List;
 
-public interface JoinByIDDBGateway {
+public interface JoinRoomDBGateway {
     List<RoomDBModel> getRooms();
     void joinARoom(Integer userID, RoomDBModel request);
 }

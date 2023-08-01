@@ -5,14 +5,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import host_room.HostRoomDBGateway;
-import join_room.JoinByIDDBGateway;
+import join_room.JoinRoomDBGateway;
 import leave_room.LeaveRoomDBGateway;
 import messaging.MessageDBGateway;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinByIDDBGateway,
+public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinRoomDBGateway,
         LeaveRoomDBGateway, MessageDBGateway {
     public RoomDBAccess(String urlBase) {
         super(urlBase);

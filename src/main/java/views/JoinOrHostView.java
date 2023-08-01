@@ -1,7 +1,7 @@
 package views;
 
-import use_cases.host_room.HostRoomController;
-import use_cases.join_room.JoinByIDController;
+import use_cases_and_adapters.host_room.HostRoomController;
+import use_cases_and_adapters.join_room.JoinByIDController;
 
 import javax.swing.*;
 import java.awt.*;

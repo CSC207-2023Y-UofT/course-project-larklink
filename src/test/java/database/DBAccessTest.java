@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import use_cases.RoomDBModel;
+import use_cases_and_adapters.RoomDBModel;
 
 import java.io.IOException;
 import java.util.Collections;

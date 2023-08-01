@@ -1,6 +1,6 @@
 package views;
 
-import use_cases.signup_and_login.UserController;
+import use_cases_and_adapters.signup_and_login.UserController;
 
 import javax.swing.*;
 import java.awt.*;

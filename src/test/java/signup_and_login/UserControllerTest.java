@@ -3,9 +3,9 @@ package signup_and_login;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import use_cases.signup_and_login.UserController;
-import use_cases.signup_and_login.UserInputBoundary;
-import use_cases.signup_and_login.UserModel;
+import use_cases_and_adapters.signup_and_login.UserController;
+import use_cases_and_adapters.signup_and_login.UserInputBoundary;
+import use_cases_and_adapters.signup_and_login.UserModel;
 
 import static org.mockito.Mockito.verify;
 

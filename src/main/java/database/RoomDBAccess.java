@@ -3,11 +3,11 @@ package database;
 import java.util.List;
 
 import database.converters.RoomConverter;
-import use_cases.RoomDBModel;
-import use_cases.host_room.HostRoomDBGateway;
-import use_cases.join_room.JoinByIDDBGateway;
-import use_cases.leave_room.LeaveRoomDBGateway;
-import use_cases.messaging.MessageDBGateway;
+import use_cases_and_adapters.RoomDBModel;
+import use_cases_and_adapters.host_room.HostRoomDBGateway;
+import use_cases_and_adapters.join_room.JoinByIDDBGateway;
+import use_cases_and_adapters.leave_room.LeaveRoomDBGateway;
+import use_cases_and_adapters.messaging.MessageDBGateway;
 
 /**
  * This class provides a specific implementation of the DBAccess abstract class for RoomDBModel objects.

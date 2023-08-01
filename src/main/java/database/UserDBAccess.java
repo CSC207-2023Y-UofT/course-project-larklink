@@ -1,8 +1,8 @@
 package database;
 
 import database.converters.UserConverter;
-import use_cases.UserDBModel;
-import use_cases.signup_and_login.UserDBGateway;
+import use_cases_and_adapters.UserDBModel;
+import use_cases_and_adapters.signup_and_login.UserDBGateway;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package views;
 
-import use_cases.leave_room.LeaveRoomController;
-import use_cases.messaging.MessageController;
+import use_cases_and_adapters.leave_room.LeaveRoomController;
+import use_cases_and_adapters.messaging.MessageController;
 
 import javax.swing.*;
 import java.awt.*;

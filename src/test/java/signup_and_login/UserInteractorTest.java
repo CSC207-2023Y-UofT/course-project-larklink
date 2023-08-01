@@ -1,16 +1,16 @@
 package signup_and_login;
 
-import use_cases.UserDBModel;
+import use_cases_and_adapters.UserDBModel;
 import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.ArgumentCaptor;
-import use_cases.signup_and_login.UserDBGateway;
-import use_cases.signup_and_login.UserInteractor;
-import use_cases.signup_and_login.UserModel;
-import use_cases.signup_and_login.UserOutputBoundary;
+import use_cases_and_adapters.signup_and_login.UserDBGateway;
+import use_cases_and_adapters.signup_and_login.UserInteractor;
+import use_cases_and_adapters.signup_and_login.UserModel;
+import use_cases_and_adapters.signup_and_login.UserOutputBoundary;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import use_cases.RoomDBModel;
+import use_cases_and_adapters.RoomDBModel;
 
 import java.util.ArrayList;
 import java.util.List;

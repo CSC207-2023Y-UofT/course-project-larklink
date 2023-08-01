@@ -5,10 +5,10 @@ import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import use_cases.RoomDBModel;
-import use_cases.leave_room.LeaveRoomDBGateway;
-import use_cases.leave_room.LeaveRoomInteractor;
-import use_cases.leave_room.LeaveRoomOutputBoundary;
+import use_cases_and_adapters.RoomDBModel;
+import use_cases_and_adapters.leave_room.LeaveRoomDBGateway;
+import use_cases_and_adapters.leave_room.LeaveRoomInteractor;
+import use_cases_and_adapters.leave_room.LeaveRoomOutputBoundary;
 
 import java.util.ArrayList;
 import java.util.Arrays;

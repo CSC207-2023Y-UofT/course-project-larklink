@@ -1,7 +1,7 @@
 package database.converters;
 
 import com.google.gson.JsonObject;
-import use_cases.RoomDBModel;
+import use_cases_and_adapters.RoomDBModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

@@ -8,8 +8,18 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for converting RoomDBModel instances to and from JSON.
+ */
 public class RoomConverter implements JsonConverter<RoomDBModel> {
 
+    /**
+     * Converts a JsonObject into a RoomDBModel instance.
+     *
+     * @param jsonObject The JsonObject to convert. This should include properties for "id", "host", "name",
+     * "activeUsers", and "messageHistory". If the JsonObject has a "room" property, the JsonObject for the room will be extracted.
+     * @return A RoomDBModel instance with properties set according to the given JsonObject.
+     */
     @Override
     public RoomDBModel toObject(JsonObject jsonObject) {
         // when we fetch one row we get "room: <information here>" so here we "skip" it
@@ -34,6 +44,13 @@ public class RoomConverter implements JsonConverter<RoomDBModel> {
         return new RoomDBModel(roomID, name, host, activeUsers, messageHistory);
     }
 
+    /**
+     * Converts a RoomDBModel instance into a JsonObject.
+     *
+     * @param model The RoomDBModel instance to convert. This should include properties for "host", "name",
+     * "activeUsers", and "messageHistory".
+     * @return A JsonObject representing the given RoomDBModel instance.
+     */
     @Override
     public JsonObject toJson(RoomDBModel model) {
         JsonObject roomObject = new JsonObject();

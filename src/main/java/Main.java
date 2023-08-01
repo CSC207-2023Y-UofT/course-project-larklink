@@ -1,8 +1,6 @@
 import database.*;
 import host_room.*;
-import join_room.JoinByIDController;
-import join_room.JoinByIDInteractor;
-import join_room.JoinByIDPresenter;
+import join_room.*;
 import leave_room.*;
 import messaging.*;
 import signup_and_login.*;
@@ -16,28 +14,31 @@ public class Main {
         RoomConverter roomConverter = new RoomConverter();
         UserConverter userConverter = new UserConverter();
 
-        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
-        RoomDBAccess roomDBAccess = new RoomDBAccess(httpClient, roomConverter);
 
         UserPresenter userPresenter = new UserPresenter();
+        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
         UserInteractor userInteractor = new UserInteractor(userPresenter, userDBAccess);
         UserController userController = new UserController(userInteractor);
         WelcomeView welcomeView = new WelcomeView(userController);
 
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
-        LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
+        LeaveRoomDBAccess leaveRoomDBAccess = new LeaveRoomDBAccess(httpClient, roomConverter);
+        LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(leaveRoomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
         MessagePresenter sendMessagePresenter = new MessagePresenter();
-        MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter, larkSoundFilePath);
+        MessageDBAccess messageDBAccess = new MessageDBAccess(httpClient, roomConverter);
+        MessageInteractor interactor = new MessageInteractor(messageDBAccess, sendMessagePresenter, larkSoundFilePath);
         MessageController sendMessageController = new MessageController(interactor);
         RoomView roomView = new RoomView(leaveRoomController, sendMessageController);
 
         HostRoomPresenter hostRoomPresenter = new HostRoomPresenter();
-        HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
+        HostRoomDBAccess hostRoomDBAccess = new HostRoomDBAccess(httpClient, roomConverter);
+        HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(hostRoomDBAccess, hostRoomPresenter);
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
 
         JoinByIDPresenter joinByIDPresenter = new JoinByIDPresenter();
-        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(roomDBAccess, joinByIDPresenter);
+        JoinRoomDBAccess joinRoomDBAccess = new JoinRoomDBAccess(httpClient, roomConverter);
+        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(joinRoomDBAccess, joinByIDPresenter);
         JoinByIDController joinByIDController = new JoinByIDController(joinByIDInteractor);
         JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinByIDController);
 

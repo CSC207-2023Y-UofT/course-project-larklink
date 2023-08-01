@@ -39,7 +39,7 @@ public class LeaveRoomInteractorTest {
         RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)),"");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
-        verify(roomDBGatewayMock, times(1)).updateARoom(room);
+        verify(roomDBGatewayMock, times(1)).leaveARoom(room);
         verify(leaveRoomOutputBoundaryMock, times(1)).prepareJoinOrHostView();
     }
 
@@ -51,7 +51,7 @@ public class LeaveRoomInteractorTest {
         RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(List.of(userID2)),"");
         when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
-        verify(roomDBGatewayMock, never()).updateARoom(room);
+        verify(roomDBGatewayMock, never()).leaveARoom(room);
         verify(leaveRoomOutputBoundaryMock, times(1)).prepareFailedToLeaveRoomView();
     }
 }

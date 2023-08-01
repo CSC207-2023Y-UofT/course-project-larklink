@@ -39,7 +39,7 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
                 Room.getRoomID(), Room.getRoomName(), Room.getHostID(),
                 Room.getActiveUserIDs(), Room.getMessageHistory());
 
-        database.updateARoom(newRoom);
+        database.hostARoom(newRoom);
         presenter.prepareRoomView(Room.getMessageHistory());
     }
 }

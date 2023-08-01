@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface JoinByIDDBGateway {
     List<RoomDBModel> getRooms();
-    void updateARoom(RoomDBModel request);
+    void joinARoom(RoomDBModel request);
 }

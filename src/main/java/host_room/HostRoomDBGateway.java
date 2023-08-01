@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface HostRoomDBGateway {
     List<RoomDBModel> getRooms();
-    void updateARoom(RoomDBModel request);
+    void hostARoom(RoomDBModel request);
 }

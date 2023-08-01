@@ -4,5 +4,5 @@ import database.RoomDBModel;
 
 public interface LeaveRoomDBGateway {
     RoomDBModel getARoom(Integer roomID);
-    void updateARoom(RoomDBModel room);
+    void leaveARoom(RoomDBModel room);
 }

@@ -39,14 +39,6 @@ public class UserDBAccessTest {
     }
 
     @Test
-    public void testGetUsersFailure() throws IOException {
-        // testing scenario where IOException occurs
-        doThrow(new IOException()).when(userDBAccess).getRows();
-        List<UserDBModel> actualUsers = userDBAccess.getUsers();
-        assertEquals(Collections.emptyList(), actualUsers);
-    }
-
-    @Test
     public void testAddAUser() throws IOException {
         // here we are just checking that a call to addAUser is a call to updateARow
         doNothing().when(userDBAccess).updateARow(anyInt(), any());

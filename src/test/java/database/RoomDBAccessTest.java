@@ -33,7 +33,6 @@ public class RoomDBAccessTest {
         roomDBAccess = Mockito.spy(new RoomDBAccess(mockHttpClient, new RoomConverter())); // initialize RoomDBAccess and a spy to track it
     }
 
-
     @Test
     public void testGetRooms() throws IOException {
         // here we are just checking that a call to getRooms is a call to getRows

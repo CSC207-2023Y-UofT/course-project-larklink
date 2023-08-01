@@ -1,14 +1,14 @@
 package database.converters;
 
 import com.google.gson.JsonObject;
-import database.RoomDBModel;
+import use_cases.RoomDBModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

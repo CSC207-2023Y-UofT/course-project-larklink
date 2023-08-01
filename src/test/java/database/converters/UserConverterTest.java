@@ -1,7 +1,7 @@
 package database.converters;
 
 import com.google.gson.JsonObject;
-import database.UserDBModel;
+import use_cases.UserDBModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

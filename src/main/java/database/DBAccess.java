@@ -22,6 +22,12 @@ public abstract class DBAccess<T> {
     private final HttpClient httpClient;
     private final Gson gson;
 
+    /**
+     * Constructs a new RoomDBAccess object with the given HttpClient and UserConverter instances.
+     *
+     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
+     * @param converter  The UserConverter instance responsible for switching between JSON data to User objects.
+     */
     public DBAccess(HttpClient httpClient, JsonConverter<T> converter) {
         this.httpClient = httpClient;
         this.converter = converter;
@@ -32,15 +38,18 @@ public abstract class DBAccess<T> {
      * Fetches all rows from the database and returns them as a list of database model objects.
      *
      * @return A list of database model objects representing the fetched rows.
-     * @throws IOException If an I/O error occurs while performing the HTTP request.
      */
-    protected List<T> getRows() throws IOException {
-        String response = httpClient.performGETRequest(getRoute(), null);
-        JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
-        JsonArray jsonArray = jsonObject.get(getRoute()).getAsJsonArray();
+    protected List<T> getRows()  {
         List<T> result = new ArrayList<>();
-        for (JsonElement element : jsonArray) {
-            result.add(converter.toObject(element.getAsJsonObject()));
+        try {
+            String response = httpClient.performGETRequest(getRoute(), null);
+            JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
+            JsonArray jsonArray = jsonObject.get(getRoute()).getAsJsonArray();
+            for (JsonElement element : jsonArray) {
+                result.add(converter.toObject(element.getAsJsonObject()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return result;
     }
@@ -50,12 +59,16 @@ public abstract class DBAccess<T> {
      *
      * @param rowID The ID of the row to fetch.
      * @return A database model object representing the fetched row, or null if no row with the given ID exists.
-     * @throws IOException If an I/O error occurs while performing the HTTP request.
      */
-    protected T getARow(Integer rowID) throws IOException {
-        String response = httpClient.performGETRequest(getRoute(), rowID);
-        JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
-        return converter.toObject(jsonObject);
+    protected T getARow(Integer rowID) {
+        try {
+            String response = httpClient.performGETRequest(getRoute(), rowID);
+            JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
+            return converter.toObject(jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -63,11 +76,14 @@ public abstract class DBAccess<T> {
      *
      * @param rowID The ID of the row to update.
      * @param model The database model object to use for the update.
-     * @throws IOException If an I/O error occurs while performing the HTTP request.
      */
-    protected void updateARow(Integer rowID, T model) throws IOException {
-        String jsonInputString = converter.toJson(model).toString();
-        httpClient.performPUTRequest(getRoute(), rowID, jsonInputString);
+    protected void updateARow(Integer rowID, T model)  {
+        try {
+            String jsonInputString = converter.toJson(model).toString();
+            httpClient.performPUTRequest(getRoute(), rowID, jsonInputString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

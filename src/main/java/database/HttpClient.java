@@ -14,6 +14,11 @@ import java.nio.charset.StandardCharsets;
 public class HttpClient {
     private final String urlBase;
 
+    /**
+     * Constructs a new HttpClient object with the given base url.
+     *
+     * @param urlBase The base URL that we append to, to make API requests.
+     */
     public HttpClient(String urlBase) {
         this.urlBase = urlBase;
     }

@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import ui.View;
+import views.View;
+import use_cases.signup_and_login.UserPresenter;
 
 import static org.mockito.Mockito.*;
 

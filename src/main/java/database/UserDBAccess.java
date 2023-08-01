@@ -1,11 +1,9 @@
 package database;
 
 import database.converters.UserConverter;
-import signup_and_login.UserDBGateway;
+import use_cases.UserDBModel;
+import use_cases.signup_and_login.UserDBGateway;
 
-import javax.swing.*;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,39 +15,34 @@ import java.util.List;
  */
 public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway {
 
+    /**
+     * Constructs a new UserDBAccess object with the given HttpClient and UserConverter instances.
+     *
+     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
+     * @param converter  The UserConverter instance responsible for switching between JSON data to User objects.
+     */
     public UserDBAccess(HttpClient httpClient, UserConverter converter) {
         super(httpClient,converter);
     }
 
     /**
      * Retrieves a list of all users from the database.
-     * If an IOException occurs during the operation, an error message is displayed to the user, and an empty list is returned.
      *
      * @return a List of UserDBModel objects representing all users in the database, or an empty list if an error occurred.
      */
     @Override
     public List<UserDBModel> getUsers() {
-        try {
-             return getRows();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "There was an error connecting to the database!");
-        }
-        return new ArrayList<>();
+        return getRows();
     }
 
     /**
      * Adds a new user to the database.
-     * If an IOException occurs during the operation, an error message is displayed to the user.
      *
      * @param request a UserDBModel object containing the data for the new user.
      */
     @Override
     public void addAUser(UserDBModel request) {
-        try {
-            updateARow(request.getUserID(), request);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "There was an error connecting to the database!");
-        }
+        updateARow(request.getUserID(), request);
     }
 
     /**

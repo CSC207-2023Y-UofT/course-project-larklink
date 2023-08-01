@@ -1,4 +1,4 @@
-package database;
+package database.converters;
 
 public class RoomConverterTest {
     // copy over testJsonToObject + testObjectToJson from Margaret's RoomDBAccessTest

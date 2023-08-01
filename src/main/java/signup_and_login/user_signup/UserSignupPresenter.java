@@ -1,9 +1,9 @@
-package signup_and_login;
+package signup_and_login.user_signup;
 
 import javax.swing.*;
 import ui.View;
 
-public class UserPresenter implements UserOutputBoundary {
+public class UserSignupPresenter implements UserSignupOutputBoundary {
     private View view;
 
     /**
@@ -15,11 +15,11 @@ public class UserPresenter implements UserOutputBoundary {
     }
 
     /**
-     * Displays the view (popup window) indicating invalid login credentials.
+     * Displays the view (popup window) indicating username already exists.
      */
     @Override
-    public void prepareInvalidCredentialsView() {
-        JOptionPane.showMessageDialog(null, "Password doesn't match existing Username.");
+    public void prepareUsernameExistsView() {
+        JOptionPane.showMessageDialog(null, "Username already exists. Please try a different name.");
     }
 
     /**

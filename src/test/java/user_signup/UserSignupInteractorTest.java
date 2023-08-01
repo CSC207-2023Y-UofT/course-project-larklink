@@ -1,4 +1,4 @@
-package signup_and_login;
+package user_signup;
 
 import database.UserDBModel;
 import entities.User;
@@ -7,17 +7,21 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.ArgumentCaptor;
+import signup_and_login.UserDBGateway;
+import signup_and_login.UserModel;
+import signup_and_login.user_signup.UserSignupInteractor;
+import signup_and_login.user_signup.UserSignupOutputBoundary;
 
 import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-public class UserInteractorTest {
+public class UserSignupInteractorTest {
 
-    private UserInteractor userInteractor;
+    private UserSignupInteractor userRegisterInteractor;
 
     @Mock
-    private UserOutputBoundary presenter;
+    private UserSignupOutputBoundary presenter;
 
     @Mock
     private UserDBGateway database;
@@ -29,7 +33,7 @@ public class UserInteractorTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        userInteractor = new UserInteractor(presenter, database);
+        userRegisterInteractor = new UserSignupInteractor(presenter, database);
 
         // initialize shared variables
         int testUserID = 2;
@@ -44,29 +48,29 @@ public class UserInteractorTest {
         when(database.getUsers()).thenReturn(users);
 
         UserModel existingUser = new UserModel(testUsername, testPassword);
-        userInteractor.handleUser(existingUser);
+        userRegisterInteractor.handleUserSignup(existingUser);
 
         verify(presenter).prepareJoinOrHostView();
         verify(database, never()).addAUser(any(UserDBModel.class));
     }
 
-    @Test
-    public void testHandleUser_invalidPassword() {
-        when(database.getUsers()).thenReturn(users);
-
-        UserModel invalidUser = new UserModel(testUsername, "incorrectPassword");
-        userInteractor.handleUser(invalidUser);
-
-        verify(presenter).prepareInvalidCredentialsView();
-        verify(database, never()).addAUser(any(UserDBModel.class));
-    }
+//    @Test
+//    public void testHandleUser_invalidPassword() {
+//        when(database.getUsers()).thenReturn(users);
+//
+//        UserModel invalidUser = new UserModel(testUsername, "incorrectPassword");
+//        userRegisterInteractor.handleUserSignup(invalidUser);
+//
+//        verify(presenter).prepareInvalidPasswordView();
+//        verify(database, never()).addAUser(any(UserDBModel.class));
+//    }
 
     @Test
     public void testHandleUser_newUser() {
         when(database.getUsers()).thenReturn(users);
 
         UserModel newUser = new UserModel("newUser", "newPassword");
-        userInteractor.handleUser(newUser);
+        userRegisterInteractor.handleUserSignup(newUser);
 
         ArgumentCaptor<UserDBModel> captor = ArgumentCaptor.forClass(UserDBModel.class);
         verify(database).addAUser(captor.capture()); // check that we did add a user to the database

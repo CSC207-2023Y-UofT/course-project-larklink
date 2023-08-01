@@ -1,6 +1,7 @@
 package ui;
 
-import signup_and_login.UserController;
+import signup_and_login.user_login.UserLoginController;
+import signup_and_login.user_signup.UserSignupController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +11,14 @@ public class WelcomeView extends View {
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
     private static final int MIN_PASSWORD_LENGTH = 8;
 
-    private final UserController controller;
+    private final UserLoginController loginController;
+    private final UserSignupController signupController;
     private JTextField usernameField;
     private JPasswordField passwordField;
 
-    public WelcomeView(UserController controller) {
-        this.controller = controller;
+    public WelcomeView(UserLoginController loginController, UserSignupController signupController) {
+        this.loginController = loginController;
+        this.signupController = signupController;
     }
 
     @Override
@@ -25,45 +28,68 @@ public class WelcomeView extends View {
 
         this.usernameField = new JTextField();
         this.passwordField = new JPasswordField();
-        JButton submitButton = createSubmitButton();
+        JButton signupButton = createSignUpButton();
+        JButton loginButton = createLoginButton();
 
         panel.add(new JLabel("Username:"));
         panel.add(usernameField);
         panel.add(new JLabel("Password:"));
         panel.add(passwordField);
-        panel.add(new JLabel());
-        panel.add(submitButton);
+        panel.add(signupButton);
+        panel.add(loginButton);
         return panel;
     }
 
-    private JButton createSubmitButton() {
-        JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(e -> {
+    private JButton createSignUpButton() {
+        JButton signupButton = new JButton("Sign up");
+        signupButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
 
-            if (username.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Username field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (!USERNAME_PATTERN.matcher(username).matches()) {
-                JOptionPane.showMessageDialog(null, "Invalid username! Use only alphanumeric characters. Minimum length: 3", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (password.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Password field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (password.length() < MIN_PASSWORD_LENGTH) {
-                JOptionPane.showMessageDialog(null, "Password too short! Minimum length: " + MIN_PASSWORD_LENGTH, "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            controller.formatAndHandleUser(username, password);
+            welcomeViewHelper(username, password);
+            signupController.formatAndHandleUserSignup(username, password);
         });
-        return submitButton;
+        return signupButton;
+    }
+
+    private JButton createLoginButton() {
+        JButton loginButton = new JButton("Log in");
+        loginButton.addActionListener(e -> {
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
+
+            welcomeViewHelper(username, password);
+            loginController.formatAndHandleUserLogin(username, password);
+        });
+        return loginButton;
+
+    }
+
+    private void welcomeViewHelper(String username, String password){
+
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Username field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!USERNAME_PATTERN.matcher(username).matches()) {
+            JOptionPane.showMessageDialog(null,
+                    "Invalid username! Use only alphanumeric characters. Minimum length: 3",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Password field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (password.length() < MIN_PASSWORD_LENGTH) {
+            JOptionPane.showMessageDialog(null,
+                    "Password too short! Minimum length: " + MIN_PASSWORD_LENGTH,
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

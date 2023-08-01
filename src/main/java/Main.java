@@ -12,8 +12,12 @@ public class Main {
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";
     private static final String larkSoundFilePath = "/src/main/assets/lark_sound.wav";
     public static void main(String[] args) {
-        UserDBAccess userDBAccess = new UserDBAccess(API_URL);
-        RoomDBAccess roomDBAccess = new RoomDBAccess(API_URL);
+        HttpClient httpClient = new HttpClient(API_URL);
+        RoomConverter roomConverter = new RoomConverter();
+        UserConverter userConverter = new UserConverter();
+
+        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
+        RoomDBAccess roomDBAccess = new RoomDBAccess(httpClient, roomConverter);
 
         UserPresenter userPresenter = new UserPresenter();
         UserInteractor userInteractor = new UserInteractor(userPresenter, userDBAccess);

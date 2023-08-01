@@ -5,7 +5,7 @@ import java.util.List;
 import database.converters.RoomConverter;
 import use_cases_and_adapters.RoomDBModel;
 import use_cases_and_adapters.host_room.HostRoomDBGateway;
-import use_cases_and_adapters.join_room.JoinByIDDBGateway;
+import use_cases_and_adapters.join_room.JoinRoomDBGateway;
 import use_cases_and_adapters.leave_room.LeaveRoomDBGateway;
 import use_cases_and_adapters.messaging.MessageDBGateway;
 
@@ -15,7 +15,7 @@ import use_cases_and_adapters.messaging.MessageDBGateway;
  * in the database, and an HttpClient to make the actual HTTP requests.
  * The main operations this class provides are getting rooms, getting a single room by its ID, and updating a room.
  */
-public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinByIDDBGateway, LeaveRoomDBGateway, MessageDBGateway {
+public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinRoomDBGateway, LeaveRoomDBGateway, MessageDBGateway {
 
     /**
      * Constructs a new RoomDBAccess object with the given HttpClient and RoomConverter instances.

@@ -1,13 +1,13 @@
 import database.*;
 import database.converters.RoomConverter;
 import database.converters.UserConverter;
+import use_cases_and_adapters.join_room.JoinRoomController;
+import use_cases_and_adapters.join_room.JoinRoomInteractor;
+import use_cases_and_adapters.join_room.JoinRoomPresenter;
 import views.*;
 import use_cases_and_adapters.host_room.HostRoomController;
 import use_cases_and_adapters.host_room.HostRoomInteractor;
 import use_cases_and_adapters.host_room.HostRoomPresenter;
-import use_cases_and_adapters.join_room.JoinByIDController;
-import use_cases_and_adapters.join_room.JoinByIDInteractor;
-import use_cases_and_adapters.join_room.JoinByIDPresenter;
 import use_cases_and_adapters.leave_room.LeaveRoomController;
 import use_cases_and_adapters.leave_room.LeaveRoomInteractor;
 import use_cases_and_adapters.leave_room.LeaveRoomPresenter;
@@ -47,12 +47,12 @@ public class Main {
         HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
 
-        JoinByIDPresenter joinByIDPresenter = new JoinByIDPresenter();
-        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(roomDBAccess, joinByIDPresenter);
-        JoinByIDController joinByIDController = new JoinByIDController(joinByIDInteractor);
-        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinByIDController);
+        JoinRoomPresenter joinRoomPresenter = new JoinRoomPresenter();
+        JoinRoomInteractor joinRoomInteractor = new JoinRoomInteractor(roomDBAccess, joinRoomPresenter);
+        JoinRoomController joinRoomController = new JoinRoomController(joinRoomInteractor);
+        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinRoomController);
 
-        joinByIDPresenter.setView(roomView);
+        joinRoomPresenter.setView(roomView);
         userPresenter.setView(joinOrHostView);
         hostRoomPresenter.setView(roomView);
         leaveRoomPresenter.setView(joinOrHostView);

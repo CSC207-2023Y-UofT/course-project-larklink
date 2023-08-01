@@ -22,6 +22,7 @@ public class Main {
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
+
         MessagePresenter sendMessagePresenter = new MessagePresenter();
         MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter);
         MessageController sendMessageController = new MessageController(interactor);

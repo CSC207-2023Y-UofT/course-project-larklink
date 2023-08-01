@@ -32,12 +32,10 @@ public class JoinRoomInteractor implements JoinRoomInputBoundary {
         List<RoomDBModel> existingRooms = roomDBGateway.getRooms();
         for (RoomDBModel room : existingRooms) {
             if (room.getRoomName().equals(roomName)) {
-                // add this user in the active user list in this room and update the active user list
                 List<Integer> activeUsers = room.getActiveUserIDs();
                 activeUsers.add(User.getUserID());
                 room.setActiveUserIDs(activeUsers);
                 roomDBGateway.joinARoom(User.getUserID(), room);
-                // update this room with new active user list
                 Room.setRoom(room.getRoomID(), room.getRoomName(),
                         room.getHostID(), room.getActiveUserIDs(), room.getMessageHistory());
                 presenter.prepareRoomView(Room.getMessageHistory());

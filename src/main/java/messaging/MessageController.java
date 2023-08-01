@@ -1,24 +1,30 @@
 package messaging;
 
-import models.MessageModel;
-
 public class MessageController {
     private final MessageInputBoundary inputBoundary;
 
-
-    public MessageController(MessageInputBoundary inputBoundary){
+    /**
+     * Constructs a MessageController object with the given input boundary.
+     *
+     * @param inputBoundary The boundary for handling message-related requests.
+     */
+    public MessageController(MessageInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
     }
-    /**
 
+    /**
+     * Handles the user request to send a message.
+     *
+     * @param content The content of the message.
      */
-    public void handleSendMessage(Integer roomID, Integer sender, String content){
-        MessageModel request = new MessageModel(roomID, content, sender, false);
-        inputBoundary.handleSendMessage(request);
+    public void handleSendMessage(String content){
+        inputBoundary.handleSendMessage(content);
     }
 
-    public void handleRetrieveMessages(Integer roomID, Integer sender, String content){
-        MessageModel request = new MessageModel(roomID, content, sender, false);
-        inputBoundary.handleRetrieveMessages(request);
+    /**
+     * Handles the user request to retrieve messages.
+     */
+    public void handleRetrieveMessages() {
+        inputBoundary.handleRetrieveMessages();
     }
 }

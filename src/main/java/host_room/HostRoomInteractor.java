@@ -1,16 +1,17 @@
 package host_room;
 
-import database.RoomDBGateway;
-import models.RoomDBModel;
-import models.RoomModel;
+import entities.Room;
+import entities.User;
+import database.RoomDBModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HostRoomInteractor implements HostRoomInputBoundary{
-    private final RoomDBGateway database;
+    private final HostRoomDBGateway database;
     private final HostRoomOutputBoundary presenter;
 
-    public HostRoomInteractor(RoomDBGateway database, HostRoomOutputBoundary presenter) {
+    public HostRoomInteractor(HostRoomDBGateway database, HostRoomOutputBoundary presenter) {
         this.database = database;
         this.presenter = presenter;
     }
@@ -19,25 +20,26 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
      * Creates a new room and stores it in the database.
      * If a room is found with the same host, then the room is not created and a duplicateHostView is prepared
      *
-     * @param request the room model containing the host, active users, and roomID of the room to be created
      */
-
-    public void hostRoom(RoomModel request) {
+    public void hostRoom(String roomName) {
         List<RoomDBModel> existingRooms = database.getRooms();
-        System.out.println(existingRooms.size());
+        Integer hostID = User.getUserID();
 
         for (RoomDBModel existingRoom : existingRooms) {
-            // user already hosting room
-            if (existingRoom.getHost().equals(request.getHost())) {
-                presenter.prepareMultipleHostingView();
+            if (existingRoom.getHostID().equals(hostID)) {
+                presenter.prepareMultipleHostingView(); // user already hosting room
                 return;
             }
         }
-        List<Integer> activeUsers = request.getActiveUsers();
-        activeUsers.add(request.getHost());
-        RoomDBModel newRoom = new RoomDBModel(existingRooms.size() + 2, activeUsers,
-                request.getHost(), request.getName(), "");
+        List<Integer> activeUsers = new ArrayList<>();
+        activeUsers.add(hostID);
+        Room.setRoom((existingRooms.size() + 2), roomName, hostID, activeUsers, "");
+
+        RoomDBModel newRoom = new RoomDBModel(
+                Room.getRoomID(), Room.getRoomName(), Room.getHostID(),
+                Room.getActiveUserIDs(), Room.getMessageHistory());
+
         database.addARoom(newRoom);
-        presenter.prepareRoomView(newRoom.getRoomID());
+        presenter.prepareRoomView(Room.getMessageHistory());
     }
 }

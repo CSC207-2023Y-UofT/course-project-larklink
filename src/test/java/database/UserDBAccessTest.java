@@ -1,7 +1,6 @@
 package database;
 
 import com.google.gson.JsonObject;
-import models.UserDBModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -38,10 +37,10 @@ public class UserDBAccessTest {
 
     @Test
     public void testAddAUser() {
-        // here we are just checking that a call to addAUser is a call to addARow
-        doNothing().when(userDBAccess).addARow(anyInt(), any());
+        // here we are just checking that a call to addAUser is a call to modifyARow
+        doNothing().when(userDBAccess).modifyARow(anyInt(), any());
         userDBAccess.addAUser(mockUserDBModel);
-        verify(userDBAccess, times(1)).addARow(anyInt(), any());
+        verify(userDBAccess, times(1)).modifyARow(anyInt(), any());
     }
 
     @Test

@@ -1,15 +1,27 @@
 package entities;
 
-import java.time.LocalDate;
-public class Message {
-    private LocalDate timeStamp;
-    private String content;
-    private User sender;
-    private boolean edited;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Message(String content) {
-        this.timeStamp = LocalDate.now();
-        this.content = content;
-        this.edited = false;
+public class Message {
+    private final LocalDateTime timestamp;
+    private final String sender;
+    private final String content;
+
+    public Message(String sender, String content) {
+        this.timestamp = LocalDateTime.now();
+        this.sender = sender;
+        this.content = formatMessage(content);
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public LocalDateTime getTimestamp() { return this.timestamp; }
+
+    private String formatMessage(String content) {
+        return "[" + timestamp.format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] "
+                + sender + ": " + content + "\n";
     }
 }

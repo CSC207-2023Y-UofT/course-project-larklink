@@ -7,11 +7,11 @@ public class HostRoomPresenter implements HostRoomOutputBoundary {
     private View view;
     /**
      * Displays the RoomView passing in the specified room ID.
-     * @param roomID the ID of the room.
+     * @param messageHistory the messageHistory of the room.
      */
     @Override
-    public void prepareRoomView(int roomID) {
-        View.roomID = roomID;
+    public void prepareRoomView(String messageHistory) {
+        View.messageHistory = messageHistory;
         view.prepareGUI();
     }
 

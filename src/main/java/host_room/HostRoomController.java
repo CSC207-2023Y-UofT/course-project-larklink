@@ -1,10 +1,5 @@
 package host_room;
 
-import models.RoomModel;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class HostRoomController {
     private final HostRoomInputBoundary inputBoundary;
 
@@ -13,14 +8,9 @@ public class HostRoomController {
     }
 
     /**
-     * Creates a RoomModel using the userID of the specified host and delegates the handling to HostRoomInteractor
-     * through HostRoomInputBoundary.
-     * @param host the userID of the room's host
+     * Creates a RoomModel using the specified roomName by delegating to HostRoomInteractor through HostRoomInputBoundary.
      */
-
-    public void handleHostRoom(Integer host, String name) {
-        List<Integer> activeUsers = new ArrayList<>(host);
-        RoomModel request = new RoomModel(activeUsers, host, name);
-        inputBoundary.hostRoom(request);
+    public void handleHostRoom(String roomName) {
+        inputBoundary.hostRoom(roomName);
     }
 }

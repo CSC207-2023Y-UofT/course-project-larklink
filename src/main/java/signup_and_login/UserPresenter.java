@@ -7,12 +7,10 @@ public class UserPresenter implements UserOutputBoundary {
     private View view;
 
     /**
-     * Displays the JoinOrHostView passing in the specified user ID.
-     * @param userID the ID of the user
+     * Displays the JoinOrHostView.
      */
     @Override
-    public void prepareJoinOrHostView(int userID) {
-        View.userID = userID;
+    public void prepareJoinOrHostView() {
         view.prepareGUI();
     }
 

@@ -8,10 +8,7 @@ public abstract class View extends JFrame {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    public static Integer userID;
-    public static Integer roomID;
-    protected String messageHistory = ""; // TODO update during join room
-
+    public static String messageHistory = "";
     private static JFrame currentFrame = null;
 
     public void prepareGUI() {
@@ -23,7 +20,7 @@ public abstract class View extends JFrame {
         JFrame frame = new JFrame(TITLE);
         frame.setLayout(new BorderLayout());
         frame.setSize(WIDTH, HEIGHT);
-        frame.setResizable(false); //set to false before
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = createPanel();
@@ -34,9 +31,4 @@ public abstract class View extends JFrame {
     }
 
     abstract protected JPanel createPanel();
-
-    public void setMessageHistory(String messageHistory){
-        this.messageHistory = messageHistory;
-    }
-
 }

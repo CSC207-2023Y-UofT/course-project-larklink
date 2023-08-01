@@ -21,9 +21,7 @@ class LeaveRoomPresenterTest {
 
     @Test
     void testPrepareJoinOrHostView() {
-        int userID = 1;
-        leaveRoomPresenter.prepareJoinOrHostView(userID);
-        assert(View.userID == userID);
-        verify(mockView, times(1)).prepareGUI();
+        leaveRoomPresenter.prepareJoinOrHostView();
+        verify(mockView, times(1)).prepareGUI(); // check that prepareGUI was called
     }
 }

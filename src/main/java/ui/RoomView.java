@@ -23,7 +23,7 @@ public class RoomView extends View {
     }
 
     @Override
-    protected JPanel createPanel() {
+    public JPanel createPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 

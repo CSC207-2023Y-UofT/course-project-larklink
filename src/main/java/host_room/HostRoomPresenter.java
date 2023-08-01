@@ -1,10 +1,11 @@
 package host_room;
 
 import ui.View;
+import ui.Viewable;
 
 import javax.swing.JOptionPane;
 public class HostRoomPresenter implements HostRoomOutputBoundary {
-    private View view;
+    private Viewable view;
     /**
      * Displays the RoomView passing in the specified room ID.
      * @param messageHistory the messageHistory of the room.

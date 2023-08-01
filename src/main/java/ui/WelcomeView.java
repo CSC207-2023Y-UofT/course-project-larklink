@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.regex.Pattern;
 
-public class WelcomeView extends View {
+public class WelcomeView extends View implements Viewable{
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
     private static final int MIN_PASSWORD_LENGTH = 8;
 
@@ -19,7 +19,7 @@ public class WelcomeView extends View {
     }
 
     @Override
-    protected JPanel createPanel() {
+    public JPanel createPanel() {
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 

@@ -1,6 +1,7 @@
 package leave_room;
 
 import ui.View;
+import ui.Viewable;
 
 import javax.swing.JOptionPane;
 
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
  * by implementing the LeaveRoomOutputBoundary interface.
  */
 public class LeaveRoomPresenter implements LeaveRoomOutputBoundary {
-    private View view;
+    private Viewable view;
 
     /**
      * Prepares and displays the view for successful leave by showing a success message.

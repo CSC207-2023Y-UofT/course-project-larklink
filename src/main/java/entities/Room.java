@@ -2,13 +2,26 @@ package entities;
 
 import java.util.*;
 
+/**
+ * This Room class represents a chat room in the system.
+ * It employs a Singleton-like pattern where all its members are static, which means
+ * there is effectively only one room in the entire system at a given time.
+ */
 public class Room {
-    static private Integer roomID;
-    static private String roomName;
-    static private Integer hostID;
-    static private List<Integer> activeUserIDs;
-    static private String messageHistory;
+    private static Integer roomID;
+    private static String roomName;
+    private static Integer hostID;
+    private static List<Integer> activeUserIDs;
+    private static String messageHistory;
 
+    /**
+     * Set the room details.
+     * @param roomID The unique identifier for the room.
+     * @param roomName The name of the room.
+     * @param hostID The unique identifier for the host of the room.
+     * @param activeUserIDs The list of active user IDs in the room.
+     * @param messageHistory The message history of the room.
+     */
     public static void setRoom(Integer roomID, String roomName, Integer hostID, List<Integer> activeUserIDs, String messageHistory) {
         Room.roomID = roomID;
         Room.roomName = roomName;

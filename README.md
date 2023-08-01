@@ -65,8 +65,9 @@ This inversion of dependencies allows for easier interacting between layers with
 TODO - Singleton pattern
 
 ## Test Coverage
-We intended to test the controller, interactor and presenter for each feature and test for the database (room db and user db).
-TODO
+We aimed for near perfect coverage across the board and manage to achieve XX% class coverage and XX% line coverage. <br>
+In the database package we achieved 83% class coverage and 64% line coverage because the HttpClient is impractical to test, 
+as we'd have to simulate a server. Otherwise, we tested the core functionality of the DBAccess's in the package.
 
 ## Java Doc
 TODO

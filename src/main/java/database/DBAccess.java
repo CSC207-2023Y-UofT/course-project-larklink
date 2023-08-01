@@ -69,7 +69,6 @@ public abstract class DBAccess<T> {
         httpClient.performPUTRequest(getRoute(), rowID, jsonInputString);
     }
 
-
     /**
      * Returns the route for the database table that this DBAccess instance interacts with.
      *

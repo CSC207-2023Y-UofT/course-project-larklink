@@ -32,10 +32,10 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
                 if (User.checkPassword(request.getPassword(), existingUser.getPassword())) {
                     User.setUser((existingUser.getUserID()), request.getUsername(), request.getPassword());
                     presenter.prepareJoinOrHostView();
-                    return;
                 } else {
                     presenter.prepareInvalidPasswordView(); // reject the invalid login with incorrect password
                 }
+                return;
             }
         }
         presenter.prepareInvalidUsernameView(); // reject the invalid login with non-existing username

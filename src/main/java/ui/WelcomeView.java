@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class WelcomeView extends View {
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
     private static final int MIN_PASSWORD_LENGTH = 8;
-
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9]{8,}$");
     private final UserLoginController loginController;
     private final UserSignupController signupController;
     private JTextField usernameField;
@@ -24,7 +24,7 @@ public class WelcomeView extends View {
     @Override
     protected JPanel createPanel() {
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(90, 70, 90, 70));
 
         this.usernameField = new JTextField();
         this.passwordField = new JPasswordField();
@@ -46,8 +46,9 @@ public class WelcomeView extends View {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
 
-            welcomeViewHelper(username, password);
-            signupController.formatAndHandleUserSignup(username, password);
+            if (welcomeViewHelper(username, password)){
+                signupController.formatAndHandleUserSignup(username, password);
+            }
         });
         return signupButton;
     }
@@ -58,38 +59,49 @@ public class WelcomeView extends View {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
 
-            welcomeViewHelper(username, password);
-            loginController.formatAndHandleUserLogin(username, password);
+            if (welcomeViewHelper(username, password)){
+                loginController.formatAndHandleUserLogin(username, password);
+            }
         });
         return loginButton;
 
     }
 
-    private void welcomeViewHelper(String username, String password){
+    private boolean welcomeViewHelper(String username, String password){
 
         if (username.isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "Username field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
         if (!USERNAME_PATTERN.matcher(username).matches()) {
             JOptionPane.showMessageDialog(null,
                     "Invalid username! Use only alphanumeric characters. Minimum length: 3",
                     "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
         if (password.isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "Password field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
 
         if (password.length() < MIN_PASSWORD_LENGTH) {
             JOptionPane.showMessageDialog(null,
                     "Password too short! Minimum length: " + MIN_PASSWORD_LENGTH,
                     "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
+
+        if (!PASSWORD_PATTERN.matcher(password).matches()) {
+            JOptionPane.showMessageDialog(null,
+                    "Invalid password! Use only alphanumeric characters.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 }

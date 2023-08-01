@@ -1,4 +1,4 @@
-package leave_room;
+package use_cases_and_adapters.leave_room;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

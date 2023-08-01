@@ -1,4 +1,4 @@
-package signup_and_login;
+package use_cases_and_adapters.signup_and_login;
 
 import use_cases_and_adapters.UserDBModel;
 import entities.User;

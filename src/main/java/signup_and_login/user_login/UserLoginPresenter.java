@@ -33,7 +33,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
     }
 
     /**
-     * Sets the view this presenter displays next (in this case JoinOrHostView).수정
+     * Sets the view this presenter displays next (in this case JoinOrHostView).
      */
     public void setView(View view) {
         this.view = view;

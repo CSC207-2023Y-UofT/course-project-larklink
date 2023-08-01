@@ -1,4 +1,6 @@
 import database.*;
+import database.converters.RoomConverter;
+import database.converters.UserConverter;
 import host_room.*;
 import join_room.*;
 import leave_room.*;
@@ -11,34 +13,32 @@ public class Main {
     private static final String larkSoundFilePath = "/src/main/assets/lark_sound.wav";
     public static void main(String[] args) {
         HttpClient httpClient = new HttpClient(API_URL);
+
         RoomConverter roomConverter = new RoomConverter();
         UserConverter userConverter = new UserConverter();
 
+        RoomDBAccess roomDBAccess = new RoomDBAccess(httpClient, roomConverter);
+        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
 
         UserPresenter userPresenter = new UserPresenter();
-        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
         UserInteractor userInteractor = new UserInteractor(userPresenter, userDBAccess);
         UserController userController = new UserController(userInteractor);
         WelcomeView welcomeView = new WelcomeView(userController);
 
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
-        LeaveRoomDBAccess leaveRoomDBAccess = new LeaveRoomDBAccess(httpClient, roomConverter);
-        LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(leaveRoomDBAccess, leaveRoomPresenter);
+        LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
         MessagePresenter sendMessagePresenter = new MessagePresenter();
-        MessageDBAccess messageDBAccess = new MessageDBAccess(httpClient, roomConverter);
-        MessageInteractor interactor = new MessageInteractor(messageDBAccess, sendMessagePresenter, larkSoundFilePath);
+        MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter, larkSoundFilePath);
         MessageController sendMessageController = new MessageController(interactor);
         RoomView roomView = new RoomView(leaveRoomController, sendMessageController);
 
         HostRoomPresenter hostRoomPresenter = new HostRoomPresenter();
-        HostRoomDBAccess hostRoomDBAccess = new HostRoomDBAccess(httpClient, roomConverter);
-        HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(hostRoomDBAccess, hostRoomPresenter);
+        HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
 
         JoinByIDPresenter joinByIDPresenter = new JoinByIDPresenter();
-        JoinRoomDBAccess joinRoomDBAccess = new JoinRoomDBAccess(httpClient, roomConverter);
-        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(joinRoomDBAccess, joinByIDPresenter);
+        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(roomDBAccess, joinByIDPresenter);
         JoinByIDController joinByIDController = new JoinByIDController(joinByIDInteractor);
         JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinByIDController);
 

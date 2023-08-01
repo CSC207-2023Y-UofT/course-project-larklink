@@ -1,9 +1,7 @@
-package signup_and_login;
+package database;
 
-import database.DBAccess;
-import database.HttpClient;
-import database.UserConverter;
-import database.UserDBModel;
+import database.converters.UserConverter;
+import signup_and_login.UserDBGateway;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
-package database;
+package database.converters;
 
 import com.google.gson.JsonObject;
+import database.UserDBModel;
 
 /**
  * This class is responsible for converting UserDBModel instances to and from JSON.

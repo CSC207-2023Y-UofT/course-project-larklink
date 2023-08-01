@@ -26,7 +26,7 @@ public class HttpClient {
      * @return The response to the GET request, as a String.
      * @throws IOException If an I/O error occurs while sending the request or reading the response.
      */
-    String performGETRequest(String route, Integer id) throws IOException {
+    public String performGETRequest(String route, Integer id) throws IOException {
         URL url = new URL(urlBase + "/" + route + (id == null ? "" : "/" + id));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -55,7 +55,7 @@ public class HttpClient {
      * @param jsonInputString  The JSON string to send in the body of the request.
      * @throws IOException     If an I/O error occurs while sending the request.
      */
-     void performPUTRequest(String route, Integer id, String jsonInputString) throws IOException {
+    public void performPUTRequest(String route, Integer id, String jsonInputString) throws IOException {
         URL url = new URL(urlBase + "/" + route + "/" + id);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("PUT");

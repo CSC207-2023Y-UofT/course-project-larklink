@@ -1,4 +1,4 @@
-package database;
+package database.converters;
 
 import com.google.gson.JsonObject;
 

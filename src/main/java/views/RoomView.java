@@ -22,6 +22,11 @@ public class RoomView extends View {
         this.sendMessageController = sendMessageController;
     }
 
+    /**
+     * Constructs a room view in which messages are displayed. Also has buttons for sending messages,
+     * refreshing the page and leaving the room
+     * @return JPanel containing the ui components
+     */
     @Override
     public JPanel createPanel() {
         JPanel panel = new JPanel(new BorderLayout());

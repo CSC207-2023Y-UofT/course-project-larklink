@@ -7,7 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.regex.Pattern;
 
+/**
+    View for the join room and host room use cases
+ **/
+
 public class JoinOrHostView extends View {
+    // regex to check passwords follow conventions
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{5,}$");
     private static final int MIN_PASSWORD_LENGTH = 5;
     private final HostRoomController hostRoomController;
@@ -20,6 +25,10 @@ public class JoinOrHostView extends View {
         this.joinRoomController = joinRoomController;
     }
 
+    /**
+     * Creates a panel with a list of joinable rooms and a field to enter the name of a new room
+     * @return JPanel with the specified fields
+     */
     @Override
     public JPanel createPanel() {
         JPanel panel = new JPanel();
@@ -65,6 +74,11 @@ public class JoinOrHostView extends View {
 
         return panel;
     }
+
+    /**
+     * Constructs a button that when clicked triggers the creation of a new room
+     * @return JButton with the text "host"
+     */
 
     private JButton createHostButton() {
         JButton hostButton = new JButton("Host");

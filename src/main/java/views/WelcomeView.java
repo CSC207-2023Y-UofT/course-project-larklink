@@ -6,6 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.regex.Pattern;
 
+/**
+ * The view displayed when a user first connects to LarkLink. Contains two fields:
+ * username and password.
+ */
+
 public class WelcomeView extends View {
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
     private static final int MIN_PASSWORD_LENGTH = 8;
@@ -17,6 +22,13 @@ public class WelcomeView extends View {
     public WelcomeView(UserController controller) {
         this.controller = controller;
     }
+
+    /**
+     * Constructs the panel using the helper createButtonMethod. Consists of two
+     * fields (one for password and one for username) and a button to submit
+     * their contents
+     * @return JPanel with the specified components
+     */
 
     @Override
     public JPanel createPanel() {
@@ -36,6 +48,11 @@ public class WelcomeView extends View {
         return panel;
     }
 
+    /**
+     * Constructs a submit button which processes a new or returning user on-click.
+     * @return A JButton with the text "submit"
+     */
+
     private JButton createSubmitButton() {
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
@@ -43,22 +60,26 @@ public class WelcomeView extends View {
             String password = new String(passwordField.getPassword());
 
             if (username.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Username field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Username field is empty!",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (!USERNAME_PATTERN.matcher(username).matches()) {
-                JOptionPane.showMessageDialog(null, "Invalid username! Use only alphanumeric characters. Minimum length: 3", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Invalid username! Use only alphanumeric " +
+                        "characters. Minimum length: 3", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (password.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Password field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Password field is empty!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             if (password.length() < MIN_PASSWORD_LENGTH) {
-                JOptionPane.showMessageDialog(null, "Password too short! Minimum length: " + MIN_PASSWORD_LENGTH, "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Password too short! Minimum length: " +
+                        MIN_PASSWORD_LENGTH, "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

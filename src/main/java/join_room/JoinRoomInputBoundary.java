@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * An input boundary for join room use case.
+ * This class is an abstraction layer between JoinRoomController and JoinRoomInteractor.
  */
 
 public interface JoinRoomInputBoundary {

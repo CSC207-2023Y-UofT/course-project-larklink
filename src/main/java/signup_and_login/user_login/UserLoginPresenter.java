@@ -4,6 +4,10 @@ import ui.View;
 
 import javax.swing.*;
 
+/**
+ * A presenter for login use case.
+ * This class implements UserLoginOutputBoundary to interact with UserLoginInteractor.
+ */
 public class UserLoginPresenter implements UserLoginOutputBoundary{
 
     private View view;
@@ -21,7 +25,8 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
      */
     @Override
     public void prepareInvalidUsernameView() {
-        JOptionPane.showMessageDialog(null, "Username does not exist.");
+        JOptionPane.showMessageDialog(null,
+                "Username does not exist.");
     }
 
     /**
@@ -29,11 +34,14 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
      */
     @Override
     public void prepareInvalidPasswordView() {
-        JOptionPane.showMessageDialog(null, "Password doesn't match existing Username.");
+        JOptionPane.showMessageDialog(null,
+                "Password doesn't match existing username.");
     }
 
     /**
-     * Sets the view this presenter displays next (in this case JoinOrHostView).
+     * Sets the view this presenter displays next.
+     *
+     * @param view a view set for the next display (in this case JoinOrHostView)
      */
     public void setView(View view) {
         this.view = view;

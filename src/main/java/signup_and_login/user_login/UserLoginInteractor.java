@@ -6,6 +6,10 @@ import signup_and_login.UserModel;
 
 import java.util.List;
 
+/**
+ * An interactor for login use case.
+ * This class implements UserLoginInputBoundary to interact with input from the user.
+ */
 public class UserLoginInteractor implements UserLoginInputBoundary {
     private final UserLoginOutputBoundary presenter;
     private final UserDBGateway database;
@@ -19,7 +23,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
      * Handles the user login request by checking the existing users in the database.
      * If a matching username and password are found, it prepares the JoinOrHostView through the presenter.
      * If the username exists but the password doesn't match, it prepares the view indicating invalid password.
-     * If the username is not found, it shows it prepares the view indicating invalid username.
+     * If the username is not found, it prepares the view indicating username does not exist.
      *
      * @param request the user model containing the username and password of our requesting user
      */
@@ -35,7 +39,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
                 } else {
                     presenter.prepareInvalidPasswordView(); // reject the invalid login with incorrect password
                 }
-                return;
+                return; // return here so that prepareInvalidUsernameView is not called in this case
             }
         }
         presenter.prepareInvalidUsernameView(); // reject the invalid login with non-existing username

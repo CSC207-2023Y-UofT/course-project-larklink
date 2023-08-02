@@ -17,6 +17,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
      *
      * @param messageHistory a history of messages stored in the room
      */
+    // need to change javadoc after implementing view interface
     @Override
     public void prepareRoomView(String messageHistory){
         View.messageHistory = messageHistory;
@@ -24,7 +25,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
     }
 
     /**
-     * Displays a fail view which indicates that matching room is not found.
+     * Displays a fail view indicating that matching room is not found.
      */
     @Override
     public void prepareFailView(){
@@ -35,7 +36,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
     /**
      * Sets the view this presenter displays next
      *
-     * @param view a view set for the next display
+     * @param view a view set for the next display (in this case RoomView)
      */
     public void setView(View view) {
         this.view = view;

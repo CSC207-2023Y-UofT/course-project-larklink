@@ -6,6 +6,10 @@ import signup_and_login.UserModel;
 
 import java.util.List;
 
+/**
+ * An interactor for signup use case.
+ * This class implements UserSignupInputBoundary to interact with input from the user.
+ */
 public class UserSignupInteractor implements UserSignupInputBoundary {
     private final UserSignupOutputBoundary presenter;
     private final UserDBGateway database;
@@ -28,8 +32,8 @@ public class UserSignupInteractor implements UserSignupInputBoundary {
 
         for (UserDBModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
-                presenter.prepareUsernameExistsView(); // Username already exists
-                return;
+                presenter.prepareUsernameExistsView(); // reject the invalid signup with existing username
+                return; // return here so that prepareJoinOrHostView is not called in this case
             }
         }
         // no existing user found, so we hash their password and set their userID to save the new user

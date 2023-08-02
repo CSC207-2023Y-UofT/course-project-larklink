@@ -3,6 +3,10 @@ package signup_and_login.user_signup;
 import javax.swing.*;
 import ui.View;
 
+/**
+ * A presenter for signup use case.
+ * This class implements UserSignupOutputBoundary to interact with UserSignupInteractor.
+ */
 public class UserSignupPresenter implements UserSignupOutputBoundary {
     private View view;
 
@@ -23,7 +27,9 @@ public class UserSignupPresenter implements UserSignupOutputBoundary {
     }
 
     /**
-     * Sets the view this presenter displays next (in this case JoinOrHostView).
+     * Sets the view this presenter displays next
+     *
+     * @param view a view set for the next display (in this case JoinOrHostView)
      */
     public void setView(View view) {
         this.view = view;

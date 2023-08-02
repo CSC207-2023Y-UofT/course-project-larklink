@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ui.View;
-
 import static org.mockito.Mockito.*;
 
 public class MessagePresenterTest {

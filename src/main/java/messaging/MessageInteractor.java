@@ -4,7 +4,6 @@ import entities.Message;
 import entities.Room;
 import entities.User;
 import database.RoomDBModel;
-
 import java.io.*;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -12,6 +11,10 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * The MessageInteractor class implements the MessageInputBoundary interface and is responsible for handling
+ * message-related requests. It interacts with the database and presenter to manage messages and their presentation.
+ */
 public class MessageInteractor implements MessageInputBoundary {
     private final MessageDBGateway database;
     private final MessageOutputBoundary presenter;
@@ -57,7 +60,7 @@ public class MessageInteractor implements MessageInputBoundary {
     }
 
     /**
-     * Retrieves the messages and passes to the presenter, add to docstring
+     * Retrieves the messages and passes to the presenter.
      */
     @Override
     public void handleRetrieveMessages() {

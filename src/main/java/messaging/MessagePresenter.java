@@ -2,6 +2,10 @@ package messaging;
 import javax.swing.*;
 import ui.View;
 
+/**
+ * The MessagePresenter class is responsible for preparing and presenting message-related views to the user.
+ * It implements the MessageOutputBoundary interface to handle view preparation and error presentation.
+ */
 public class MessagePresenter implements MessageOutputBoundary {
     private View view;
 

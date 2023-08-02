@@ -7,6 +7,9 @@ import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import use_case.join_room.JoinRoomDBGateway;
+import use_case.join_room.JoinRoomInteractor;
+import use_case.join_room.JoinRoomOutputBoundary;
 
 import java.util.ArrayList;
 import java.util.List;

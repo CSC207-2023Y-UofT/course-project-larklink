@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import ui.View;
+import use_case.leave_room.leave_room.LeaveRoomPresenter;
+import views.View;
 
 import static org.mockito.Mockito.*;
 

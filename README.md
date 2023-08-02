@@ -84,5 +84,5 @@ Input and data model:<br> `src/main/java/models`<br>
 
 Gateway and DBAccess:<br> `src/main/java/database`<br>
 
-View:<br> `src/main/java/ui`<br>
+View:<br> `src/main/java/views`<br>
 

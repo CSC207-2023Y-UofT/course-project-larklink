@@ -3,6 +3,8 @@ package join_room;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.*;
+import use_case.join_room.JoinRoomController;
+import use_case.join_room.JoinRoomInputBoundary;
 
 import static org.mockito.Mockito.*;
 

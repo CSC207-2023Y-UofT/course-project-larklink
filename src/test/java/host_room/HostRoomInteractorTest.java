@@ -1,19 +1,11 @@
 package host_room;
 
 import database.RoomDBAccess;
-import database.RoomDBModel;
-import leave_room.LeaveRoomInteractor;
-import leave_room.LeaveRoomOutputBoundary;
-import database.RoomDBModel;
-import database.RoomDBModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static org.mockito.Mockito.*;
+import use_case.host_room.HostRoomInteractor;
+import use_case.host_room.HostRoomOutputBoundary;
 
 public class HostRoomInteractorTest {
     private HostRoomInteractor hostRoomInteractor;

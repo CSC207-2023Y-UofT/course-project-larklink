@@ -6,6 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import database.*;
+import use_case.leave_room.leave_room.LeaveRoomDBGateway;
+import use_case.leave_room.leave_room.LeaveRoomInteractor;
+import use_case.leave_room.leave_room.LeaveRoomOutputBoundary;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

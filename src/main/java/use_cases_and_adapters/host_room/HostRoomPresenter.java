@@ -21,6 +21,10 @@ public class HostRoomPresenter implements HostRoomOutputBoundary {
         JOptionPane.showMessageDialog(null, "Already hosting room");
     }
 
+    public void prepareDuplicateNameView() {
+        JOptionPane.showMessageDialog(null, "Room with this name already exists");
+    }
+
     public void setView(Viewable view) {
         this.view = view;
     }

@@ -25,9 +25,18 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
         List<RoomDBModel> existingRooms = database.getRooms();
         Integer hostID = User.getUserID();
 
+        // check no duplicate room name
+        for (RoomDBModel existingRoom: existingRooms) {
+            if (existingRoom.getRoomName().equals(roomName)) {
+                presenter.prepareDuplicateNameView();
+                return;
+            }
+        }
+
         for (RoomDBModel existingRoom : existingRooms) {
             if (existingRoom.getHostID().equals(hostID)) {
-                presenter.prepareMultipleHostingView(); // user already hosting room
+                // user already hosting room
+                presenter.prepareMultipleHostingView();
                 return;
             }
         }

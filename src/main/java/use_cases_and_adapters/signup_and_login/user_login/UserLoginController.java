@@ -8,6 +8,11 @@ import use_cases_and_adapters.signup_and_login.UserModel;
 public class UserLoginController {
     private final UserLoginInputBoundary inputBoundary;
 
+    /**
+     * Constructs new UserLoginController object with given input boundary
+     *
+     * @param inputBoundary a UserLoginInputBoundary object
+     */
     public UserLoginController(UserLoginInputBoundary inputBoundary) {
         this.inputBoundary = inputBoundary;
     }

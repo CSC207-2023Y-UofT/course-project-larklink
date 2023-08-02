@@ -8,6 +8,20 @@ import java.util.List;
  */
 
 public interface JoinRoomInputBoundary {
+
+    /**
+     * Handles join room use case using given room name from outer layer.
+     * If matching room is not found, it prepares a fail view indicating that matching room is not found.
+     * If matching room is found, it prepares RoomView and user enters that room.
+     *
+     * @param roomName the name of room that user tries to join in
+     */
     void handleJoinRoom(String roomName);
+
+    /**
+     * Loads all names of the existing rooms.
+     *
+     * @return a list of all room names
+     */
     List<String> loadRoomNames();
 }

@@ -14,6 +14,12 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
     private final UserLoginOutputBoundary presenter;
     private final UserDBGateway database;
 
+    /**
+     * Constructs a UserLoginInteractor object with given gateway and output boundary object.
+     *
+     * @param database a UserDBGateway object
+     * @param presenter a UserLoginOutputBoundary object
+     */
     public UserLoginInteractor(UserDBGateway database, UserLoginOutputBoundary presenter) {
         this.database = database;
         this.presenter = presenter;

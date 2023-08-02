@@ -15,6 +15,12 @@ public class JoinRoomInteractor implements JoinRoomInputBoundary {
     private final JoinRoomDBGateway roomDBGateway;
     private final JoinRoomOutputBoundary presenter;
 
+    /**
+     * Constructs a JoinRoomInteractor object with given gateway and output boundary object.
+     *
+     * @param roomDBGateway a JoinRoomDBGateway object
+     * @param presenter a JoinRoomOutputBoundary object
+     */
     public JoinRoomInteractor(JoinRoomDBGateway roomDBGateway, JoinRoomOutputBoundary presenter) {
         this.roomDBGateway = roomDBGateway;
         this.presenter = presenter;

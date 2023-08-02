@@ -9,6 +9,11 @@ public class JoinRoomController {
 
     private final JoinRoomInputBoundary joinRoomInputBoundary;
 
+    /**
+     * Constructs new JoinRoomController object with given input boundary
+     *
+     * @param joinRoomInputBoundary a JoinRoomInputBoundary object
+     */
     public JoinRoomController(JoinRoomInputBoundary joinRoomInputBoundary){
         this.joinRoomInputBoundary = joinRoomInputBoundary;
     }

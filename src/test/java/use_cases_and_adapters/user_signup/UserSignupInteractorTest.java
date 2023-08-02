@@ -50,10 +50,11 @@ public class UserSignupInteractorTest {
         UserModel existingUser = new UserModel(testUsername, testPassword);
         userRegisterInteractor.handleUserSignup(existingUser);
 
-        verify(presenter).prepareJoinOrHostView();
+        verify(presenter).prepareUsernameExistsView();
         verify(database, never()).addAUser(any(UserDBModel.class));
     }
 
+//    will be deleted
 //    @Test
 //    public void testHandleUser_invalidPassword() {
 //        when(database.getUsers()).thenReturn(users);

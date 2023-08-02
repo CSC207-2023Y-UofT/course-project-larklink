@@ -22,8 +22,7 @@ public class WelcomeView extends View {
 
     /**
      * Constructs the panel using the helper createButtonMethod. Consists of two
-     * fields (one for password and one for username) and a button to submit
-     * their contents
+     * buttons: one to log in and the other to sign up
      * @return JPanel with the specified components
      */
 
@@ -41,8 +40,8 @@ public class WelcomeView extends View {
     }
 
     /**
-     * Creates
-     * @return
+     * Creates a sign up button for displaying in the welcome view panel
+     * @return JButton with the text "Sign up"
      */
     private JButton createSignUpButton() {
         JButton signupButton = new JButton("Sign up");
@@ -53,6 +52,10 @@ public class WelcomeView extends View {
         return signupButton;
     }
 
+    /**
+     * Creates a log in button for displaying in the welcome view panel
+     * @return JButton with the text "Log in"
+     */
     private JButton createLoginButton() {
         JButton loginButton = new JButton("Log in");
         loginButton.addActionListener(e -> {

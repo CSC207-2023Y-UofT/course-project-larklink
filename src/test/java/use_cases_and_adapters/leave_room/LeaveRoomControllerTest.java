@@ -3,6 +3,8 @@ package use_cases_and_adapters.leave_room;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import use_cases_and_adapters.leave_room.LeaveRoomController;
+
 
 import static org.mockito.Mockito.*;
 

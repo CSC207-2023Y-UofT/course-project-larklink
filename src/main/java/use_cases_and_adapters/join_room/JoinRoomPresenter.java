@@ -25,7 +25,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
     }
 
     /**
-     * Displays a fail view which indicates that matching room is not found.
+     * Displays a fail view indicating that matching room is not found.
      */
     @Override
     public void prepareFailView(){
@@ -36,7 +36,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
     /**
      * Sets the view this presenter displays next
      *
-     * @param view a view set for the next display
+     * @param view a view set for the next display (in this case RoomView)
      */
     public void setView(Viewable view) {
         this.view = view;

@@ -1,27 +1,28 @@
-package use_cases_and_adapters.signup_and_login;
+package use_cases_and_adapters.user_signup;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import views.View;
+import use_cases_and_adapters.Viewable;
+import use_cases_and_adapters.signup_and_login.user_signup.UserSignupPresenter;
 
 import static org.mockito.Mockito.*;
 
-class UserPresenterTest {
-    private UserPresenter userPresenter;
-    private View mockView;
+class UserSignupPresenterTest {
+    private UserSignupPresenter userRegisterPresenter;
+    private Viewable mockView;
 
     @BeforeEach
     void setUp() {
-        mockView = Mockito.mock(View.class);
-        userPresenter = new UserPresenter();
-        userPresenter.setView(mockView);
+        mockView = Mockito.mock(Viewable.class);
+        userRegisterPresenter = new UserSignupPresenter();
+        userRegisterPresenter.setView(mockView);
     }
 
     @Test
     void testPrepareJoinOrHostView() {
-        userPresenter.prepareJoinOrHostView();
+        userRegisterPresenter.prepareJoinOrHostView();
         verify(mockView, times(1)).prepareGUI(); // check that prepareGUI was called
     }
 

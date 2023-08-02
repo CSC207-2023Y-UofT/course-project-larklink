@@ -3,7 +3,7 @@ package use_cases_and_adapters.join_room;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import views.RoomView;
+import use_cases_and_adapters.Viewable;
 
 import static org.mockito.Mockito.*;
 
@@ -13,11 +13,11 @@ import static org.mockito.Mockito.*;
 public class JoinRoomPresenterTest {
     private JoinRoomPresenter presenter;
     @Mock
-    private RoomView mockView;
+    private Viewable mockView;
 
     @BeforeEach
     public void setUp() {
-        mockView = mock(RoomView.class);
+        mockView = mock(Viewable.class);
         presenter = new JoinRoomPresenter();
         presenter.setView(mockView);
     }

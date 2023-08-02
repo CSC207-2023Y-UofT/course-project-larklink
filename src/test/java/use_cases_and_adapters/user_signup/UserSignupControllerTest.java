@@ -1,19 +1,24 @@
-package use_cases_and_adapters.signup_and_login;
+package use_cases_and_adapters.user_signup;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import use_cases_and_adapters.signup_and_login.UserModel;
+import use_cases_and_adapters.signup_and_login.user_signup.UserSignupController;
+import use_cases_and_adapters.signup_and_login.user_signup.UserSignupInputBoundary;
+
 
 import static org.mockito.Mockito.verify;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserControllerTest {
+public class UserSignupControllerTest {
 
-    private UserController userController;
+    private UserSignupController userSignupController;
 
     @Mock
-    private UserInputBoundary inputBoundary;
+    private UserSignupInputBoundary inputBoundary;
 
     @Captor
     ArgumentCaptor<UserModel> userModelCaptor;
@@ -21,7 +26,7 @@ public class UserControllerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        userController = new UserController(inputBoundary);
+        userSignupController = new UserSignupController(inputBoundary);
     }
 
     @Test
@@ -30,10 +35,10 @@ public class UserControllerTest {
         String testPassword = "testPassword";
 
         // check that we format our data into a UserModel and call handleUser
-        userController.formatAndHandleUser(testUsername, testPassword);
+        userSignupController.formatAndHandleUserSignup(testUsername, testPassword);
 
         // we use userModelCaptor since UserModel doesn't implement equals
-        verify(inputBoundary).handleUser(userModelCaptor.capture());
+        verify(inputBoundary).handleUserSignup(userModelCaptor.capture());
 
         UserModel capturedUser = userModelCaptor.getValue(); // get the argument that was passed to handleUser
         assertEquals(testUsername, capturedUser.getUsername()); // check that we passed in the right username

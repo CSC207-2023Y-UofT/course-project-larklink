@@ -9,12 +9,17 @@ public class JoinRoomController {
 
     private final JoinRoomInputBoundary joinRoomInputBoundary;
 
+    /**
+     * Constructs new JoinRoomController object with given input boundary
+     *
+     * @param joinRoomInputBoundary a JoinRoomInputBoundary object
+     */
     public JoinRoomController(JoinRoomInputBoundary joinRoomInputBoundary){
         this.joinRoomInputBoundary = joinRoomInputBoundary;
     }
 
     /**
-     * Handles join room use case through JoinRoomInputBoundary.
+     * Delegates the handling of join room use case to JoinRoominteractor through JoinRoomInputBoundaru.
      *
      * @param roomName name of the chat room that user tries to join in
      */
@@ -23,7 +28,9 @@ public class JoinRoomController {
     }
 
     /**
-     * Loads all names of the existing room
+     * Retrieves all names of the existing rooms.
+     *
+     * @return a list of all room names
      */
     public List<String> loadRoomNames() {
         return joinRoomInputBoundary.loadRoomNames();

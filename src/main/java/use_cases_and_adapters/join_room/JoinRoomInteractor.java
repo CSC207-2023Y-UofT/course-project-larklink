@@ -1,6 +1,6 @@
 package use_cases_and_adapters.join_room;
-import use_cases_and_adapters.RoomDBModel;
 
+import use_cases_and_adapters.RoomDBModel;
 import entities.Room;
 import entities.User;
 
@@ -9,20 +9,26 @@ import java.util.List;
 
 /**
  * An interactor for join room use case.
- * This class implements JoinRoomInputBoundary to interact with user's input from outer layer.
+ * This class implements JoinRoomInputBoundary to interact with input from outer layer.
  */
 public class JoinRoomInteractor implements JoinRoomInputBoundary {
     private final JoinRoomDBGateway roomDBGateway;
     private final JoinRoomOutputBoundary presenter;
 
+    /**
+     * Constructs a JoinRoomInteractor object with given gateway and output boundary object.
+     *
+     * @param roomDBGateway a JoinRoomDBGateway object
+     * @param presenter a JoinRoomOutputBoundary object
+     */
     public JoinRoomInteractor(JoinRoomDBGateway roomDBGateway, JoinRoomOutputBoundary presenter) {
         this.roomDBGateway = roomDBGateway;
         this.presenter = presenter;
     }
 
     /**
-     * Handles join room use case using given room name from user.
-     * If matching room is not found, it prepares a fail view showing error message.
+     * Handles join room use case using given room name from outer layer.
+     * If matching room is not found, it prepares a fail view indicating that matching room is not found.
      * If matching room is found, it prepares RoomView and user enters that room.
      *
      * @param roomName the name of room that user tries to join in
@@ -32,9 +38,11 @@ public class JoinRoomInteractor implements JoinRoomInputBoundary {
         List<RoomDBModel> existingRooms = roomDBGateway.getRooms();
         for (RoomDBModel room : existingRooms) {
             if (room.getRoomName().equals(roomName)) {
+                // add this user into the active user list of this room and update the active user list
                 List<Integer> activeUsers = room.getActiveUserIDs();
                 activeUsers.add(User.getUserID());
                 room.setActiveUserIDs(activeUsers);
+                // update this room with new active user list
                 roomDBGateway.updateARoom(room);
                 Room.setRoom(room.getRoomID(), room.getRoomName(),
                         room.getHostID(), room.getActiveUserIDs(), room.getMessageHistory());
@@ -47,7 +55,9 @@ public class JoinRoomInteractor implements JoinRoomInputBoundary {
     }
 
     /**
-     * Returns a list of names of existing rooms.
+     * Retrieves all names of the existing rooms from database.
+     *
+     * @return a list of all room names
      */
     @Override
     public List<String> loadRoomNames() {

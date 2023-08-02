@@ -1,9 +1,11 @@
 package views;
 
+import use_cases_and_adapters.Viewable;
+
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class View extends JFrame {
+public abstract class View extends JFrame implements Viewable {
     private static final String TITLE = "Larklink";
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
@@ -30,5 +32,5 @@ public abstract class View extends JFrame {
         currentFrame = frame; // store reference to current frame (for when we want to close it)
     }
 
-    abstract protected JPanel createPanel();
+    abstract public JPanel createPanel();
 }

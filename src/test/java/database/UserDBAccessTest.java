@@ -1,11 +1,12 @@
 package database;
 
-import com.google.gson.JsonObject;
+import database.converters.UserConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import use_cases_and_adapters.UserDBModel;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,20 +16,22 @@ import static org.mockito.Mockito.*;
 
 public class UserDBAccessTest {
 
-    private UserDBAccess userDBAccess;
-
     @Mock
     private UserDBModel mockUserDBModel;
+
+    @Mock
+    private HttpClient mockHttpClient;
+
+    private UserDBAccess userDBAccess;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        String urlBase = "http://localhost:8080/api/";
-        userDBAccess = Mockito.spy(new UserDBAccess(urlBase)); // initialize UserDBAccess and a spy to track it
+        userDBAccess = Mockito.spy(new UserDBAccess(mockHttpClient, new UserConverter())); // initialize UserDBAccess and a spy to track it
     }
 
     @Test
-    public void testGetUsers() {
+    public void testGetUsers() throws IOException {
         // here we are just checking that a call to getUsers is a call to getRows
         List<UserDBModel> expectedUsers = Collections.singletonList(mockUserDBModel);
         doReturn(expectedUsers).when(userDBAccess).getRows();
@@ -37,55 +40,15 @@ public class UserDBAccessTest {
     }
 
     @Test
-    public void testAddAUser() {
-        // here we are just checking that a call to addAUser is a call to modifyARow
-        doNothing().when(userDBAccess).modifyARow(anyInt(), any());
+    public void testAddAUser() throws IOException {
+        // here we are just checking that a call to addAUser is a call to updateARow
+        doNothing().when(userDBAccess).updateARow(anyInt(), any());
         userDBAccess.addAUser(mockUserDBModel);
-        verify(userDBAccess, times(1)).modifyARow(anyInt(), any());
-    }
-
-    @Test
-    public void testJsonToObject() {
-        // prepare a JsonObject with user data
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("id", 1);
-        jsonObject.addProperty("username", "testUser");
-        jsonObject.addProperty("password", "testPassword");
-        JsonObject mainObject = new JsonObject();
-        mainObject.add("user", jsonObject);
-
-        // call the method (jsonToObject)
-        UserDBModel userDBModel = userDBAccess.jsonToObject(mainObject);
-
-        // check that the object returned by jsonToObject has the expected properties
-        assertEquals(1, userDBModel.getUserID());
-        assertEquals("testUser", userDBModel.getUsername());
-        assertEquals("testPassword", userDBModel.getPassword());
-    }
-
-    @Test
-    public void testObjectToJson() {
-        // prepare the mock user object
-        when(mockUserDBModel.getUsername()).thenReturn("testUser");
-        when(mockUserDBModel.getPassword()).thenReturn("testPassword");
-
-        // prepare the expected JsonObject
-        JsonObject expectedJson = new JsonObject();
-        JsonObject userObject = new JsonObject();
-        userObject.addProperty("username", "testUser");
-        userObject.addProperty("password", "testPassword");
-        expectedJson.add("user", userObject);
-
-        // call the method (objectToJson)
-        JsonObject actualJson = userDBAccess.objectToJson(mockUserDBModel);
-
-        // check that the object returned by objectToJson is the expected JsonObject
-        assertEquals(expectedJson, actualJson);
+        verify(userDBAccess, times(1)).updateARow(anyInt(), any());
     }
 
     @Test
     public void testGetRoute() {
-        // test if the getRoute method returns the expected string
         assertEquals("users", userDBAccess.getRoute());
     }
 }

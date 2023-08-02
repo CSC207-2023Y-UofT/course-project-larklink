@@ -1,54 +1,56 @@
 package database;
 
-import com.google.gson.JsonObject;
+import database.converters.UserConverter;
 import use_cases_and_adapters.UserDBModel;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
 
 import java.util.List;
 
+
+/**
+ * UserDBAccess is a specific implementation of the DBAccess abstract class for UserDBModel objects.
+ * This class implements UserDBGateway interface and provides concrete methods for those interfaces.
+ * UserDBAccess makes use of a UserConverter for converting between UserDBModel objects and their database representation,
+ * and an HttpClient to perform HTTP requests.
+ */
 public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway {
 
-    public UserDBAccess(String urlBase) {
-        super(urlBase);
+    /**
+     * Constructs a new UserDBAccess object with the given HttpClient and UserConverter instances.
+     *
+     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
+     * @param converter  The UserConverter instance responsible for switching between JSON data to User objects.
+     */
+    public UserDBAccess(HttpClient httpClient, UserConverter converter) {
+        super(httpClient,converter);
     }
 
+    /**
+     * Retrieves a list of all users from the database.
+     *
+     * @return a List of UserDBModel objects representing all users in the database, or an empty list if an error occurred.
+     */
     @Override
     public List<UserDBModel> getUsers() {
         return getRows();
     }
 
+    /**
+     * Adds a new user to the database.
+     *
+     * @param request a UserDBModel object containing the data for the new user.
+     */
     @Override
     public void addAUser(UserDBModel request) {
-        modifyARow(request.getUserID(), request);
+        updateARow(request.getUserID(), request);
     }
 
-    @Override
-    protected UserDBModel jsonToObject(JsonObject jsonObject) {
-
-        // when we fetch one row we get "user: <information here>" so here we "skip" it
-        if (jsonObject.has("user")) {
-            jsonObject = jsonObject.get("user").getAsJsonObject();
-        }
-
-        int userId = jsonObject.get("id").getAsInt();
-        String username = jsonObject.get("username").getAsString();
-        String password = jsonObject.get("password").getAsString();
-
-        return new UserDBModel(userId, username, password);
-    }
-
-    @Override
-    protected JsonObject objectToJson(UserDBModel model) {
-        JsonObject userObject = new JsonObject();
-        userObject.addProperty("username", model.getUsername());
-        userObject.addProperty("password", model.getPassword());
-
-        JsonObject mainObject = new JsonObject();
-        mainObject.add("user", userObject);
-
-        return mainObject;
-    }
-
+    /**
+     * Returns the route for the User database table.
+     * This is used by the superclass methods to construct the URLs for the HTTP requests.
+     *
+     * @return the route for the User database table.
+     */
     @Override
     protected String getRoute() {
         return "users";

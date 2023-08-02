@@ -1,7 +1,5 @@
 package use_cases_and_adapters.join_room;
-
 import use_cases_and_adapters.RoomDBModel;
-
 import java.util.List;
 
 /**
@@ -10,5 +8,5 @@ import java.util.List;
  */
 public interface JoinRoomDBGateway {
     List<RoomDBModel> getRooms();
-    void joinARoom(Integer userID, RoomDBModel request);
+    void updateARoom(RoomDBModel request);
 }

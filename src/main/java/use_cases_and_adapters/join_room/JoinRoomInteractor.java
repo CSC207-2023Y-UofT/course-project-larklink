@@ -1,8 +1,8 @@
 package use_cases_and_adapters.join_room;
 
+import use_cases_and_adapters.RoomDBModel;
 import entities.Room;
 import entities.User;
-import use_cases_and_adapters.RoomDBModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class JoinRoomInteractor implements JoinRoomInputBoundary {
                 activeUsers.add(User.getUserID());
                 room.setActiveUserIDs(activeUsers);
                 // update this room with new active user list
-                roomDBGateway.joinARoom(User.getUserID(), room);
+                roomDBGateway.updateARoom(room);
                 Room.setRoom(room.getRoomID(), room.getRoomName(),
                         room.getHostID(), room.getActiveUserIDs(), room.getMessageHistory());
                 presenter.prepareRoomView(Room.getMessageHistory());

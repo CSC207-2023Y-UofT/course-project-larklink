@@ -35,7 +35,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
     @Override
     public void prepareInvalidPasswordView() {
         JOptionPane.showMessageDialog(null,
-                "Password doesn't match existing username.");
+                "Password doesn't match username.");
     }
 
     /**

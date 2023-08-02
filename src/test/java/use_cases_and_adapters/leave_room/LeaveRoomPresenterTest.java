@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import views.View;
-import use_cases_and_adapters.leave_room.LeaveRoomPresenter;
 
 import static org.mockito.Mockito.*;
 

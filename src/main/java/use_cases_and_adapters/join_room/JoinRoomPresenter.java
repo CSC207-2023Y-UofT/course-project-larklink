@@ -2,7 +2,6 @@ package use_cases_and_adapters.join_room;
 
 
 import views.View;
-
 import javax.swing.*;
 
 /**
@@ -17,7 +16,6 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
      *
      * @param messageHistory a history of messages stored in the room
      */
-    // need to change javadoc after implementing view interface
     @Override
     public void prepareRoomView(String messageHistory){
         View.messageHistory = messageHistory;

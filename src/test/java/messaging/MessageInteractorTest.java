@@ -8,6 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +40,7 @@ public class MessageInteractorTest {
     private int userID2;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws UnsupportedAudioFileException, IOException {
         MockitoAnnotations.openMocks(this);
         larkSoundFilePath = "/src/main/assets/lark_sound.wav";
         messageInteractor = new MessageInteractor(database, presenter, larkSoundFilePath);
@@ -79,7 +83,8 @@ public class MessageInteractorTest {
     public void testHandleSendMessage_withLarkSound() {
         String testContent = "Test message with /lark sound";
         messageInteractor.handleSendMessage(testContent);
-        verify(messageInteractor, times(1)).playLarkSound();
+        doNothing().when(messageInteractor).playLarkSound();
+        verify(messageInteractor).playLarkSound();
     }
 
 
@@ -111,8 +116,9 @@ public class MessageInteractorTest {
         // Verify that the presenter method is called with the correct message history
         verify(presenter).prepareRoomView(messageHistory);
 
+        doNothing().when(messageInteractor).playLarkSound();
         //Verify that the interactor plays the lark sound
-        verify(messageInteractor, times(1)).playLarkSound();
+        verify(messageInteractor).playLarkSound();
     }
 
 

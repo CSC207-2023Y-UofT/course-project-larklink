@@ -2,6 +2,8 @@ package use_cases_and_adapters.join_room;
 
 
 import views.View;
+import views.Viewable;
+
 import javax.swing.*;
 
 /**
@@ -9,7 +11,7 @@ import javax.swing.*;
  * This class implements JoinRoomOutputBoundary to interact with JoinRoomInteractor.
  */
 public class JoinRoomPresenter implements JoinRoomOutputBoundary {
-    private View view;
+    private Viewable view;
 
     /**
      * Displays RoomView of the room that user has entered.
@@ -36,7 +38,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
      *
      * @param view a view set for the next display
      */
-    public void setView(View view) {
+    public void setView(Viewable view) {
         this.view = view;
     }
 }

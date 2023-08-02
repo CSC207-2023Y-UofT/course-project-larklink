@@ -1,9 +1,10 @@
 package use_cases_and_adapters.messaging;
 import javax.swing.*;
 import views.View;
+import views.Viewable;
 
 public class MessagePresenter implements MessageOutputBoundary {
-    private View view;
+    private Viewable view;
 
     /**
      * Prepares the room view with the given message history.
@@ -29,7 +30,7 @@ public class MessagePresenter implements MessageOutputBoundary {
      *
      * @param view The view to be used for presenting messages.
      */
-    public void setView(View view) {
+    public void setView(Viewable view) {
         this.view = view;
     }
 }

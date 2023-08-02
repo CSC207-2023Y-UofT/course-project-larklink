@@ -16,7 +16,7 @@ public class WelcomeView extends View {
     }
 
     @Override
-    protected JPanel createPanel() {
+    public JPanel createPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(130, 70, 130, 70));
 

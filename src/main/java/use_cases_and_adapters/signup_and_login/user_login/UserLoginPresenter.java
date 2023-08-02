@@ -1,6 +1,6 @@
 package use_cases_and_adapters.signup_and_login.user_login;
 
-import views.View;
+import use_cases_and_adapters.Viewable;
 
 import javax.swing.*;
 
@@ -10,7 +10,7 @@ import javax.swing.*;
  */
 public class UserLoginPresenter implements UserLoginOutputBoundary{
 
-    private View view;
+    private Viewable view;
 
     /**
      * Displays the JoinOrHostView passing in the specified user ID.
@@ -43,7 +43,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
      *
      * @param view a view set for the next display (in this case JoinOrHostView)
      */
-    public void setView(View view) {
+    public void setView(Viewable view) {
         this.view = view;
     }
 }

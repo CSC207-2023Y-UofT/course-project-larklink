@@ -16,7 +16,7 @@ public class SignupView extends View{
     }
 
     @Override
-    protected JPanel createPanel() {
+    public JPanel createPanel() {
         JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(90, 90, 90, 90));
 

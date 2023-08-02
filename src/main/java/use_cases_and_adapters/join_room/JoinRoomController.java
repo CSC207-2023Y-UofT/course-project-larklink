@@ -28,7 +28,7 @@ public class JoinRoomController {
     }
 
     /**
-     * Loads all names of the existing rooms.
+     * Retrieves all names of the existing rooms.
      *
      * @return a list of all room names
      */

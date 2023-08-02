@@ -55,7 +55,7 @@ public class JoinRoomInteractor implements JoinRoomInputBoundary {
     }
 
     /**
-     * Loads all names of the existing rooms.
+     * Retrieves all names of the existing rooms from database.
      *
      * @return a list of all room names
      */

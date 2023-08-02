@@ -1,33 +1,41 @@
 package database;
 
-import com.google.gson.JsonObject;
+import database.converters.RoomConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import use_cases_and_adapters.RoomDBModel;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 public class RoomDBAccessTest {
-
-    private RoomDBAccess roomDBAccess;
 
     @Mock
     private RoomDBModel mockRoomDBModel;
 
+    @Mock
+    private HttpClient mockHttpClient;
+
+    private RoomDBAccess roomDBAccess;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        String urlBase = "http://localhost:8080/api/";
-        roomDBAccess = Mockito.spy(new RoomDBAccess(urlBase)); // initialize RoomDBAccess and a spy to track it
+        roomDBAccess = Mockito.spy(new RoomDBAccess(mockHttpClient, new RoomConverter())); // initialize RoomDBAccess and a spy to track it
     }
 
     @Test
-    public void testGetRooms() {
+    public void testGetRooms() throws IOException {
         // here we are just checking that a call to getRooms is a call to getRows
         List<RoomDBModel> expectedRooms = Collections.singletonList(mockRoomDBModel);
         doReturn(expectedRooms).when(roomDBAccess).getRows();
@@ -36,58 +44,20 @@ public class RoomDBAccessTest {
     }
 
     @Test
-    public void testAddARoom() {
-        // here we are just checking that a call to addARoom is a call to modifyARow
-        doNothing().when(roomDBAccess).modifyARow(anyInt(), any());
-        roomDBAccess.addARoom(mockRoomDBModel);
-        verify(roomDBAccess, times(1)).modifyARow(anyInt(), any());
+    public void testGetARoom() throws IOException {
+        // here we are just checking that a call to getARoom is a call to getRow
+        int roomId = 123; // Example room ID
+        doReturn(mockRoomDBModel).when(roomDBAccess).getARow(roomId);
+        RoomDBModel actualRoom = roomDBAccess.getARoom(roomId);
+        assertEquals(mockRoomDBModel, actualRoom);
     }
 
     @Test
-    public void testJsonToObject() {
-        // prepare a JsonObject with room data
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("id", 1);
-        jsonObject.addProperty("host", 100);
-        jsonObject.addProperty("name", "Test Room");
-        jsonObject.addProperty("activeUsers", "[101, 102, 103]");
-        jsonObject.addProperty("messageHistory", "Some messages");
-        JsonObject mainObject = new JsonObject();
-        mainObject.add("room", jsonObject);
-
-        // call the method (jsonToObject)
-        RoomDBModel roomDBModel = roomDBAccess.jsonToObject(mainObject);
-
-        // check that the object returned by jsonToObject has the expected properties
-        assertEquals(1, roomDBModel.getRoomID());
-        assertEquals("Test Room", roomDBModel.getRoomName());
-        assertEquals(100, roomDBModel.getHostID());
-        assertEquals(List.of(101, 102, 103), roomDBModel.getActiveUserIDs());
-        assertEquals("Some messages", roomDBModel.getMessageHistory());
-    }
-
-    @Test
-    public void testObjectToJson() {
-        // prepare the mock room object
-        when(mockRoomDBModel.getHostID()).thenReturn(100);
-        when(mockRoomDBModel.getRoomName()).thenReturn("Test Room");
-        when(mockRoomDBModel.getActiveUserIDs()).thenReturn(new ArrayList<>());
-        when(mockRoomDBModel.getMessageHistory()).thenReturn("Some messages");
-
-        // prepare the expected JsonObject
-        JsonObject expectedJson = new JsonObject();
-        JsonObject roomObject = new JsonObject();
-        roomObject.addProperty("host", 100);
-        roomObject.addProperty("name", "Test Room");
-        roomObject.addProperty("activeUsers", "[]");
-        roomObject.addProperty("messageHistory", "Some messages");
-        expectedJson.add("room", roomObject);
-
-        // call the method (objectToJson)
-        JsonObject actualJson = roomDBAccess.objectToJson(mockRoomDBModel);
-
-        // check that the object returned by objectToJson is the expected JsonObject
-        assertEquals(expectedJson, actualJson);
+    public void testUpdateARoom() throws IOException {
+        // here we are just checking that a call to addARoom is a call to updateARow
+        doNothing().when(roomDBAccess).updateARow(anyInt(), any());
+        roomDBAccess.updateARoom(mockRoomDBModel);
+        verify(roomDBAccess, times(1)).updateARow(anyInt(), any());
     }
 
     @Test
@@ -96,4 +66,3 @@ public class RoomDBAccessTest {
         assertEquals("rooms", roomDBAccess.getRoute());
     }
 }
-

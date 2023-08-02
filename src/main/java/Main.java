@@ -1,19 +1,34 @@
 import database.*;
-import host_room.*;
-import join_room.JoinRoomController;
-import join_room.JoinRoomInteractor;
-import join_room.JoinRoomPresenter;
-import leave_room.*;
-import messaging.*;
-import signup_and_login.*;
-import ui.*;
+import database.converters.RoomConverter;
+import database.converters.UserConverter;
+import use_cases_and_adapters.join_room.JoinRoomController;
+import use_cases_and_adapters.join_room.JoinRoomInteractor;
+import use_cases_and_adapters.join_room.JoinRoomPresenter;
+import views.*;
+import use_cases_and_adapters.host_room.HostRoomController;
+import use_cases_and_adapters.host_room.HostRoomInteractor;
+import use_cases_and_adapters.host_room.HostRoomPresenter;
+import use_cases_and_adapters.leave_room.LeaveRoomController;
+import use_cases_and_adapters.leave_room.LeaveRoomInteractor;
+import use_cases_and_adapters.leave_room.LeaveRoomPresenter;
+import use_cases_and_adapters.messaging.MessageController;
+import use_cases_and_adapters.messaging.MessageInteractor;
+import use_cases_and_adapters.messaging.MessagePresenter;
+import use_cases_and_adapters.signup_and_login.UserController;
+import use_cases_and_adapters.signup_and_login.UserInteractor;
+import use_cases_and_adapters.signup_and_login.UserPresenter;
 
 public class Main {
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";
     private static final String larkSoundFilePath = "/src/main/assets/lark_sound.wav";
     public static void main(String[] args) {
-        UserDBAccess userDBAccess = new UserDBAccess(API_URL);
-        RoomDBAccess roomDBAccess = new RoomDBAccess(API_URL);
+        HttpClient httpClient = new HttpClient(API_URL);
+
+        RoomConverter roomConverter = new RoomConverter();
+        UserConverter userConverter = new UserConverter();
+
+        RoomDBAccess roomDBAccess = new RoomDBAccess(httpClient, roomConverter);
+        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
 
         UserPresenter userPresenter = new UserPresenter();
         UserInteractor userInteractor = new UserInteractor(userPresenter, userDBAccess);
@@ -23,7 +38,6 @@ public class Main {
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
-
         MessagePresenter sendMessagePresenter = new MessagePresenter();
         MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter, larkSoundFilePath);
         MessageController sendMessageController = new MessageController(interactor);

@@ -4,104 +4,92 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import database.converters.JsonConverter;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DBAccess<T> {
-    protected final String urlBase;
-    protected final Gson gson;
 
-    public DBAccess(String urlBase) {
-        this.urlBase = urlBase;
+/**
+ * This abstract class provides methods for accessing our database, including fetching and updating rows.
+ * It uses a HttpClient for performing HTTP requests and a JsonConverter for converting between JSON and database model objects.
+ *
+ * @param <T> The type of the database model objects.
+ */
+public abstract class DBAccess<T> {
+    private final JsonConverter<T> converter;
+    private final HttpClient httpClient;
+    private final Gson gson;
+
+    /**
+     * Constructs a new RoomDBAccess object with the given HttpClient and UserConverter instances.
+     *
+     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
+     * @param converter  The UserConverter instance responsible for switching between JSON data to User objects.
+     */
+    public DBAccess(HttpClient httpClient, JsonConverter<T> converter) {
+        this.httpClient = httpClient;
+        this.converter = converter;
         this.gson = new Gson();
     }
 
-    protected List<T> getRows() {
+    /**
+     * Fetches all rows from the database and returns them as a list of database model objects.
+     *
+     * @return A list of database model objects representing the fetched rows.
+     */
+    protected List<T> getRows()  {
+        List<T> result = new ArrayList<>();
         try {
-            String response = performGETRequest(null);
+            String response = httpClient.performGETRequest(getRoute(), null);
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
             JsonArray jsonArray = jsonObject.get(getRoute()).getAsJsonArray();
-            List<T> result = new ArrayList<>();
             for (JsonElement element : jsonArray) {
-                result.add(jsonToObject(element.getAsJsonObject()));
+                result.add(converter.toObject(element.getAsJsonObject()));
             }
-            return result;
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return result;
     }
 
-    protected T retrieveARow(Integer id) {
+    /**
+     * Fetches a row with a specific ID from the database and returns it as a database model object.
+     *
+     * @param rowID The ID of the row to fetch.
+     * @return A database model object representing the fetched row, or null if no row with the given ID exists.
+     */
+    protected T getARow(Integer rowID) {
         try {
-            String response = performGETRequest(id);
+            String response = httpClient.performGETRequest(getRoute(), rowID);
             JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
-            return jsonToObject(jsonObject);
-        } catch (Exception e) {
+            return converter.toObject(jsonObject);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    protected void modifyARow(Integer id, T model) {
+    /**
+     * Updates a row with a specific ID in the database, using a given database model object.
+     *
+     * @param rowID The ID of the row to update.
+     * @param model The database model object to use for the update.
+     */
+    protected void updateARow(Integer rowID, T model)  {
         try {
-            String jsonInputString = objectToJson(model).toString();
-            performPUTRequest(id, jsonInputString);
-        } catch (Exception e) {
+            String jsonInputString = converter.toJson(model).toString();
+            httpClient.performPUTRequest(getRoute(), rowID, jsonInputString);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    protected abstract T jsonToObject(JsonObject jsonObject);
-
-    protected abstract JsonObject objectToJson(T model);
-
+    /**
+     * Returns the route for the database table that this DBAccess instance interacts with.
+     *
+     * @return The route for the database table.
+     */
     protected abstract String getRoute();
-
-    private void performPUTRequest(Integer id, String jsonInputString) throws IOException {
-        URL url = new URL(urlBase + "/" + getRoute() + "/" + id);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("PUT");
-        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setDoOutput(true);
-        try (OutputStream os = conn.getOutputStream()) {
-            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
-            os.flush();
-        }
-        int responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            System.err.println("HTTP request failed with response code: " + responseCode);
-        }
-    }
-
-    private String performGETRequest(Integer id) throws Exception {
-        URL url = new URL(urlBase + "/" + getRoute() + (id == null ? "" : "/" + id));
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        int responseCode = conn.getResponseCode();
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            System.err.println("HTTP request failed with response code: " + responseCode);
-        }
-
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            conn.disconnect();
-            return response.toString();
-        }
-    }
 }

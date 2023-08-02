@@ -1,7 +1,7 @@
 package use_cases_and_adapters.messaging;
 import javax.swing.*;
 import views.View;
-import views.Viewable;
+import use_cases_and_adapters.Viewable;
 
 public class MessagePresenter implements MessageOutputBoundary {
     private Viewable view;

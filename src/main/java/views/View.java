@@ -1,5 +1,7 @@
 package views;
 
+import use_cases_and_adapters.Viewable;
+
 import javax.swing.*;
 import java.awt.*;
 

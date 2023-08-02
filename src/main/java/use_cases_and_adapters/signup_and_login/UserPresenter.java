@@ -1,8 +1,8 @@
 package use_cases_and_adapters.signup_and_login;
 
 import javax.swing.*;
-import views.View;
-import views.Viewable;
+
+import use_cases_and_adapters.Viewable;
 
 public class UserPresenter implements UserOutputBoundary {
     private Viewable view;

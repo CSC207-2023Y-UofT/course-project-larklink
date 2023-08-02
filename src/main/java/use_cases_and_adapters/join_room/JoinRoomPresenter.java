@@ -2,7 +2,7 @@ package use_cases_and_adapters.join_room;
 
 
 import views.View;
-import views.Viewable;
+import use_cases_and_adapters.Viewable;
 
 import javax.swing.*;
 

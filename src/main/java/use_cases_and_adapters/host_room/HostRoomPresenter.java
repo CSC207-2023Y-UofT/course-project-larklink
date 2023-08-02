@@ -1,7 +1,7 @@
 package use_cases_and_adapters.host_room;
 
 import views.View;
-import views.Viewable;
+import use_cases_and_adapters.Viewable;
 
 import javax.swing.JOptionPane;
 public class HostRoomPresenter implements HostRoomOutputBoundary {

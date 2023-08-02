@@ -1,11 +1,11 @@
 import database.*;
-import host_room.*;
-import join_room.*;
-import leave_room.*;
-import messaging.*;
-import signup_and_login.user_login.*;
-import signup_and_login.user_signup.*;
-import ui.*;
+import views.*;
+import use_cases_and_adapters.host_room.*;
+import use_cases_and_adapters.join_room.*;
+import use_cases_and_adapters.leave_room.*;
+import use_cases_and_adapters.messaging.*;
+import use_cases_and_adapters.signup_and_login.user_login.*;
+import use_cases_and_adapters.signup_and_login.user_signup.*;
 
 public class Main {
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";
@@ -15,11 +15,11 @@ public class Main {
         RoomDBAccess roomDBAccess = new RoomDBAccess(API_URL);
 
         UserSignupPresenter userSignupPresenter = new UserSignupPresenter();
-        UserSignupInteractor userInteractor = new UserSignupInteractor(userSignupPresenter, userDBAccess);
+        UserSignupInteractor userInteractor = new UserSignupInteractor(userDBAccess, userSignupPresenter);
         UserSignupController userSignupController = new UserSignupController(userInteractor);
 
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter();
-        UserLoginInteractor userLoginInteractor = new UserLoginInteractor(userLoginPresenter, userDBAccess);
+        UserLoginInteractor userLoginInteractor = new UserLoginInteractor(userDBAccess, userLoginPresenter);
         UserLoginController userLoginController = new UserLoginController(userLoginInteractor);
         WelcomeView welcomeView = new WelcomeView(userLoginController, userSignupController);
 

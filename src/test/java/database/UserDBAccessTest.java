@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import use_cases_and_adapters.UserDBModel;
 
 import java.util.Collections;
 import java.util.List;

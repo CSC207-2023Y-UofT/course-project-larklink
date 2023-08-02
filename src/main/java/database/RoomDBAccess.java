@@ -4,10 +4,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import host_room.HostRoomDBGateway;
-import join_room.JoinRoomDBGateway;
-import leave_room.LeaveRoomDBGateway;
-import messaging.MessageDBGateway;
+import use_cases_and_adapters.RoomDBModel;
+import use_cases_and_adapters.host_room.HostRoomDBGateway;
+import use_cases_and_adapters.join_room.JoinRoomDBGateway;
+import use_cases_and_adapters.leave_room.LeaveRoomDBGateway;
+import use_cases_and_adapters.messaging.MessageDBGateway;
 
 import java.util.ArrayList;
 import java.util.List;

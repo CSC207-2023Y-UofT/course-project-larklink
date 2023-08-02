@@ -25,7 +25,7 @@ public class MessageControllerTest {
     }
 
     @Test
-    public void testHandleSendMessage() {
+    public void testhandleSendMessage() {
         String testContent = "hello";
 
         // check that we call handleSendMessage with the correct content

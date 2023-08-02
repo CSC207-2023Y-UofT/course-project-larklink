@@ -57,7 +57,7 @@ public class MessageInteractor implements MessageInputBoundary {
     }
 
     /**
-     * Retrieves the messages and passes to the presenter
+     * Retrieves the messages and passes to the presenter, add to docstring
      */
     @Override
     public void handleRetrieveMessages() {

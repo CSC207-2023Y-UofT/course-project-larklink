@@ -1,10 +1,11 @@
 package use_cases_and_adapters.signup_and_login;
 
 import javax.swing.*;
-import views.View;
+
+import use_cases_and_adapters.Viewable;
 
 public class UserPresenter implements UserOutputBoundary {
-    private View view;
+    private Viewable view;
 
     /**
      * Displays the JoinOrHostView.
@@ -25,7 +26,7 @@ public class UserPresenter implements UserOutputBoundary {
     /**
      * Sets the view this presenter displays next (in this case JoinOrHostView).
      */
-    public void setView(View view) {
+    public void setView(Viewable view) {
         this.view = view;
     }
 }

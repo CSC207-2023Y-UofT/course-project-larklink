@@ -21,7 +21,7 @@ public class JoinOrHostView extends View {
     }
 
     @Override
-    protected JPanel createPanel() {
+    public JPanel createPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10));

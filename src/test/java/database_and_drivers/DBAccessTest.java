@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import database_and_drivers.converters.RoomConverter;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -83,5 +84,36 @@ public class DBAccessTest {
         dbAccess.updateARow(1, mockRoom);
         // check if the PUT request was performed with the correct parameters
         Mockito.verify(httpClient).performPUTRequest(dbAccess.getRoute(), 1, mockResponse.toString());
+    }
+
+    @Test
+    public void testGetRowsIOException() throws IOException {
+        // when a GET request is performed, throw an IOException
+        when(httpClient.performGETRequest(dbAccess.getRoute(), null)).thenThrow(new IOException());
+
+        // perform the test
+        List<RoomDBModel> rows = dbAccess.getRows();
+        assertEquals(0, rows.size()); // check if we got no rows
+    }
+
+    @Test
+    public void testGetARowIOException() throws IOException {
+        // when a GET request is performed, throw an IOException
+        when(httpClient.performGETRequest(dbAccess.getRoute(), 1)).thenThrow(new IOException());
+
+        // perform the test
+        RoomDBModel row = dbAccess.getARow(1);
+        Assertions.assertNull(row); // check if the fetched row is null
+    }
+
+    @Test
+    public void testUpdateARowIOException() throws IOException {
+        when(converter.toJson(Mockito.any(RoomDBModel.class))).thenReturn(new JsonObject()); // mocking conversion
+
+        // when a PUT request is performed, throw an IOException
+        Mockito.doThrow(new IOException()).when(httpClient).performPUTRequest(dbAccess.getRoute(), 1, mockResponse.toString());
+
+        // perform the test (exception is caught, so no need to assert anything)
+        dbAccess.updateARow(1, mockRoom);
     }
 }

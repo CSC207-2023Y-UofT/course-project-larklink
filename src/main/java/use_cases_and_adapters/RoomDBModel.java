@@ -2,6 +2,9 @@ package use_cases_and_adapters;
 
 import java.util.List;
 
+/**
+ * This class encapsulates room data from database.
+ */
 public class RoomDBModel {
     private final int roomID;
     private final String roomName;
@@ -9,6 +12,15 @@ public class RoomDBModel {
     private List<Integer> activeUserIDs;
     private String messageHistory;
 
+    /**
+     * Constructs a RoomDBModel object.
+     *
+     * @param roomID ID of the room
+     * @param roomName name of the room
+     * @param hostID ID of the room's host
+     * @param activeUserIDs a list of users' ID of the room
+     * @param messageHistory a message history of the room
+     */
     public RoomDBModel(int roomID, String roomName, Integer hostID, List<Integer> activeUserIDs, String messageHistory) {
         this.roomID = roomID;
         this.roomName = roomName;
@@ -37,10 +49,18 @@ public class RoomDBModel {
         return this.messageHistory;
     }
 
+    /**
+     * Sets activeUserIDs of this room as given input
+     * @param activeUserIDs updated active userID list
+     */
     public void setActiveUserIDs(List<Integer> activeUserIDs) {
         this.activeUserIDs = activeUserIDs;
     }
 
+    /**
+     * Sets messageHistory of this room as given input
+     * @param messageHistory updated message history
+     */
     public void setMessageHistory(String messageHistory) {
         this.messageHistory = messageHistory;
     }

@@ -29,9 +29,12 @@ public class JoinRoomPresenterTest {
     @Test
     public void testPrepareRoomView(){
         presenter.prepareRoomView("[15:38:42] nadine: sup\n");
-        verify(mockView, times(1)).prepareGUI();
+        verify(mockView, times(1)).prepareGUI("[15:38:42] nadine: sup\n");
     }
 
-    // omitted testing the prepareInvalidCredentialsView method because it relies on a static method from Swing
-    // omitted testing the setView method because it is just a setter
+    @Test
+    void testPrepareFailView() {
+        presenter.prepareFailView();
+        verify(mockView, times(1)).displayPopUpMessage("No Such Room Found!");
+    }
 }

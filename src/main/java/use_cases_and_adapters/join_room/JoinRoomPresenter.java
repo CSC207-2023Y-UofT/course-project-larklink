@@ -1,10 +1,6 @@
 package use_cases_and_adapters.join_room;
 
-
-import views.View;
 import use_cases_and_adapters.Viewable;
-
-import javax.swing.*;
 
 /**
  * A presenter for join room use case.
@@ -20,8 +16,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
      */
     @Override
     public void prepareRoomView(String messageHistory){
-        View.messageHistory = messageHistory;
-        view.prepareGUI();
+        view.prepareGUI(messageHistory);
     }
 
     /**
@@ -29,8 +24,7 @@ public class JoinRoomPresenter implements JoinRoomOutputBoundary {
      */
     @Override
     public void prepareFailView(){
-
-        JOptionPane.showMessageDialog(null, "No Such Room Found!");
+        view.displayPopUpMessage("No Such Room Found!");
     }
 
     /**

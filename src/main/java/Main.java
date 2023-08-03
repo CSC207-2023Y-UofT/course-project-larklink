@@ -56,6 +56,6 @@ public class Main {
         leaveRoomPresenter.setView(joinOrHostView);
         sendMessagePresenter.setView(roomView);
 
-        welcomeView.prepareGUI(); // launch app
+        welcomeView.prepareGUI(null); // launch app
     }
 }

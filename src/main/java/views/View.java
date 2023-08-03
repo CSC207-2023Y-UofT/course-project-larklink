@@ -10,10 +10,15 @@ public abstract class View extends JFrame implements Viewable {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    public static String messageHistory = "";
     private static JFrame currentFrame = null;
+    protected static String messageHistory = "";
 
-    public void prepareGUI() {
+    @Override
+    public void prepareGUI(String msgHistory) {
+
+        if (msgHistory != null) {
+            View.messageHistory = msgHistory;
+        }
 
         if(currentFrame != null) {
             currentFrame.dispose(); // close previous frame
@@ -30,6 +35,11 @@ public abstract class View extends JFrame implements Viewable {
         frame.setVisible(true);
 
         currentFrame = frame; // store reference to current frame (for when we want to close it)
+    }
+
+    @Override
+    public void displayPopUpMessage(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
 
     abstract public JPanel createPanel();

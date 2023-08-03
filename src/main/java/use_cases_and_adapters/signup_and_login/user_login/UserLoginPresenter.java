@@ -2,8 +2,6 @@ package use_cases_and_adapters.signup_and_login.user_login;
 
 import use_cases_and_adapters.Viewable;
 
-import javax.swing.*;
-
 /**
  * A presenter for login use case.
  * This class implements UserLoginOutputBoundary to interact with UserLoginInteractor.
@@ -17,7 +15,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
      */
     @Override
     public void prepareJoinOrHostView() {
-        view.prepareGUI();
+        view.prepareGUI(null);
     }
 
     /**
@@ -25,8 +23,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
      */
     @Override
     public void prepareInvalidUsernameView() {
-        JOptionPane.showMessageDialog(null,
-                "Username does not exist.");
+        view.displayPopUpMessage("Username does not exist.");
     }
 
     /**
@@ -34,8 +31,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary{
      */
     @Override
     public void prepareInvalidPasswordView() {
-        JOptionPane.showMessageDialog(null,
-                "Password doesn't match username.");
+        view.displayPopUpMessage("Password doesn't match username.");
     }
 
     /**

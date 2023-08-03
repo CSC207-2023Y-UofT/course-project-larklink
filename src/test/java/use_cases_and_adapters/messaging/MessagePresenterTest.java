@@ -22,9 +22,12 @@ public class MessagePresenterTest {
         String messageHistory = "Old message\\nNew message";
 
         messagePresenter.prepareRoomView(messageHistory);
-        verify(mockView, times(1)).prepareGUI();
+        verify(mockView, times(1)).prepareGUI(messageHistory);
     }
-    // omitted testing the prepareMessageErrorView method because it relies on a static method from Swing
-    // omitted testing the setView method because it is just a setter
 
+    @Test
+    void testPrepareMessageErrorView() {
+        messagePresenter.prepareMessageErrorView();
+        verify(mockView, times(1)).displayPopUpMessage("You cannot send an empty message!");
+    }
 }

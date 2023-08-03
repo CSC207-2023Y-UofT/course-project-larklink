@@ -23,9 +23,13 @@ class UserSignupPresenterTest {
     @Test
     void testPrepareJoinOrHostView() {
         userRegisterPresenter.prepareJoinOrHostView();
-        verify(mockView, times(1)).prepareGUI(); // check that prepareGUI was called
+        verify(mockView, times(1)).prepareGUI(null); // check that prepareGUI was called
     }
 
-    // omitted testing the prepareInvalidCredentialsView method because it relies on a static method from Swing
-    // omitted testing the setView method because it is just a setter
+    @Test
+    void testPrepareUsernameExistsView() {
+        userRegisterPresenter.prepareUsernameExistsView();
+        verify(mockView, times(1)).displayPopUpMessage(
+                "Username already exists. Please try a different name."); // check that prepareGUI was called
+    }
 }

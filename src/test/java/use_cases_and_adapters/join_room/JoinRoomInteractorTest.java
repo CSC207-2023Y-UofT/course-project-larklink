@@ -54,7 +54,7 @@ public class JoinRoomInteractorTest {
         // checks that presenter calls prepareFailView exactly once
         verify(presenter, times(1)).prepareFailView();
         // checks that presenter never calls prepareRoomView
-        verify(presenter, times(1)).prepareRoomView(any(String.class));
+        verify(presenter, never()).prepareRoomView(any(String.class));
 
         // checks that database never calls updateARoom so room database is not updated
         verify(database, never()).updateARoom(any(RoomDBModel.class));

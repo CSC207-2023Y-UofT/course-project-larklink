@@ -1,6 +1,5 @@
 package use_cases_and_adapters.signup_and_login.user_signup;
 
-import javax.swing.*;
 import use_cases_and_adapters.Viewable;
 
 /**
@@ -15,7 +14,7 @@ public class UserSignupPresenter implements UserSignupOutputBoundary {
      */
     @Override
     public void prepareJoinOrHostView() {
-        view.prepareGUI();
+        view.prepareGUI(null);
     }
 
     /**
@@ -23,7 +22,7 @@ public class UserSignupPresenter implements UserSignupOutputBoundary {
      */
     @Override
     public void prepareUsernameExistsView() {
-        JOptionPane.showMessageDialog(null, "Username already exists. Please try a different name.");
+        view.displayPopUpMessage("Username already exists. Please try a different name.");
     }
 
     /**

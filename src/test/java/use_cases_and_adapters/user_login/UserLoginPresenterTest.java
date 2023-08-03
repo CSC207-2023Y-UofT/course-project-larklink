@@ -33,11 +33,20 @@ public class UserLoginPresenterTest {
         presenter.prepareJoinOrHostView();
 
         // checks that mockView calls prepareGUI exactly once
-        verify(mockView, times(1)).prepareGUI();
+        verify(mockView, times(1)).prepareGUI(null);
     }
 
-    // omitted testing the prepareInvalidUsernameView and prepareInvalidPasswordView
-    // because they rely on a static method from Swing
+    @Test
+    void testPrepareInvalidUsernameView() {
+        presenter.prepareInvalidUsernameView();
+        verify(mockView, times(1)).displayPopUpMessage(
+                "Username does not exist."); // check that prepareGUI was called
+    }
 
-    // omitted testing the setView method because it is just a setter
+    @Test
+    void testPrepareInvalidPasswordView() {
+        presenter.prepareInvalidPasswordView();
+        verify(mockView, times(1)).displayPopUpMessage(
+                "Password doesn't match username."); // check that prepareGUI was called
+    }
 }

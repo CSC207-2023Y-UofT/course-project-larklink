@@ -22,6 +22,12 @@ class LeaveRoomPresenterTest {
     @Test
     void testPrepareJoinOrHostView() {
         leaveRoomPresenter.prepareJoinOrHostView();
-        verify(mockView, times(1)).prepareGUI(); // check that prepareGUI was called
+        verify(mockView, times(1)).prepareGUI(null); // check that prepareGUI was called
+    }
+
+    @Test
+    void testPrepareFailedToLeaveRoomView() {
+        leaveRoomPresenter.prepareFailedToLeaveRoomView();
+        verify(mockView, times(1)).displayPopUpMessage("Failed to leave the room.");
     }
 }

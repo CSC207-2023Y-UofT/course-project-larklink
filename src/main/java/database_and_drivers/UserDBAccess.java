@@ -1,6 +1,6 @@
-package database;
+package database_and_drivers;
 
-import database.converters.UserConverter;
+import database_and_drivers.converters.UserConverter;
 import use_cases_and_adapters.UserDBModel;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
 

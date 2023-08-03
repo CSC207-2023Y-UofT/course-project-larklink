@@ -6,6 +6,6 @@ import javax.swing.*;
  */
 public interface Viewable {
     JPanel createPanel();
-
-    void prepareGUI();
+    void prepareGUI(String msgHistory);
+    void displayPopUpMessage(String msg);
 }

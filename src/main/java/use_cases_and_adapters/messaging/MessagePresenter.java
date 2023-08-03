@@ -1,6 +1,5 @@
 package use_cases_and_adapters.messaging;
-import javax.swing.*;
-import views.View;
+
 import use_cases_and_adapters.Viewable;
 
 /**
@@ -17,8 +16,7 @@ public class MessagePresenter implements MessageOutputBoundary {
      */
     @Override
     public void prepareRoomView(String messageHistory) {
-        View.messageHistory = messageHistory;
-        view.prepareGUI();
+        view.prepareGUI(messageHistory);
     }
 
     /**
@@ -26,7 +24,7 @@ public class MessagePresenter implements MessageOutputBoundary {
      */
     @Override
     public void prepareMessageErrorView() {
-        JOptionPane.showMessageDialog(null, "Error sending message, cannot send an empty message!", "Message Error", JOptionPane.ERROR_MESSAGE);
+        view.displayPopUpMessage("You cannot send an empty message!");
     }
 
     /**

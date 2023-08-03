@@ -1,98 +1,69 @@
 package database;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import host_room.HostRoomDBGateway;
-import join_room.JoinByIDDBGateway;
-import leave_room.LeaveRoomDBGateway;
-import messaging.MessageDBGateway;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinByIDDBGateway,
-        LeaveRoomDBGateway, MessageDBGateway {
-    public RoomDBAccess(String urlBase) {
-        super(urlBase);
+import database.converters.RoomConverter;
+import use_cases_and_adapters.RoomDBModel;
+import use_cases_and_adapters.host_room.HostRoomDBGateway;
+import use_cases_and_adapters.join_room.JoinRoomDBGateway;
+import use_cases_and_adapters.leave_room.LeaveRoomDBGateway;
+import use_cases_and_adapters.messaging.MessageDBGateway;
+
+/**
+ * This class provides a specific implementation of the DBAccess abstract class for RoomDBModel objects.
+ * This class makes use of a RoomConverter for converting between RoomDBModel objects and their representation
+ * in the database, and an HttpClient to make the actual HTTP requests.
+ * The main operations this class provides are getting rooms, getting a single room by its ID, and updating a room.
+ */
+public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinRoomDBGateway, LeaveRoomDBGateway, MessageDBGateway {
+
+    /**
+     * Constructs a new RoomDBAccess object with the given HttpClient and RoomConverter instances.
+     *
+     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
+     * @param converter  The UserConverter instance responsible for switching between JSON data to Room objects.
+     */
+    public RoomDBAccess(HttpClient httpClient, RoomConverter converter) {
+        super(httpClient, converter);
     }
 
+    /**
+     * Retrieves a list of all rooms from the database.
+     *
+     * @return a List of RoomDBModel objects representing all rooms in the database, or an empty list if an error occurred.
+     */
     @Override
     public List<RoomDBModel> getRooms() {
         return getRows();
     }
 
-    @Override
-    public void addARoom(RoomDBModel request) {
-        modifyARow(request.getRoomID(), request);
-    }
-
-    @Override
-    public void joinARoom(Integer userID, RoomDBModel request) {
-        modifyARow(request.getRoomID(), request);
-    }
-
-    @Override
-    public void leaveARoom(RoomDBModel room) {
-        modifyARow(room.getRoomID(), room);
-    }
-
+    /**
+     * Retrieves a single room from the database based on its room ID.
+     *
+     * @param roomID the ID of the room to retrieve.
+     * @return a RoomDBModel object representing the room with the given ID, or null if an error occurred.
+     */
     @Override
     public RoomDBModel getARoom(Integer roomID) {
-        return retrieveARow(roomID);
+        return getARow(roomID);
     }
 
+    /**
+     * Updates a single room in the database.
+     *
+     * @param request a RoomDBModel object containing the updated data for the room.
+     */
     @Override
-    public void sendAMessage(RoomDBModel room) {
-        modifyARow(room.getRoomID(), room);
+    public void updateARoom(RoomDBModel request) {
+        updateARow(request.getRoomID(), request);
     }
 
-    @Override
-    protected RoomDBModel jsonToObject(JsonObject jsonObject) {
-
-        // when we fetch one row we get "room: <information here>" so here we "skip" it
-        if (jsonObject.has("room")) {
-            jsonObject = jsonObject.get("room").getAsJsonObject();
-        }
-
-        int roomID = jsonObject.get("id").getAsInt();
-        Integer host = jsonObject.get("host").getAsInt();
-        String name = jsonObject.get("name").getAsString();
-        List<Integer> activeUsers = new ArrayList<>();
-        if (jsonObject.get("activeUsers") != null) {
-            // parse the string back to a JsonArray
-            JsonArray userList = JsonParser.parseString(jsonObject.get("activeUsers").getAsString()).getAsJsonArray();
-            for (JsonElement userID : userList) {
-                activeUsers.add(userID.getAsInt());
-            }
-        }
-
-        String messageHistory = jsonObject.get("messageHistory") != null ? jsonObject.get("messageHistory").getAsString() : "";
-
-        return new RoomDBModel(roomID, name, host, activeUsers, messageHistory);
-    }
-
-    @Override
-    protected JsonObject objectToJson(RoomDBModel model) {
-        JsonObject roomObject = new JsonObject();
-        roomObject.addProperty("host", model.getHostID());
-        roomObject.addProperty("name", model.getRoomName());
-
-        JsonArray activeUsers = new JsonArray();
-        for (Integer userId : model.getActiveUserIDs()) {
-            activeUsers.add(userId);
-        }
-        roomObject.addProperty("activeUsers", activeUsers.toString());
-
-        roomObject.addProperty("messageHistory", model.getMessageHistory());
-
-        JsonObject mainObject = new JsonObject();
-        mainObject.add("room", roomObject);
-
-        return mainObject;
-    }
-
+    /**
+     * Returns the route for the Room database table.
+     * This is used by the superclass methods to construct the URLs for the HTTP requests.
+     *
+     * @return the route for the Room database table.
+     */
     @Override
     protected String getRoute() {
         return "rooms";

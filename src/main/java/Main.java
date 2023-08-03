@@ -1,28 +1,39 @@
 import database.*;
-import host_room.*;
-import join_room.JoinByIDController;
-import join_room.JoinByIDInteractor;
-import join_room.JoinByIDPresenter;
-import leave_room.*;
-import messaging.*;
-import signup_and_login.*;
-import ui.*;
+import views.*;
+import database.converters.RoomConverter;
+import database.converters.UserConverter;
+import use_cases_and_adapters.host_room.*;
+import use_cases_and_adapters.join_room.*;
+import use_cases_and_adapters.leave_room.*;
+import use_cases_and_adapters.messaging.*;
+import use_cases_and_adapters.signup_and_login.user_login.*;
+import use_cases_and_adapters.signup_and_login.user_signup.*;
 
 public class Main {
     private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";
     private static final String larkSoundFilePath = "/src/main/assets/lark_sound.wav";
     public static void main(String[] args) {
-        UserDBAccess userDBAccess = new UserDBAccess(API_URL);
-        RoomDBAccess roomDBAccess = new RoomDBAccess(API_URL);
+        HttpClient httpClient = new HttpClient(API_URL);
 
-        UserPresenter userPresenter = new UserPresenter();
-        UserInteractor userInteractor = new UserInteractor(userPresenter, userDBAccess);
-        UserController userController = new UserController(userInteractor);
-        WelcomeView welcomeView = new WelcomeView(userController);
+        RoomConverter roomConverter = new RoomConverter();
+        UserConverter userConverter = new UserConverter();
+
+        RoomDBAccess roomDBAccess = new RoomDBAccess(httpClient, roomConverter);
+        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
+
+        UserSignupPresenter userSignupPresenter = new UserSignupPresenter();
+        UserSignupInteractor userSignupInteractor = new UserSignupInteractor(userDBAccess, userSignupPresenter);
+        UserSignupController userSignupController = new UserSignupController(userSignupInteractor);
+
+        UserLoginPresenter userLoginPresenter = new UserLoginPresenter();
+        UserLoginInteractor userLoginInteractor = new UserLoginInteractor(userDBAccess, userLoginPresenter);
+        UserLoginController userLoginController = new UserLoginController(userLoginInteractor);
+        WelcomeView welcomeView = new WelcomeView(userLoginController, userSignupController);
 
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
+
         MessagePresenter sendMessagePresenter = new MessagePresenter();
         MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter, larkSoundFilePath);
         MessageController sendMessageController = new MessageController(interactor);
@@ -32,13 +43,14 @@ public class Main {
         HostRoomInteractor hostRoomInteractor = new HostRoomInteractor(roomDBAccess, hostRoomPresenter);
         HostRoomController hostRoomController = new HostRoomController(hostRoomInteractor);
 
-        JoinByIDPresenter joinByIDPresenter = new JoinByIDPresenter();
-        JoinByIDInteractor joinByIDInteractor = new JoinByIDInteractor(roomDBAccess, joinByIDPresenter);
-        JoinByIDController joinByIDController = new JoinByIDController(joinByIDInteractor);
-        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinByIDController);
+        JoinRoomPresenter joinRoomPresenter = new JoinRoomPresenter();
+        JoinRoomInteractor joinRoomInteractor = new JoinRoomInteractor(roomDBAccess, joinRoomPresenter);
+        JoinRoomController joinRoomController = new JoinRoomController(joinRoomInteractor);
+        JoinOrHostView joinOrHostView = new JoinOrHostView(hostRoomController, joinRoomController);
 
-        joinByIDPresenter.setView(roomView);
-        userPresenter.setView(joinOrHostView);
+        joinRoomPresenter.setView(roomView);
+        userLoginPresenter.setView(joinOrHostView);
+        userSignupPresenter.setView(joinOrHostView);
         hostRoomPresenter.setView(roomView);
         leaveRoomPresenter.setView(joinOrHostView);
         sendMessagePresenter.setView(roomView);

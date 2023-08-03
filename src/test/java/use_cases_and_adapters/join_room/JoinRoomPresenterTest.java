@@ -9,7 +9,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for JoinRoomPresenter.
+ * This class tests JoinRoomPresenter.
  */
 public class JoinRoomPresenterTest {
     private JoinRoomPresenter presenter;
@@ -24,7 +24,7 @@ public class JoinRoomPresenterTest {
     }
 
     /**
-     * Tests prepareRoomView method with given message history.
+     * Tests prepareRoomView with given message history.
      */
     @Test
     public void testPrepareRoomView(){
@@ -34,6 +34,6 @@ public class JoinRoomPresenterTest {
         verify(mockView, times(1)).prepareGUI();
     }
 
-    // omitted testing the prepareInvalidCredentialsView method because it relies on a static method from Swing
+    // omitted testing the prepareFailView method because it relies on a static method from Swing
     // omitted testing the setView method because it is just a setter
 }

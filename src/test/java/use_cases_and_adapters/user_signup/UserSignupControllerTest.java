@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for UserSignupController.
+ * This class tests UserSignupController.
  */
 public class UserSignupControllerTest {
     private UserSignupController controller;
@@ -30,7 +30,7 @@ public class UserSignupControllerTest {
     }
 
     /**
-     * Tests formatAndHandleUserSignup method with given username and password.
+     * Tests formatAndHandleUserSignup with the given username and password.
      */
     @Test
     public void testFormatAndHandleUserSignup() {
@@ -40,7 +40,7 @@ public class UserSignupControllerTest {
         controller.formatAndHandleUserSignup(testUsername, testPassword);
 
         // we use userModelCaptor since UserModel doesn't implement equals
-        // checks that inputBoundary calls handleUserSignup method exactly once with UserModel object
+        // checks that inputBoundary calls handleUserSignup method exactly once with the correct UserModel object
         verify(inputBoundary, times(1)).handleUserSignup(userModelCaptor.capture());
 
         UserModel capturedUser = userModelCaptor.getValue(); // get the argument that was passed to handleUserSignup

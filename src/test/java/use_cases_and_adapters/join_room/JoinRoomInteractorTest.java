@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for JoinRoomInteractor.
+ * This class tests JoinRoomInteractor.
  */
 public class JoinRoomInteractorTest {
     private JoinRoomInteractor interactor;
@@ -33,7 +33,6 @@ public class JoinRoomInteractorTest {
     public void setUp() {
         openMocks(this);
         interactor = new JoinRoomInteractor(database, presenter);
-
         visitorID = 777;
         visitorName = "testUser";
         visitorPW = "12345678";
@@ -44,7 +43,7 @@ public class JoinRoomInteractorTest {
     }
 
     /**
-     * Tests handleJoinRoom method with non-existing room name.
+     * Tests handleJoinRoom with a non-existing room name.
      */
     @Test public void testHandleJoinRoomFailure(){
         User.setUser(visitorID, visitorName, visitorPW);
@@ -54,17 +53,19 @@ public class JoinRoomInteractorTest {
 
         // checks that presenter calls prepareFailView exactly once
         verify(presenter, times(1)).prepareFailView();
+        // checks that presenter never calls prepareRoomView
+        verify(presenter, times(1)).prepareRoomView(any(String.class));
 
-        // checks that database never calls updateARoom
+        // checks that database never calls updateARoom so room database is not updated
         verify(database, never()).updateARoom(any(RoomDBModel.class));
     }
 
     /**
-     * Tests handleJoinRoom method with existing room name.
+     * Tests handleJoinRoom with an existing room name.
      */
     @Test public void testHandleJoinRoomSuccess(){
         User.setUser(visitorID, visitorName, visitorPW);
-        // checks that this user's ID is not in active user list of room 'existingRoom' before the user enters
+        // checks that this user's ID is not in the active user list of room 'existingRoom' before the user enters
         assertFalse(testRooms.get(1).getActiveUserIDs().contains(User.getUserID()));
 
         when(database.getRooms()).thenReturn(testRooms);
@@ -72,21 +73,24 @@ public class JoinRoomInteractorTest {
 
         ArgumentCaptor<RoomDBModel> captor = ArgumentCaptor.forClass(RoomDBModel.class);
 
-        // checks that database calls updateARoom method exactly once with correct room
+        // checks that database calls updateARoom method exactly once with the correct room
         verify(database, times(1)).updateARoom(captor.capture());
 
         RoomDBModel enteredRoom = captor.getValue(); // get the argument that was passed to updateARoom
 
-        // checks that presenter calls prepareRoomView exactly once with message history from correct room
+        // checks that presenter calls prepareRoomView exactly once with the correct message history
         verify(presenter, times(1)).prepareRoomView(enteredRoom.getMessageHistory());
         assertEquals(enteredRoom.getMessageHistory(), "[15:38:42] nadine: sup\n");
+
+        // checks that presenter never calls prepareFailView
+        verify(presenter, never()).prepareFailView();
 
         // checks that this user's ID is saved in active user list of the room 'existingRoom'
         assertTrue(enteredRoom.getActiveUserIDs().contains(User.getUserID()));
     }
 
     /**
-     * Tests loadRoomNames method.
+     * Tests loadRoomNames.
      */
     @Test public void testLoadRoomNames() {
         when(database.getRooms()).thenReturn(testRooms);

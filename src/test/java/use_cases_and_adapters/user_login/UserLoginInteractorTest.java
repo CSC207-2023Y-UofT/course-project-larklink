@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for UserLoginInteractor.
+ * This class tests UserLoginInteractor.
  */
 public class UserLoginInteractorTest {
     @Mock
@@ -42,7 +42,7 @@ public class UserLoginInteractorTest {
     }
 
     /**
-     * Tests handleUserLogin method for successful user login.
+     * Tests handleUserLogin for successful user login.
      */
     @Test
     public void testHandleUserLoginSuccess() {
@@ -51,7 +51,7 @@ public class UserLoginInteractorTest {
         UserModel testUserModel = new UserModel(testUsername, testPassword);
         interactor.handleUserLogin(testUserModel);
 
-        // checks this user got logged in by correct userID, username, and password
+        // checks that the user is set by correct userID, username, and password
         assertEquals(testUserID, User.getUserID());
         assertEquals(testUsername, User.getUsername());
         assertTrue(User.checkPassword(testPassword, User.getPassword()));
@@ -65,7 +65,7 @@ public class UserLoginInteractorTest {
     }
 
     /**
-     * Tests handleUserLogin method for the case when username does not exist.
+     * Tests handleUserLogin for the case when username does not exist.
      */
     @Test
     public void testHandleUserLoginInvalidUsername() {
@@ -83,7 +83,7 @@ public class UserLoginInteractorTest {
     }
 
     /**
-     * Tests handleUserLogin method for the case when password is wrong.
+     * Tests handleUserLogin for the case when password is incorrect.
      */
     @Test
     public void testHandleUserLoginInvalidPassword() {

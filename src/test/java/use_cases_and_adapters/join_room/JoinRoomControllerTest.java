@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for JoinRoomController.
+ * This class tests JoinRoomController.
  */
 public class JoinRoomControllerTest {
     @Mock
@@ -24,24 +24,24 @@ public class JoinRoomControllerTest {
     }
 
     /**
-     * Tests handleJoinRoomByRoomName method.
+     * Tests handleJoinRoomByRoomName.
      */
     @Test
     public void testHandleJoinRoomByRoomName() {
         controller.handleJoinRoomByRoomName(testRoomName);
 
-        // checks that mockInputBoundary calls handleJoinRoom method exactly once with given testRoomName
+        // checks that inputBoundary calls handleJoinRoom exactly once with the given room name
         verify(inputBoundary, times(1)).handleJoinRoom(testRoomName);
     }
 
     /**
-     * Tests loadRoomNames method.
+     * Tests loadRoomNames.
      */
     @Test
     public void loadRoomNames() {
         controller.loadRoomNames();
 
-        // checks that inputBoundary calls loadRoomNames method exactly once
+        // checks that inputBoundary calls loadRoomNames exactly once
         verify(inputBoundary, times(1)).loadRoomNames();
     }
 }

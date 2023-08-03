@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for UserLoginPresenter.
+ * This class tests UserLoginPresenter.
  */
 public class UserLoginPresenterTest {
     private UserLoginPresenter presenter;
@@ -26,17 +26,17 @@ public class UserLoginPresenterTest {
     }
 
     /**
-     * Tests prepareJoinOrHostView method.
+     * Tests prepareJoinOrHostView.
      */
     @Test
     void testPrepareJoinOrHostView() {
         presenter.prepareJoinOrHostView();
 
-        // checks that mockView calls prepareGUI method exactly once
+        // checks that mockView calls prepareGUI exactly once
         verify(mockView, times(1)).prepareGUI();
     }
 
-    // omitted testing the prepareInvalidUsernameView and prepareInvalidPasswordView method
+    // omitted testing the prepareInvalidUsernameView and prepareInvalidPasswordView
     // because they rely on a static method from Swing
 
     // omitted testing the setView method because it is just a setter

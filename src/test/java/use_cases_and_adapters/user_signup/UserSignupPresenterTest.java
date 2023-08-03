@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for UserSignupPresenter.
+ * This class tests UserSignupPresenter.
  */
 class UserSignupPresenterTest {
     private UserSignupPresenter presenter;
@@ -27,13 +27,13 @@ class UserSignupPresenterTest {
     }
 
     /**
-     * Tests prepareJoinOrHostView method.
+     * Tests prepareJoinOrHostView.
      */
     @Test
     void testPrepareJoinOrHostView() {
         presenter.prepareJoinOrHostView();
 
-        // checks that mockView calls prepareGUI method exactly once
+        // checks that mockView calls prepareGUI exactly once
         verify(mockView, times(1)).prepareGUI();
     }
 

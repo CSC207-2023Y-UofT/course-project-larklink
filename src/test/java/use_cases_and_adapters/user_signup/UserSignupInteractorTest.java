@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for UserSignupInteractor.
+ * This class tests UserSignupInteractor.
  */
 public class UserSignupInteractorTest {
     @Mock
@@ -42,7 +42,7 @@ public class UserSignupInteractorTest {
     }
 
     /**
-     * Tests handleUserSignup method for the case when username already exists.
+     * Tests handleUserSignup for the case when username already exists.
      */
     @Test
     public void testHandleUserSignupFailure() {
@@ -55,12 +55,12 @@ public class UserSignupInteractorTest {
         verify(presenter, times(1)).prepareUsernameExistsView();
         // checks that presenter never calls prepareJoinOrHostView
         verify(presenter, never()).prepareJoinOrHostView();
-        // checks that database never calls addAUser so this user is not added to database
+        // checks that database never calls addAUser so no new user is added to database
         verify(database, never()).addAUser(any(UserDBModel.class));
     }
 
     /**
-     * Tests handleUserSignup method for successful user signup.
+     * Tests handleUserSignup for successful user signup.
      */
     @Test
     public void testHandleUserSignupSuccess() {
@@ -70,7 +70,7 @@ public class UserSignupInteractorTest {
         interactor.handleUserSignup(newUser);
 
         ArgumentCaptor<UserDBModel> captor = ArgumentCaptor.forClass(UserDBModel.class);
-        // checks that database calls addAUser method exactly once with UserModel object
+        // checks that database calls addAUser method exactly once with the correct UserModel object
         verify(database, times(1)).addAUser(captor.capture());
 
         UserDBModel addedUser = captor.getValue(); // get the argument that was passed to addAUser

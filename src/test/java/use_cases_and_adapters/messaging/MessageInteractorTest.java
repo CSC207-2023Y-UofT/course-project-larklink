@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 

@@ -1,6 +1,6 @@
-package messaging;
+package use_cases_and_adapters.messaging;
 
-import database.RoomDBModel;
+import use_cases_and_adapters.RoomDBModel;
 import entities.Message;
 import entities.Room;
 import entities.User;
@@ -57,7 +57,7 @@ public class MessageInteractorTest {
         messageInteractor.handleSendMessage(emptyContent);
         verify(presenter).prepareMessageErrorView();
         verify(database, never()).getARoom(anyInt());
-        verify(database, never()).sendAMessage(any(RoomDBModel.class));
+        verify(database, never()).updateARoom(any(RoomDBModel.class));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class MessageInteractorTest {
         Message msg = new Message(User.getUsername(), testContent);
         messageInteractor.handleSendMessage(testContent);
         ArgumentCaptor<RoomDBModel> captor = ArgumentCaptor.forClass(RoomDBModel.class);
-        verify(database).sendAMessage(captor.capture()); // check that we sent the message to the database
+        verify(database).updateARoom(captor.capture()); // check that we sent the message to the database
         RoomDBModel sentRoom = captor.getValue(); // get the argument that was passed to sendAMessage
 
         assertEquals(msg.getContent(), sentRoom.getMessageHistory());

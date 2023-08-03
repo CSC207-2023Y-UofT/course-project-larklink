@@ -6,9 +6,10 @@ import org.mockito.Mock;
 import use_cases_and_adapters.Viewable;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
- * Test class for JoinRoomPresenter.
+ * This class tests JoinRoomPresenter.
  */
 public class JoinRoomPresenterTest {
     private JoinRoomPresenter presenter;
@@ -17,21 +18,22 @@ public class JoinRoomPresenterTest {
 
     @BeforeEach
     public void setUp() {
-        mockView = mock(Viewable.class);
+        openMocks(this);
         presenter = new JoinRoomPresenter();
         presenter.setView(mockView);
     }
 
     /**
-     * Test 'prepareRoomView' with given message history.
-     * Verifies that mockView calls 'prepareGUI' exactly once.
+     * Tests prepareRoomView with given message history.
      */
     @Test
     public void testPrepareRoomView(){
         presenter.prepareRoomView("[15:38:42] nadine: sup\n");
+
+        // checks that mockView calls prepareGUI method exactly once
         verify(mockView, times(1)).prepareGUI();
     }
 
-    // omitted testing the prepareInvalidCredentialsView method because it relies on a static method from Swing
+    // omitted testing the prepareFailView method because it relies on a static method from Swing
     // omitted testing the setView method because it is just a setter
 }

@@ -25,7 +25,12 @@ public class LeaveRoomPresenter implements LeaveRoomOutputBoundary {
     public void prepareFailedToLeaveRoomView() {
         view.displayPopUpMessage("Failed to leave the room.");
     }
-
+    /**
+     * Sets the associated View for this presenter.
+     * This method allows setting the View that the presenter will interact with to present the output.
+     *
+     * @param view The Viewable interface to be associated with this presenter.
+     */
     public void setView(Viewable view) {
         this.view = view;
     }

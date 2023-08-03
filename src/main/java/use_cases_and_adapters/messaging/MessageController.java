@@ -1,5 +1,9 @@
 package use_cases_and_adapters.messaging;
 
+/**
+ * The MessageController class is responsible for handling user requests related to messages in the application.
+ * It acts as an intermediary between the user interface and the MessageInputBoundary, delegating the requests to the appropriate methods in the input boundary.
+ */
 public class MessageController {
     private final MessageInputBoundary inputBoundary;
 

@@ -3,6 +3,10 @@ import javax.swing.*;
 import views.View;
 import use_cases_and_adapters.Viewable;
 
+/**
+ * The MessagePresenter class is responsible for preparing and presenting message-related views to the user.
+ * It implements the MessageOutputBoundary interface to handle view preparation and error presentation.
+ */
 public class MessagePresenter implements MessageOutputBoundary {
     private Viewable view;
 

@@ -12,9 +12,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * The MessageInteractor class implements the MessageInputBoundary interface and is responsible for handling
+ * message-related requests. It interacts with the database and presenter to manage messages and their presentation.
+ */
 public class MessageInteractor implements MessageInputBoundary {
-    private final MessageOutputBoundary presenter;
     private final MessageDBGateway database;
+    private final MessageOutputBoundary presenter;
     private final String larkSoundFilePath;
 
     /**
@@ -25,8 +29,8 @@ public class MessageInteractor implements MessageInputBoundary {
      * @param larkSoundFilePath  The file path to the lark sound file.
      */
     public MessageInteractor(MessageDBGateway database, MessageOutputBoundary presenter, String larkSoundFilePath) {
-        this.presenter = presenter;
         this.database = database;
+        this.presenter = presenter;
         this.larkSoundFilePath = larkSoundFilePath;
     }
 
@@ -57,14 +61,15 @@ public class MessageInteractor implements MessageInputBoundary {
     }
 
     /**
-     * Retrieves the messages and passes to the presenter
+     * Retrieves the messages and passes to the presenter.
      */
     @Override
     public void handleRetrieveMessages() {
         RoomDBModel room = database.getARoom(Room.getRoomID());
         String messageHistory = room.getMessageHistory();
-
-        if (messageHistory.contains("/lark")) {
+        String[] messages = messageHistory.split("\\n");
+        String mostRecentMessage = messages[messages.length - 1];
+        if (mostRecentMessage.contains("/lark")) { //checks whether the most recent message contains /lark
             playLarkSound();
         }
 
@@ -74,16 +79,24 @@ public class MessageInteractor implements MessageInputBoundary {
     /**
      * Plays the Lark Sound.
      */
-    private void playLarkSound() {
+    void playLarkSound() {
+        AudioInputStream audioInputStream = null;
         try {
             String userDir = System.getProperty("user.dir");
             File soundFile = new File(userDir + larkSoundFilePath);
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
+        } finally {
+            if (audioInputStream != null) {
+                try {
+                    audioInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-    }
-}
+    }}

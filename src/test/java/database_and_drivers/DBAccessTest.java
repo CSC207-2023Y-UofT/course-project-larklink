@@ -1,9 +1,9 @@
-package database;
+package database_and_drivers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import database.converters.RoomConverter;
+import database_and_drivers.converters.RoomConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

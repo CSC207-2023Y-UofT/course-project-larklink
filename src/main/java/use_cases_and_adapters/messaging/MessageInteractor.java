@@ -5,13 +5,6 @@ import entities.Room;
 import entities.User;
 import use_cases_and_adapters.RoomDBModel;
 
-import java.io.*;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 /**
  * The MessageInteractor class implements the MessageInputBoundary interface and is responsible for handling
  * message-related requests. It interacts with the database and presenter to manage messages and their presentation.
@@ -19,19 +12,19 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class MessageInteractor implements MessageInputBoundary {
     private final MessageDBGateway database;
     private final MessageOutputBoundary presenter;
-    private final String larkSoundFilePath;
+    private final LarkSoundPlayerGateway larkSoundPlayer;
 
     /**
      * Constructs a MessageInteractor object with the given dependencies.
      *
      * @param database           The RoomDBGateway to access room-related data.
      * @param presenter          The MessageOutputBoundary to present messages to the user.
-     * @param larkSoundFilePath  The file path to the lark sound file.
+     * @param larkSoundPlayer    The LarkSoundPlayerGateway to allow this interactor to play the lark sound when required.
      */
-    public MessageInteractor(MessageDBGateway database, MessageOutputBoundary presenter, String larkSoundFilePath) {
+    public MessageInteractor(MessageDBGateway database, MessageOutputBoundary presenter, LarkSoundPlayerGateway larkSoundPlayer) {
         this.database = database;
         this.presenter = presenter;
-        this.larkSoundFilePath = larkSoundFilePath;
+        this.larkSoundPlayer = larkSoundPlayer;
     }
 
     /**
@@ -46,7 +39,7 @@ public class MessageInteractor implements MessageInputBoundary {
         }
 
         if (content.contains("/lark")) {
-            playLarkSound();
+            larkSoundPlayer.playLarkSound();
         }
 
         // create message entity
@@ -70,33 +63,9 @@ public class MessageInteractor implements MessageInputBoundary {
         String[] messages = messageHistory.split("\\n");
         String mostRecentMessage = messages[messages.length - 1];
         if (mostRecentMessage.contains("/lark")) { //checks whether the most recent message contains /lark
-            playLarkSound();
+            larkSoundPlayer.playLarkSound();
         }
 
         presenter.prepareRoomView(messageHistory);
     }
-
-    /**
-     * Plays the Lark Sound.
-     */
-    void playLarkSound() {
-        AudioInputStream audioInputStream = null;
-        try {
-            String userDir = System.getProperty("user.dir");
-            File soundFile = new File(userDir + larkSoundFilePath);
-            audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (audioInputStream != null) {
-                try {
-                    audioInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }}
+}

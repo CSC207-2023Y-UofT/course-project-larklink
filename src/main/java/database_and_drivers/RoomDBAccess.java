@@ -1,8 +1,8 @@
-package database;
+package database_and_drivers;
 
 import java.util.List;
 
-import database.converters.RoomConverter;
+import database_and_drivers.converters.RoomConverter;
 import use_cases_and_adapters.RoomDBModel;
 import use_cases_and_adapters.host_room.HostRoomDBGateway;
 import use_cases_and_adapters.join_room.JoinRoomDBGateway;

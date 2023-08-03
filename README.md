@@ -34,7 +34,7 @@ If you click `Leave Room` on chat room screen, you can leave the room and you'll
 ## Clean Architecture
 Separation of Concerns: 
 The interactor is part of the application core, and it is responsible for handling the business logic related to corresponding use case. 
-It communicates with the outer layers (controller, presenter and database) through interfaces (InputBoundary, OutputBoundary, and DBGateway), 
+It communicates with the outer layers (controller, presenter and database_and_drivers) through interfaces (InputBoundary, OutputBoundary, and DBGateway), 
 ensuring a clear separation of concerns between different layers of the application.
 The Interactor does not have any direct dependencies on specific frameworks or libraries. 
 Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. 
@@ -58,7 +58,7 @@ can be used interchangeably with `View` or each corresponding interface without 
 **Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object(which is called models here), dependencies between 
 layers could be inverted and therefore, high level classes does not directly depend on lower level classes. 
 For example, `UserInteractor` can receive data from users through `UserModel` object and `UserInputBoundary` and interact with 
-database through `UserDBGateway`. Hence, `UserInteractor` does not depend on outer layers such as controller and database.
+database_and_drivers through `UserDBGateway`. Hence, `UserInteractor` does not depend on outer layers such as controller and database_and_drivers.
 This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
 ## Design Patterns
@@ -66,7 +66,7 @@ TODO - Singleton pattern
 
 ## Test Coverage
 We aimed for near perfect coverage across the board and manage to achieve XX% class coverage and XX% line coverage. <br>
-In the database package we achieved 83% class coverage and 64% line coverage because the HttpClient is impractical to test, 
+In the database_and_drivers package we achieved 83% class coverage and 64% line coverage because the HttpClient is impractical to test, 
 as we'd have to simulate a server. Otherwise, we tested the core functionality of the DBAccess's in the package.
 
 ## Java Doc
@@ -83,7 +83,7 @@ Use case:<br> `src/main/java/host_room`<br>
 
 Input and data model:<br> `src/main/java/models`<br>
 
-Gateway and DBAccess:<br> `src/main/java/database`<br>
+Gateway and DBAccess:<br> `src/main/java/database_and_drivers`<br>
 
 View:<br> `src/main/java/views`<br>
 

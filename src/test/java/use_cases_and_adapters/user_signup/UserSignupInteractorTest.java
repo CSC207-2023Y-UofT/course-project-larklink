@@ -1,13 +1,11 @@
 package use_cases_and_adapters.user_signup;
 
-
-import use_cases_and_adapters.UserDBModel;
 import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import use_cases_and_adapters.UserDBModel;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
 import use_cases_and_adapters.signup_and_login.UserModel;
 import use_cases_and_adapters.signup_and_login.user_signup.UserSignupInteractor;
@@ -15,72 +13,78 @@ import use_cases_and_adapters.signup_and_login.user_signup.UserSignupOutputBound
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.MockitoAnnotations.openMocks;
 
+/**
+ * Test class for UserSignupInteractor.
+ */
 public class UserSignupInteractorTest {
-
-    private UserSignupInteractor userRegisterInteractor;
-
     @Mock
     private UserSignupOutputBoundary presenter;
-
     @Mock
     private UserDBGateway database;
-
-    private String testUsername;
-    private String testPassword;
+    private UserSignupInteractor interactor;
+    private String oldUsername;
     private List<UserDBModel> users;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        userRegisterInteractor = new UserSignupInteractor(database, presenter);
+        openMocks(this);
+        interactor = new UserSignupInteractor(database, presenter);
 
-        // initialize shared variables
-        int testUserID = 2;
-        testUsername = "testUser";
-        testPassword = "testPassword";
-        String hashedPassword = User.hashPassword(testPassword);
-        users = List.of(new UserDBModel(testUserID, testUsername, hashedPassword));
+        int oldUserID = 2;
+        oldUsername = "oldUsername";
+        String oldHashedPassword = User.hashPassword("oldPassword");
+        users = List.of(new UserDBModel(oldUserID, oldUsername, oldHashedPassword));
     }
 
+    /**
+     * Tests handleUserSignup method for the case when username already exists.
+     */
     @Test
-    public void testHandleUser_existingUser() {
+    public void testHandleUserSignupFailure() {
         when(database.getUsers()).thenReturn(users);
 
-        UserModel existingUser = new UserModel(testUsername, testPassword);
-        userRegisterInteractor.handleUserSignup(existingUser);
+        UserModel failedUser = new UserModel(oldUsername, "newPassword");
+        interactor.handleUserSignup(failedUser);
 
-        verify(presenter).prepareUsernameExistsView();
+        // checks that presenter calls prepareUsernameExistsView exactly once
+        verify(presenter, times(1)).prepareUsernameExistsView();
+        // checks that presenter never calls prepareJoinOrHostView
+        verify(presenter, never()).prepareJoinOrHostView();
+        // checks that database never calls addAUser so this user is not added to database
         verify(database, never()).addAUser(any(UserDBModel.class));
     }
 
-//    will be deleted
-//    @Test
-//    public void testHandleUser_invalidPassword() {
-//        when(database.getUsers()).thenReturn(users);
-//
-//        UserModel invalidUser = new UserModel(testUsername, "incorrectPassword");
-//        userRegisterInteractor.handleUserSignup(invalidUser);
-//
-//        verify(presenter).prepareInvalidPasswordView();
-//        verify(database, never()).addAUser(any(UserDBModel.class));
-//    }
-
+    /**
+     * Tests handleUserSignup method for successful user signup.
+     */
     @Test
-    public void testHandleUser_newUser() {
+    public void testHandleUserSignupSuccess() {
         when(database.getUsers()).thenReturn(users);
 
-        UserModel newUser = new UserModel("newUser", "newPassword");
-        userRegisterInteractor.handleUserSignup(newUser);
+        UserModel newUser = new UserModel("newUsername", "newPassword");
+        interactor.handleUserSignup(newUser);
 
         ArgumentCaptor<UserDBModel> captor = ArgumentCaptor.forClass(UserDBModel.class);
-        verify(database).addAUser(captor.capture()); // check that we did add a user to the database
+        // checks that database calls addAUser method exactly once with UserModel object
+        verify(database, times(1)).addAUser(captor.capture());
+
         UserDBModel addedUser = captor.getValue(); // get the argument that was passed to addAUser
 
-        assert addedUser.getUserID() == 3; // since testUserID == 2
-        assert addedUser.getUsername().equals(newUser.getUsername()); // check that we passed in the right username
-        assert User.checkPassword(newUser.getPassword(), addedUser.getPassword()); // check that we passed in the right password
-        verify(presenter).prepareJoinOrHostView();
+        // checks that newly added user got correct userID
+        assert addedUser.getUserID() == 3; // since oldUserID == 2
+
+        // checks that correct username and password are saved into database
+        assert addedUser.getUsername().equals(newUser.getUsername());
+        assert User.checkPassword(newUser.getPassword(), addedUser.getPassword());
+
+        // checks that presenter calls prepareJoinOrHostView exactly once
+        verify(presenter, times(1)).prepareJoinOrHostView();
+        // checks that presenter never calls prepareUsernameExistsView
+        verify(presenter, never()).prepareUsernameExistsView();
     }
 }

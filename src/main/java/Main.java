@@ -1,7 +1,7 @@
-import database.*;
+import database_and_drivers.*;
 import views.*;
-import database.converters.RoomConverter;
-import database.converters.UserConverter;
+import database_and_drivers.converters.RoomConverter;
+import database_and_drivers.converters.UserConverter;
 import use_cases_and_adapters.host_room.*;
 import use_cases_and_adapters.join_room.*;
 import use_cases_and_adapters.leave_room.*;
@@ -14,6 +14,7 @@ public class Main {
     private static final String larkSoundFilePath = "/src/main/assets/lark_sound.wav";
     public static void main(String[] args) {
         HttpClient httpClient = new HttpClient(API_URL);
+        LarkSoundPlayer larkSoundPlayer = new LarkSoundPlayer(larkSoundFilePath);
 
         RoomConverter roomConverter = new RoomConverter();
         UserConverter userConverter = new UserConverter();
@@ -28,14 +29,13 @@ public class Main {
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter();
         UserLoginInteractor userLoginInteractor = new UserLoginInteractor(userDBAccess, userLoginPresenter);
         UserLoginController userLoginController = new UserLoginController(userLoginInteractor);
-        WelcomeView welcomeView = new WelcomeView(userLoginController, userSignupController);
 
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
         LeaveRoomController leaveRoomController = new LeaveRoomController(leaveRoomInteractor);
 
         MessagePresenter sendMessagePresenter = new MessagePresenter();
-        MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter, larkSoundFilePath);
+        MessageInteractor interactor = new MessageInteractor(roomDBAccess, sendMessagePresenter, larkSoundPlayer);
         MessageController sendMessageController = new MessageController(interactor);
         RoomView roomView = new RoomView(leaveRoomController, sendMessageController);
 
@@ -55,6 +55,6 @@ public class Main {
         leaveRoomPresenter.setView(joinOrHostView);
         sendMessagePresenter.setView(roomView);
 
-        welcomeView.prepareGUI(); // launch app
+        ViewManager.startWelcomeView(userLoginController, userSignupController); // launch app
     }
 }

@@ -5,16 +5,12 @@ import use_cases_and_adapters.join_room.JoinRoomController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.regex.Pattern;
 
 /**
     View for the join room and host room use cases
  **/
 
 public class JoinOrHostView extends View {
-    // regex to check passwords follow conventions
-    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{5,}$");
-    private static final int MIN_PASSWORD_LENGTH = 5;
     private final HostRoomController hostRoomController;
     private final JoinRoomController joinRoomController;
 
@@ -84,26 +80,9 @@ public class JoinOrHostView extends View {
         JButton hostButton = new JButton("Host");
         hostButton.addActionListener(e -> {
             String roomName = roomField.getText();
-            if (!NAME_PATTERN.matcher(roomName).matches()) {
-                JOptionPane.showMessageDialog(null,
-                        "Invalid Room name! Use only alphanumeric characters. Minimum length: 5",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            if (ValidationHelper.isRoomNameValid(roomName)) {
+                hostRoomController.handleHostRoom(roomName);
             }
-
-            if (roomName.isEmpty()) {
-                JOptionPane.showMessageDialog(null,
-                        "Room Name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (roomName.length() < MIN_PASSWORD_LENGTH) {
-                JOptionPane.showMessageDialog(null,
-                        "Room Name too short! Minimum length: " + MIN_PASSWORD_LENGTH,
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            hostRoomController.handleHostRoom(roomName);
         });
         return hostButton;
     }

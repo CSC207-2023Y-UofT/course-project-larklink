@@ -1,12 +1,11 @@
-package database;
+package database_and_drivers;
 
-import database.converters.UserConverter;
+import database_and_drivers.converters.UserConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import use_cases_and_adapters.UserDBModel;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class UserDBAccessTest {
     }
 
     @Test
-    public void testGetUsers() throws IOException {
+    public void testGetUsers() {
         // here we are just checking that a call to getUsers is a call to getRows
         List<UserDBModel> expectedUsers = Collections.singletonList(mockUserDBModel);
         doReturn(expectedUsers).when(userDBAccess).getRows();
@@ -40,7 +39,7 @@ public class UserDBAccessTest {
     }
 
     @Test
-    public void testAddAUser() throws IOException {
+    public void testAddAUser() {
         // here we are just checking that a call to addAUser is a call to updateARow
         doNothing().when(userDBAccess).updateARow(anyInt(), any());
         userDBAccess.addAUser(mockUserDBModel);

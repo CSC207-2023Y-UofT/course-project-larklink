@@ -1,9 +1,7 @@
 package use_cases_and_adapters.leave_room;
 
 /**
- * The LeaveRoomOutputBoundary interface defines the contract for setting up the view
- * after a user exits a room. Classes that implement this interface must provide
- * implementations for the prepareJoinOrHostView and prepareFailedToLeaveRoomView methods.
+ * The LeaveRoomOutputBoundary interface defines the contract for setting up the view after a user exits a room.
  */
 public interface LeaveRoomOutputBoundary {
 

@@ -47,7 +47,7 @@ public class WelcomeView extends View {
         JButton signupButton = new JButton("Sign up");
         signupButton.addActionListener(e -> {
             SignupView signUpView = new SignupView(this.signupController);
-            signUpView.prepareGUI();
+            signUpView.prepareGUI(null);
         });
         return signupButton;
     }
@@ -60,7 +60,7 @@ public class WelcomeView extends View {
         JButton loginButton = new JButton("Log in");
         loginButton.addActionListener(e -> {
             LoginView logInView = new LoginView(this.loginController);
-            logInView.prepareGUI();
+            logInView.prepareGUI(null);
         });
         return loginButton;
 

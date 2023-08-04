@@ -14,6 +14,6 @@ public class WelcomeViewTest {
     void setUp() {
         mockWelcomeView = Mockito.mock(WelcomeView.class);
         inputBoundary = Mockito.mock(UserLoginInputBoundary.class);
-        controller = new UserLoginController();
+        controller = new UserLoginController(inputBoundary);
     }
 }

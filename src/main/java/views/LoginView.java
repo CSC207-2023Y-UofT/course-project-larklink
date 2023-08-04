@@ -22,12 +22,13 @@ public class LoginView extends View {
         this.usernameField = new JTextField();
         this.passwordField = new JPasswordField();
         JButton loginButton = createLoginButton();
+        JButton goBackButton = createGoBackButton();
 
         panel.add(new JLabel("Username:"));
         panel.add(usernameField);
         panel.add(new JLabel("Password:"));
         panel.add(passwordField);
-        panel.add(new JLabel());
+        panel.add(goBackButton);
         panel.add(loginButton);
         return panel;
     }
@@ -44,5 +45,11 @@ public class LoginView extends View {
         });
         return loginButton;
 
+    }
+
+    private JButton createGoBackButton() {
+        JButton goBackButton = new JButton("Go back");
+        goBackButton.addActionListener(e -> ViewManager.switchToWelcomeView());
+        return goBackButton;
     }
 }

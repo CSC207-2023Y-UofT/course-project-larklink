@@ -15,14 +15,20 @@ public abstract class View extends JFrame implements Viewable {
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    public static String messageHistory = "";
     private static JFrame currentFrame = null;
+    protected static String messageHistory = "";
 
     /**
      * Creates a JFrame window using the standard class variables
      * and sets it to current frame
+     * @param msgHistory list of previously sent messages in room
      */
-    public void prepareGUI() {
+    @Override
+    public void prepareGUI(String msgHistory) {
+
+        if (msgHistory != null) {
+            View.messageHistory = msgHistory;
+        }
 
         if(currentFrame != null) {
             currentFrame.dispose(); // close previous frame
@@ -39,6 +45,15 @@ public abstract class View extends JFrame implements Viewable {
         frame.setVisible(true);
 
         currentFrame = frame; // store reference to current frame (for when we want to close it)
+    }
+
+    /**
+     * Displays a pop-up message on the screen (like the method name suggests)
+     * @param msg The message to be displayed
+     */
+    @Override
+    public void displayPopUpMessage(String msg) {
+        JOptionPane.showMessageDialog(null, msg);
     }
 
     /**

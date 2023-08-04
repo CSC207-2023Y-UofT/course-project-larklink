@@ -1,4 +1,4 @@
-package database;
+package database_and_drivers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class HttpClient {
 
         int responseCode = conn.getResponseCode();
         if (responseCode != HttpURLConnection.HTTP_OK) {
-            System.err.println("HTTP request failed with response code: " + responseCode);
+            throw new IOException("GET request failed with response code: " + responseCode);
         }
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
@@ -74,7 +74,7 @@ public class HttpClient {
         }
         int responseCode = conn.getResponseCode();
         if (responseCode != HttpURLConnection.HTTP_OK) {
-            System.err.println("HTTP request failed with response code: " + responseCode);
+            throw new IOException("PUT request failed with response code: " + responseCode);
         }
     }
 }

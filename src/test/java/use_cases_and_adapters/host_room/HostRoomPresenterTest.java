@@ -23,6 +23,6 @@ public class HostRoomPresenterTest {
     @Test
     void testPrepareJoinOrHostView() {
         hostRoomPresenter.prepareRoomView("");
-        verify(mockView, times(1)).prepareGUI(); // check that prepareGUI was called
+        verify(mockView, times(1)).prepareGUI(""); // check that prepareGUI was called
     }
 }

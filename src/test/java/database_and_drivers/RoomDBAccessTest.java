@@ -1,6 +1,6 @@
-package database;
+package database_and_drivers;
 
-import database.converters.RoomConverter;
+import database_and_drivers.converters.RoomConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import use_cases_and_adapters.RoomDBModel;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class RoomDBAccessTest {
     }
 
     @Test
-    public void testGetRooms() throws IOException {
+    public void testGetRooms() {
         // here we are just checking that a call to getRooms is a call to getRows
         List<RoomDBModel> expectedRooms = Collections.singletonList(mockRoomDBModel);
         doReturn(expectedRooms).when(roomDBAccess).getRows();
@@ -44,7 +43,7 @@ public class RoomDBAccessTest {
     }
 
     @Test
-    public void testGetARoom() throws IOException {
+    public void testGetARoom() {
         // here we are just checking that a call to getARoom is a call to getRow
         int roomId = 123; // Example room ID
         doReturn(mockRoomDBModel).when(roomDBAccess).getARow(roomId);
@@ -53,7 +52,7 @@ public class RoomDBAccessTest {
     }
 
     @Test
-    public void testUpdateARoom() throws IOException {
+    public void testUpdateARoom() {
         // here we are just checking that a call to addARoom is a call to updateARow
         doNothing().when(roomDBAccess).updateARow(anyInt(), any());
         roomDBAccess.updateARoom(mockRoomDBModel);

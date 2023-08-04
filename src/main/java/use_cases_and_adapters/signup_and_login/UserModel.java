@@ -1,8 +1,7 @@
 package use_cases_and_adapters.signup_and_login;
 
 /**
- * An input model for signup and login use case.
- * This class encapsulates inputs from user.
+ * This class encapsulates username and password inputs from user.
  */
 public class UserModel {
     private final String username;

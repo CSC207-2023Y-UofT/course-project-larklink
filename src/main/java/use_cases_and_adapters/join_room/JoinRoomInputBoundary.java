@@ -19,7 +19,7 @@ public interface JoinRoomInputBoundary {
     void handleJoinRoom(String roomName);
 
     /**
-     * Retrieves all names of the existing rooms from .
+     * Retrieves a list of all room names of the existing rooms.
      *
      * @return a list of all room names
      */

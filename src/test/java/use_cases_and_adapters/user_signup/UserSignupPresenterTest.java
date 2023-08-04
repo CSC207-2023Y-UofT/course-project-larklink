@@ -39,7 +39,8 @@ class UserSignupPresenterTest {
     @Test
     void testPrepareUsernameExistsView() {
         presenter.prepareUsernameExistsView();
+        // check that prepareGUI was called exactly once
         verify(mockView, times(1)).displayPopUpMessage(
-                "Username already exists. Please try a different name."); // check that prepareGUI was called
+                "Username already exists. Please try a different name.");
     }
 }

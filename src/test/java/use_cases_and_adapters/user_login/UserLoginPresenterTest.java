@@ -39,14 +39,18 @@ public class UserLoginPresenterTest {
     @Test
     void testPrepareInvalidUsernameView() {
         presenter.prepareInvalidUsernameView();
+
+        // check that prepareGUI was called exactly once
         verify(mockView, times(1)).displayPopUpMessage(
-                "Username does not exist."); // check that prepareGUI was called
+                "Username does not exist.");
     }
 
     @Test
     void testPrepareInvalidPasswordView() {
         presenter.prepareInvalidPasswordView();
+
+        // check that prepareGUI was called exactly once
         verify(mockView, times(1)).displayPopUpMessage(
-                "Password doesn't match username."); // check that prepareGUI was called
+                "Password doesn't match username.");
     }
 }

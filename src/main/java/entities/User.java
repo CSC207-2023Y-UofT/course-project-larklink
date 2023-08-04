@@ -24,14 +24,29 @@ public class User {
         User.password = hashPassword(plainPassword);
     }
 
+    /**
+     * A getter for the unique identifier of the user.
+     *
+     * @return The unique identifier of the user.
+     */
     public static Integer getUserID() {
         return userID;
     }
 
+    /**
+     * A getter for the username of the user.
+     *
+     * @return The username of the user.
+     */
     public static String getUsername() {
         return username;
     }
 
+    /**
+     * A getter for the hashed password of the user.
+     *
+     * @return The hashed password of the user.
+     */
     public static String getPassword() {
         return password;
     }

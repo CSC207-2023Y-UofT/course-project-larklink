@@ -29,12 +29,16 @@ public class JoinRoomPresenterTest {
     @Test
     public void testPrepareRoomView(){
         presenter.prepareRoomView("[15:38:42] nadine: sup\n");
+
+        // checks that mockView calls prepareGUI exactly once with given message history
         verify(mockView, times(1)).prepareGUI("[15:38:42] nadine: sup\n");
     }
 
     @Test
     void testPrepareFailView() {
         presenter.prepareFailView();
+
+        // checks that mockView calls displayPopUpMessage exactly once with the correct error message
         verify(mockView, times(1)).displayPopUpMessage("No Such Room Found!");
     }
 }

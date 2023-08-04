@@ -65,7 +65,4 @@ public class WelcomeView extends View {
         return loginButton;
 
     }
-
-
-
 }

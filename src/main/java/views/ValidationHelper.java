@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.util.regex.Pattern;
 
 /**
- * A helper class to check the validation of username and password.
+ * A helper class to check the validation of username, room name, and password.
  */
 public class ValidationHelper {
     protected static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
     protected static final int MIN_PASSWORD_LENGTH = 8;
     protected static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9]{8,}$");
+
 
     protected static boolean isUsernameValid(String username){
         if (username.isEmpty()) {

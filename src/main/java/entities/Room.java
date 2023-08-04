@@ -22,7 +22,8 @@ public class Room {
      * @param activeUserIDs The list of active user IDs in the room.
      * @param messageHistory The message history of the room.
      */
-    public static void setRoom(Integer roomID, String roomName, Integer hostID, List<Integer> activeUserIDs, String messageHistory) {
+    public static void setRoom(Integer roomID, String roomName, Integer hostID, List<Integer> activeUserIDs,
+                               String messageHistory) {
         Room.roomID = roomID;
         Room.roomName = roomName;
         Room.hostID = hostID;
@@ -30,22 +31,47 @@ public class Room {
         Room.messageHistory = messageHistory;
     }
 
+    /**
+     * A getter for unique identifier of the room.
+     *
+     * @return The unique identifier of the room.
+     */
     public static Integer getRoomID() {
         return Room.roomID;
     }
 
+    /**
+     * A getter for name of the room.
+     *
+     * @return The name of the room.
+     */
     public static String getRoomName() {
         return Room.roomName;
     }
 
+    /**
+     * A getter for unique identifier for the host of the room.
+     *
+     * @return The unique identifier for the host of the room.
+     */
     public static Integer getHostID() {
         return Room.hostID;
     }
 
+    /**
+     * A getter for the list of active user IDs of the room.
+     *
+     * @return The list of active user IDs of the room.
+     */
     public static List<Integer> getActiveUserIDs() {
         return Room.activeUserIDs;
     }
 
+    /**
+     * A getter for the message history of the room.
+     *
+     * @return The message history of the room.
+     */
     public static String getMessageHistory() {
         return Room.messageHistory;
     }

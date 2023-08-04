@@ -15,11 +15,11 @@ public class RoomDBModel {
     /**
      * Constructs a RoomDBModel object.
      *
-     * @param roomID ID of the room
-     * @param roomName name of the room
-     * @param hostID ID of the room's host
-     * @param activeUserIDs a list of users' ID of the room
-     * @param messageHistory a message history of the room
+     * @param roomID The unique identifier of the room
+     * @param roomName The name of the room
+     * @param hostID The unique identifier of the room's host
+     * @param activeUserIDs The list of users' unique identifiers of the room
+     * @param messageHistory The message history of the room
      */
     public RoomDBModel(int roomID, String roomName, Integer hostID, List<Integer> activeUserIDs, String messageHistory) {
         this.roomID = roomID;
@@ -29,28 +29,54 @@ public class RoomDBModel {
         this.messageHistory = messageHistory;
     }
 
+    /**
+     * A getter for unique identifier of the room.
+     *
+     * @return The unique identifier of the room.
+     */
     public int getRoomID() {
         return this.roomID;
     }
 
+    /**
+     * A getter for name of the room.
+     *
+     * @return The name of the room.
+     */
     public String getRoomName() {
         return this.roomName;
     }
 
+    /**
+     * A getter for unique identifier of the room's host.
+     *
+     * @return The unique identifier of the room's host.
+     */
     public Integer getHostID() {
         return this.hostID;
     }
 
+    /**
+     * A getter for a list of users' unique identifiers of the room.
+     *
+     * @return The list of users' unique identifiers of the room.
+     */
     public List<Integer> getActiveUserIDs() {
         return this.activeUserIDs;
     }
 
+    /**
+     * A getter for message history of the room.
+     *
+     * @return The message history of the room.
+     */
     public String getMessageHistory() {
         return this.messageHistory;
     }
 
     /**
      * Sets activeUserIDs of this room as given input
+     *
      * @param activeUserIDs updated active userID list
      */
     public void setActiveUserIDs(List<Integer> activeUserIDs) {
@@ -58,7 +84,8 @@ public class RoomDBModel {
     }
 
     /**
-     * Sets messageHistory of this room as given input
+     * Sets message history of this room as given input
+     *
      * @param messageHistory updated message history
      */
     public void setMessageHistory(String messageHistory) {

@@ -10,9 +10,9 @@ public class UserDBModel {
 
     /**
      * Constructs UserDBModel object.
-     * @param userID user's ID
-     * @param username user's name
-     * @param password user's password
+     * @param userID The unique identifier of the user
+     * @param username The username of the user
+     * @param password The hashed password of the user
      */
     public UserDBModel(int userID, String username, String password) {
         this.userID = userID;
@@ -20,14 +20,29 @@ public class UserDBModel {
         this.password = password;
     }
 
+    /**
+     * A getter for unique identifier of the user.
+     *
+     * @return The unique identifier of the user.
+     */
     public int getUserID() {
         return this.userID;
     }
 
+    /**
+     * A getter for username of the user.
+     *
+     * @return The username of the user.
+     */
     public String getUsername() {
         return this.username;
     }
 
+    /**
+     * A getter for hashed password of the user.
+     *
+     * @return The hashed password of the user.
+     */
     public String getPassword() {
         return this.password;
     }

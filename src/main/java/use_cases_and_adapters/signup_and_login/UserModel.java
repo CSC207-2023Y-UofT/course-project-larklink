@@ -9,7 +9,7 @@ public class UserModel {
 
 
     /**
-     * Constructs a UserModel with the given username and password from users.
+     * Constructs a UserModel with the given username and password from the user.
      * @param username the username entered by the user
      * @param password the password entered by the user
      */

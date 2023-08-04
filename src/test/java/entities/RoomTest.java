@@ -28,7 +28,7 @@ public class RoomTest {
     }
 
     /**
-     * Tests setRoom method and getters.
+     * Tests setRoom method.
      */
     @Test
     public void testSetRoom() {
@@ -36,11 +36,66 @@ public class RoomTest {
                 testActiveUserIDs, testMessageHistory);
 
         // checks that the values are set correctly by comparing expected and actual values
-        // also tests getters because we get actual values from getters
         assertEquals(testRoomID, Room.getRoomID());
         assertEquals(testRoomName, Room.getRoomName());
         assertEquals(testHostID, Room.getHostID());
         assertEquals(testActiveUserIDs, Room.getActiveUserIDs());
         assertEquals(testMessageHistory, Room.getMessageHistory());
     }
+
+    /**
+     * Tests getRoomID method.
+     */
+    @Test
+    public void testGetRoomID() {
+        Room.setRoom(testRoomID, testRoomName, testHostID,
+                testActiveUserIDs, testMessageHistory);
+        // checks that expected value is equal to actual value from getRoomID
+        assertEquals(testRoomID, Room.getRoomID());
+    }
+
+    /**
+     * Tests getRoomName method.
+     */
+    @Test
+    public void testGetRoomName() {
+        Room.setRoom(testRoomID, testRoomName, testHostID,
+                testActiveUserIDs, testMessageHistory);
+        // checks that expected value is equal to actual value from getRoomName
+        assertEquals(testRoomName, Room.getRoomName());
+    }
+
+    /**
+     * Tests getHostID method.
+     */
+    @Test
+    public void testGetHostID() {
+        Room.setRoom(testRoomID, testRoomName, testHostID,
+                testActiveUserIDs, testMessageHistory);
+        // checks that expected value is equal to actual value from getHostID
+        assertEquals(testHostID, Room.getHostID());
+    }
+
+    /**
+     * Tests getActiveUserIDs method.
+     */
+    @Test
+    public void testGetActiveUserIDs() {
+        Room.setRoom(testRoomID, testRoomName, testHostID,
+                testActiveUserIDs, testMessageHistory);
+        // checks that expected value is equal to actual value from getActiveUserIDs
+        assertEquals(testActiveUserIDs, Room.getActiveUserIDs());
+    }
+
+    /**
+     * Tests getMessageHistory method.
+     */
+    @Test
+    public void testGetMessageHistory() {
+        Room.setRoom(testRoomID, testRoomName, testHostID,
+                testActiveUserIDs, testMessageHistory);
+        // checks that expected value is equal to actual value from getMessageHistory
+        assertEquals(testMessageHistory, Room.getMessageHistory());
+    }
+
 }

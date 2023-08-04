@@ -21,7 +21,7 @@ public class UserTest {
     }
 
     /**
-     * Tests setUser method and getters
+     * Tests setUser method.
      */
     @Test
     public void testSetUser() {
@@ -69,25 +69,34 @@ public class UserTest {
     public void testHashPassword() {
         String hashedPassword = User.hashPassword(testPassword);
 
-        // checks that hashed password is not empty
+        // checks that hashedPassword is not empty
         assertNotNull(hashedPassword);
-        // checks that hashed password and plain password are different
+        // checks that hashedPassword and plain password are different
         assertNotEquals(testPassword, hashedPassword);
         // checks that checkPassword returns true for matching passwords
         assertTrue(User.checkPassword(testPassword, hashedPassword));
     }
 
     /**
-     * Tests checkPassword method.
+     * Tests checkPassword method for non-matching passwords.
      */
     @Test
-    public void testCheckPassword() {
+    public void testCheckPasswordFailure() {
+        String hashedPassword = User.hashPassword(testPassword);
+
+        // checks that the checkPassword returns false for non-matching passwords
+        assertFalse(User.checkPassword("fakePassword", hashedPassword));
+    }
+
+    /**
+     * Tests checkPassword method for matching passwords.
+     */
+    @Test
+    public void testCheckPasswordSuccess() {
         String hashedPassword = User.hashPassword(testPassword);
 
         // checks that the checkPassword returns true for matching passwords
         assertTrue(User.checkPassword(testPassword, hashedPassword));
-        // checks that the checkPassword returns true for non-matching passwords
-        assertFalse(User.checkPassword("fakePassword", hashedPassword));
     }
 
 }

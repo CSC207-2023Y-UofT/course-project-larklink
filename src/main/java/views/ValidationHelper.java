@@ -33,12 +33,12 @@ public class ValidationHelper {
      */
     protected static boolean isUsernameValid(String username){
         if (username.isEmpty()) {
-            ValidationHelper.displayPopUpMessage("Username field is empty!");
+            ValidationHelper.displayErrorMessage("Username field is empty!");
             return false;
         }
 
         if (!USERNAME_PATTERN.matcher(username).matches()) {
-            ValidationHelper.displayPopUpMessage("Invalid username! Use only alphanumeric characters. " +
+            ValidationHelper.displayErrorMessage("Invalid username! Use only alphanumeric characters. " +
                     "Minimum length: 3");
             return false;
         }
@@ -46,7 +46,7 @@ public class ValidationHelper {
     }
 
     /**
-     * Validates a password based on given pattern.
+     * Validates a password.
      * Shows an error message and returns false if the password is empty.
      * Shows an error message and returns false if the password contains non-alphanumeric characters.
      * Shows an error message and returns false if the password length is less than 8.
@@ -56,12 +56,12 @@ public class ValidationHelper {
      */
     protected static boolean isPasswordValid(String password){
         if (password.isEmpty()) {
-            ValidationHelper.displayPopUpMessage("Password field is empty!");
+            ValidationHelper.displayErrorMessage("Password field is empty!");
             return false;
         }
 
         if (!PASSWORD_PATTERN.matcher(password).matches()) {
-            ValidationHelper.displayPopUpMessage("Invalid password! Use only alphanumeric characters. " +
+            ValidationHelper.displayErrorMessage("Invalid password! Use only alphanumeric characters. " +
                     "Minimum length: 8");
 
             return false;
@@ -71,7 +71,7 @@ public class ValidationHelper {
     }
 
     /**
-     * Validates a repeated password based on given pattern.
+     * Validates a repeated password.
      * Shows an error message and returns false if the repeated password does not match the password.
      *
      * @param password the password entered by the user
@@ -80,14 +80,14 @@ public class ValidationHelper {
      */
     protected static boolean isRepeatPasswordValid(String password, String repeatPassword){
         if (!password.equals(repeatPassword)){
-            ValidationHelper.displayPopUpMessage("Repeat Password does not match.");
+            ValidationHelper.displayErrorMessage("Repeat Password does not match.");
             return false;
         }
         return true;
     }
 
     /**
-     * Validates a room name based on given pattern.
+     * Validates a room name.
      * Shows an error message and returns false if the room name is empty.
      * Shows an error message and returns false if the room name contains non-alphanumeric characters.
      * Shows an error message and returns false if the room name length is less than 5.
@@ -97,19 +97,23 @@ public class ValidationHelper {
      */
     protected static boolean isRoomNameValid(String roomName) {
         if (roomName.isEmpty()) {
-            ValidationHelper.displayPopUpMessage("Room Name field is empty!");
+            ValidationHelper.displayErrorMessage("Room Name field is empty!");
             return false;
         }
 
         if (!NAME_PATTERN.matcher(roomName).matches()) {
-            ValidationHelper.displayPopUpMessage("Invalid Room name! Use only alphanumeric characters. " +
+            ValidationHelper.displayErrorMessage("Invalid Room name! Use only alphanumeric characters. " +
                     "Minimum length: 5");
             return false;
         }
         return true;
     }
 
-    private static void displayPopUpMessage(String msg) {
+    /**
+     * Displays an error message.
+     * @param msg the content of the error message
+     */
+    private static void displayErrorMessage(String msg) {
         JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 

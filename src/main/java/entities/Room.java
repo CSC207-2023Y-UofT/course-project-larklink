@@ -32,7 +32,7 @@ public class Room {
     }
 
     /**
-     * A getter for unique identifier of the room.
+     * A getter for the unique identifier of the room.
      *
      * @return The unique identifier of the room.
      */
@@ -41,7 +41,7 @@ public class Room {
     }
 
     /**
-     * A getter for name of the room.
+     * A getter for the name of the room.
      *
      * @return The name of the room.
      */
@@ -50,7 +50,7 @@ public class Room {
     }
 
     /**
-     * A getter for unique identifier for the host of the room.
+     * A getter for the unique identifier for the host of the room.
      *
      * @return The unique identifier for the host of the room.
      */
@@ -59,9 +59,9 @@ public class Room {
     }
 
     /**
-     * A getter for the list of active user IDs of the room.
+     * A getter for the list of active user unique identifiers of the room.
      *
-     * @return The list of active user IDs of the room.
+     * @return The list of active user unique identifiers of the room.
      */
     public static List<Integer> getActiveUserIDs() {
         return Room.activeUserIDs;

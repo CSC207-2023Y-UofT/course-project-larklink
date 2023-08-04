@@ -21,7 +21,7 @@ public class UserDBModel {
     }
 
     /**
-     * A getter for unique identifier of the user.
+     * A getter for the unique identifier of the user.
      *
      * @return The unique identifier of the user.
      */
@@ -30,7 +30,7 @@ public class UserDBModel {
     }
 
     /**
-     * A getter for username of the user.
+     * A getter for the username of the user.
      *
      * @return The username of the user.
      */
@@ -39,7 +39,7 @@ public class UserDBModel {
     }
 
     /**
-     * A getter for hashed password of the user.
+     * A getter for the hashed password of the user.
      *
      * @return The hashed password of the user.
      */

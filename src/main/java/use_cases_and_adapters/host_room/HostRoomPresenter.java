@@ -14,8 +14,8 @@ public class HostRoomPresenter implements HostRoomOutputBoundary {
     }
 
     @Override
-    public void prepareMultipleHostingView() {
-        view.displayPopUpMessage("You're already hosting another room.");
+    public void prepareMultipleHostingView(String hostingRoom) {
+        view.displayPopUpMessage("You're already hosting a room: " + hostingRoom);
     }
 
     public void prepareDuplicateNameView() {

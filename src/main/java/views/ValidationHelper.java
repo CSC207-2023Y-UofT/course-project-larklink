@@ -8,8 +8,10 @@ import java.util.regex.Pattern;
  */
 public class ValidationHelper {
     protected static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{3,}$");
-    protected static final int MIN_PASSWORD_LENGTH = 8;
     protected static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9]{8,}$");
+    protected static final int MIN_PASSWORD_LENGTH = 8;
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{5,}$");
+    private static final int MIN_ROOM_NAME_LENGTH = 5;
 
 
     protected static boolean isUsernameValid(String username){
@@ -56,6 +58,29 @@ public class ValidationHelper {
         if (!password.equals(repeatPassword)){
             JOptionPane.showMessageDialog(null,
                     "Repeat Password does not match.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    protected static boolean isRoomNameValid(String roomName) {
+        if (!NAME_PATTERN.matcher(roomName).matches()) {
+            JOptionPane.showMessageDialog(null,
+                    "Invalid Room name! Use only alphanumeric characters. Minimum length: 5",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (roomName.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Room Name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (roomName.length() < MIN_ROOM_NAME_LENGTH) {
+            JOptionPane.showMessageDialog(null,
+                    "Room Name too short! Minimum length: " + MIN_ROOM_NAME_LENGTH,
                     "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }

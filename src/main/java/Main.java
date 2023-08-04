@@ -29,7 +29,6 @@ public class Main {
         UserLoginPresenter userLoginPresenter = new UserLoginPresenter();
         UserLoginInteractor userLoginInteractor = new UserLoginInteractor(userDBAccess, userLoginPresenter);
         UserLoginController userLoginController = new UserLoginController(userLoginInteractor);
-        WelcomeView welcomeView = new WelcomeView(userLoginController, userSignupController);
 
         LeaveRoomPresenter leaveRoomPresenter = new LeaveRoomPresenter();
         LeaveRoomInteractor leaveRoomInteractor = new LeaveRoomInteractor(roomDBAccess, leaveRoomPresenter);
@@ -56,6 +55,6 @@ public class Main {
         leaveRoomPresenter.setView(joinOrHostView);
         sendMessagePresenter.setView(roomView);
 
-        welcomeView.prepareGUI(null); // launch app
+        ViewManager.startWelcomeView(userLoginController, userSignupController); // launch app
     }
 }

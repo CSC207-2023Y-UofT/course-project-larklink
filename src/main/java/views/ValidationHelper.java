@@ -101,19 +101,18 @@ public class ValidationHelper {
      * @return true if the room name is valid, otherwise false.
      */
     protected static boolean isRoomNameValid(String roomName) {
+        if (roomName.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Room Name field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         if (!NAME_PATTERN.matcher(roomName).matches()) {
             JOptionPane.showMessageDialog(null,
                     "Invalid Room name! Use only alphanumeric characters. Minimum length: 5",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
-        if (roomName.isEmpty()) {
-            JOptionPane.showMessageDialog(null,
-                    "Room Name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
         return true;
     }
 

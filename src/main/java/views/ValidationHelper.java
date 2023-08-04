@@ -19,7 +19,7 @@ public class ValidationHelper {
     /**
      * The regular expression pattern for valid room name.
      */
-    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{5,}$");
+    protected static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9]{5,}$");
 
 
     /**
@@ -33,15 +33,13 @@ public class ValidationHelper {
      */
     protected static boolean isUsernameValid(String username){
         if (username.isEmpty()) {
-            JOptionPane.showMessageDialog(null,
-                    "Username field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            ValidationHelper.displayPopUpMessage("Username field is empty!");
             return false;
         }
 
         if (!USERNAME_PATTERN.matcher(username).matches()) {
-            JOptionPane.showMessageDialog(null,
-                    "Invalid username! Use only alphanumeric characters. Minimum length: 3",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            ValidationHelper.displayPopUpMessage("Invalid username! Use only alphanumeric characters. " +
+                    "Minimum length: 3");
             return false;
         }
         return true;
@@ -58,15 +56,14 @@ public class ValidationHelper {
      */
     protected static boolean isPasswordValid(String password){
         if (password.isEmpty()) {
-            JOptionPane.showMessageDialog(null,
-                    "Password field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            ValidationHelper.displayPopUpMessage("Password field is empty!");
             return false;
         }
 
         if (!PASSWORD_PATTERN.matcher(password).matches()) {
-            JOptionPane.showMessageDialog(null,
-                    "Invalid password! Use only alphanumeric characters. Minimum length: 8",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            ValidationHelper.displayPopUpMessage("Invalid password! Use only alphanumeric characters. " +
+                    "Minimum length: 8");
+
             return false;
         }
 
@@ -83,9 +80,7 @@ public class ValidationHelper {
      */
     protected static boolean isRepeatPasswordValid(String password, String repeatPassword){
         if (!password.equals(repeatPassword)){
-            JOptionPane.showMessageDialog(null,
-                    "Repeat Password does not match.",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            ValidationHelper.displayPopUpMessage("Repeat Password does not match.");
             return false;
         }
         return true;
@@ -102,18 +97,20 @@ public class ValidationHelper {
      */
     protected static boolean isRoomNameValid(String roomName) {
         if (roomName.isEmpty()) {
-            JOptionPane.showMessageDialog(null,
-                    "Room Name field is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            ValidationHelper.displayPopUpMessage("Room Name field is empty!");
             return false;
         }
 
         if (!NAME_PATTERN.matcher(roomName).matches()) {
-            JOptionPane.showMessageDialog(null,
-                    "Invalid Room name! Use only alphanumeric characters. Minimum length: 5",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            ValidationHelper.displayPopUpMessage("Invalid Room name! Use only alphanumeric characters. " +
+                    "Minimum length: 5");
             return false;
         }
         return true;
+    }
+
+    private static void displayPopUpMessage(String msg) {
+        JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
 }

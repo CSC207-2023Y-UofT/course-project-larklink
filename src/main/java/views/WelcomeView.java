@@ -43,7 +43,7 @@ public class WelcomeView extends View {
      * Creates a sign up button for displaying in the welcome view panel
      * @return JButton with the text "Sign up"
      */
-    private JButton createSignUpButton() {
+    protected JButton createSignUpButton() {
         JButton signupButton = new JButton("Sign up");
         signupButton.addActionListener(e -> {
             SignupView signUpView = new SignupView(this.signupController);
@@ -56,7 +56,7 @@ public class WelcomeView extends View {
      * Creates a log in button for displaying in the welcome view panel
      * @return JButton with the text "Log in"
      */
-    private JButton createLoginButton() {
+    protected JButton createLoginButton() {
         JButton loginButton = new JButton("Log in");
         loginButton.addActionListener(e -> {
             LoginView logInView = new LoginView(this.loginController);

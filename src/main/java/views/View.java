@@ -15,7 +15,7 @@ public abstract class View extends JFrame implements Viewable {
     protected static final int WIDTH = 600;
     protected static final int HEIGHT = 400;
 
-    private static JFrame currentFrame = null;
+    protected static JFrame currentFrame = null;
     protected static String messageHistory = "";
 
     /**

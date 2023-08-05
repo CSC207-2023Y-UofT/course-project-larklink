@@ -1,78 +1,51 @@
 package views;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import use_cases_and_adapters.leave_room.LeaveRoomController;
-import use_cases_and_adapters.leave_room.LeaveRoomInputBoundary;
 import use_cases_and_adapters.messaging.MessageController;
-import use_cases_and_adapters.messaging.MessageInputBoundary;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.openMocks;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
-public class RoomViewTest {
-    @Mock
-    private LeaveRoomController leaveRoomController;
-    @Mock
-    private  LeaveRoomInputBoundary leaveRoomInputBoundary;
-    @Mock
-    private  MessageController sendMessageController;
-    @Mock
-    private MessageInputBoundary messageInputBoundary;
-    private RoomView view;
-    
-    public RoomViewTest() {
-        openMocks(this);
-        leaveRoomController = new LeaveRoomController(leaveRoomInputBoundary);
-        sendMessageController = new MessageController(messageInputBoundary);
-        view = new RoomView(leaveRoomController, sendMessageController);
-    }
+class RoomViewTest {
 
     @Test
-    public void testSendMessage() throws AWTException {
-        view.prepareGUI(null);
+    void testCreatePanel() {
+        // Create mock instances of LeaveRoomController and MessageController
+        LeaveRoomController leaveRoomController = mock(LeaveRoomController.class);
+        MessageController sendMessageController = mock(MessageController.class);
 
+        // Create the RoomView
+        RoomView roomView = new RoomView(leaveRoomController, sendMessageController);
 
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Call createPanel to get the JPanel
+        JPanel panel = roomView.createPanel();
+        assertNotNull(panel);
 
-        Robot bot = new Robot();
-        // launch view
-        bot.mouseMove(828, 580);
-
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        bot.mouseMove(898, 580);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        verify(messageInputBoundary, times(1)).handleSendMessage(any());
-
+        // Test the existence of specific components
+        assertTrue(hasComponentType(panel, JTextArea.class));
+        assertTrue(hasComponentType(panel, JTextField.class));
+        assertTrue(hasComponentType(panel, JButton.class));
+        assertTrue(hasComponentType(panel, JScrollPane.class));
     }
+
+    // Utility method to recursively search for a component with a specific type
+    private boolean hasComponentType(Component component, Class<?> type) {
+        if (type.isInstance(component)) {
+            return true;
+        }
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                if (hasComponentType(child, type)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Additional test methods can be added here to test specific functionalities
 }

@@ -2,113 +2,82 @@ package views;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import use_cases_and_adapters.signup_and_login.UserModel;
 import use_cases_and_adapters.signup_and_login.user_login.UserLoginController;
-import use_cases_and_adapters.signup_and_login.user_login.UserLoginInputBoundary;
-import use_cases_and_adapters.signup_and_login.user_signup.UserSignupController;
-import use_cases_and_adapters.signup_and_login.user_signup.UserSignupInputBoundary;
+
+import javax.swing.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
+import java.lang.reflect.Field;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
-public class LoginViewTest {
+class LoginViewTest {
     private UserLoginController loginController;
-    private UserSignupController signupController;
-    @Mock
-    private UserLoginInputBoundary logInInputBoundary;
-
-    @Mock
-    private UserSignupInputBoundary signupInputBoundary;
+    private LoginView loginView;
 
     @BeforeEach
     void setUp() {
-        logInInputBoundary = Mockito.mock(UserLoginInputBoundary.class);
-        signupInputBoundary = Mockito.mock(UserSignupInputBoundary.class);
-        loginController = new UserLoginController(logInInputBoundary);
-        signupController = new UserSignupController(signupInputBoundary);
+        loginController = mock(UserLoginController.class);
+        loginView = new LoginView(loginController);
+        // Call createPanel() to initialize the fields
+        loginView.createPanel();
     }
 
     @Test
-    void testLoginButton() throws AWTException {
+    void testCreatePanel() {
+        JPanel panel = loginView.createPanel();
+        assertNotNull(panel);
 
-        Robot bot = new Robot();
-        // launch view
-        ViewManager.startWelcomeView(loginController, signupController); // launch app
-        bot.mouseMove(828, 435);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // Access the public fields directly
+        assertNotNull(loginView.usernameField);
+        assertNotNull(loginView.passwordField);
+    }
+
+    @Test
+    void testCreateLoginButton_ValidCredentials() {
+        JButton loginButton = loginView.createLoginButton();
+        assertNotNull(loginButton);
+
+        // Mocking user input for the username and password fields
+        loginView.usernameField = new JTextField("validUsername");
+        loginView.passwordField = new JPasswordField("validPassword");
+
+        loginButton.doClick(); // Simulate a click on the "Log in" button
+
+        // Verify that the controller method is called with the correct arguments
+        verify(loginController).formatAndHandleUserLogin("validUsername", "validPassword");
+    }
+
+    @Test
+    void testCreateLoginButton_InvalidCredentials() {
+        JButton loginButton = loginView.createLoginButton();
+        assertNotNull(loginButton);
+
+        // Mocking user input for the username and password fields
+        loginView.usernameField = new JTextField("invalidUsername");
+        loginView.passwordField = new JPasswordField(""); // Invalid password (empty)
+
+        loginButton.doClick(); // Simulate a click on the "Log in" button
+
+        // Verify that the controller method is not called since the credentials are invalid
+        verify(loginController, never()).formatAndHandleUserLogin(any(), any());
+    }
+
+    // Helper method to get components by their name in the panel
+    private Component getComponentByName(Container container, String name) {
+        for (Component component : container.getComponents()) {
+            if (name.equals(component.getName())) {
+                return component;
+            }
+            if (component instanceof Container) {
+                Component found = getComponentByName((Container) component, name);
+                if (found != null) {
+                    return found;
+                }
+            }
         }
-
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        bot.mouseMove(828, 385);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-
-        // enter in username
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        bot.mouseMove(828, 450);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-
-        // enter password
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        bot.mouseMove(828, 500);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        verify(logInInputBoundary, times(1)).handleUserLogin(any());
-
+        return null;
     }
 }

@@ -1,91 +1,97 @@
 package views;
 
-import database_and_drivers.HttpClient;
-import database_and_drivers.RoomDBAccess;
-import database_and_drivers.converters.RoomConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import use_cases_and_adapters.host_room.HostRoomController;
-import use_cases_and_adapters.host_room.HostRoomInputBoundary;
-import use_cases_and_adapters.host_room.HostRoomPresenter;
 import use_cases_and_adapters.join_room.JoinRoomController;
-import use_cases_and_adapters.join_room.JoinRoomInteractor;
-import use_cases_and_adapters.join_room.JoinRoomPresenter;
+
+import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-public class JoinOrHostViewTest {
-
-    private static final String API_URL = "test";
-    private JoinRoomPresenter joinRoomPresenter;
-    @Mock
-    private JoinRoomInteractor joinRoomInteractor;
-    private JoinRoomController joinRoomController;
+class JoinOrHostViewTest {
     private HostRoomController hostRoomController;
-    private JoinOrHostView view;
-
-    @Mock
-    private RoomDBAccess roomDBAccess;
-
+    private JoinRoomController joinRoomController;
+    private JoinOrHostView joinOrHostView;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        HttpClient httpClient = new HttpClient(API_URL);
-        RoomConverter roomConverter = new RoomConverter();
-
-        roomDBAccess = new RoomDBAccess(httpClient, roomConverter);
-        joinRoomPresenter = new JoinRoomPresenter();
-        joinRoomInteractor = new JoinRoomInteractor(roomDBAccess, joinRoomPresenter);
-        joinRoomController = new JoinRoomController(joinRoomInteractor);
-        view = new JoinOrHostView(hostRoomController, joinRoomController);
+        hostRoomController = mock(HostRoomController.class);
+        joinRoomController = mock(JoinRoomController.class);
+        joinOrHostView = new JoinOrHostView(hostRoomController, joinRoomController);
     }
 
     @Test
-    void testHostRoom() throws AWTException {
-        view.prepareGUI(null);
+    void testCreatePanel() {
+        JPanel panel = joinOrHostView.createPanel();
+        assertNotNull(panel);
 
-        Robot bot = new Robot();
-        // launch view
-        bot.mouseMove(828, 435);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // Test the existence of specific components
+        assertTrue(panel.getComponentCount() > 0);
+
+        // Test the presence of JTextField, JButton, and JLabel components
+        assertTrue(hasComponentType(panel, JTextField.class));
+        assertTrue(hasComponentType(panel, JButton.class));
+        assertTrue(hasComponentType(panel, JLabel.class));
+    }
+
+
+    // Utility method to recursively search for a component with a specific type
+    private boolean hasComponentType(Component component, Class<?> type) {
+        if (type.isInstance(component)) {
+            return true;
         }
-
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (component instanceof Container) {
+            for (Component child : ((Container) component).getComponents()) {
+                if (hasComponentType(child, type)) {
+                    return true;
+                }
+            }
         }
+        return false;
+    }
+    @Test
+    void testCreateHostButton_ValidRoomName() {
+        JButton hostButton = joinOrHostView.createHostButton();
+        assertNotNull(hostButton);
 
-        bot.mouseMove(990, 580);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // Mocking user input for the room name text field
+        joinOrHostView.roomField = new JTextField("TestRoomName");
+        hostButton.doClick(); // Simulate a click on the "Host" button
+
+        // Verify that the controller method is called with the correct argument
+        verify(hostRoomController).handleHostRoom("TestRoomName");
+    }
+
+    @Test
+    void testCreateHostButton_InvalidRoomName() {
+        JButton hostButton = joinOrHostView.createHostButton();
+        assertNotNull(hostButton);
+
+        // Mocking user input for the room name text field
+        joinOrHostView.roomField = new JTextField(""); // Invalid room name (empty)
+        hostButton.doClick(); // Simulate a click on the "Host" button
+
+        // Verify that the controller method is not called since the room name is invalid
+        verify(hostRoomController, never()).handleHostRoom(any());
+    }
+
+    // Helper method to get components by their name in the panel
+    private Component getComponentByName(Container container, String name) {
+        for (Component component : container.getComponents()) {
+            if (name.equals(component.getName())) {
+                return component;
+            }
+            if (component instanceof Container) {
+                Component found = getComponentByName((Container) component, name);
+                if (found != null) {
+                    return found;
+                }
+            }
         }
-        verify(joinRoomInteractor, times(1)).handleJoinRoom(any());
+        return null;
     }
 }

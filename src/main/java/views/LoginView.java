@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class LoginView extends View {
     private final UserLoginController loginController;
-    private JTextField usernameField;
-    private JPasswordField passwordField;
+    public JTextField usernameField;
+    public JPasswordField passwordField;
 
     public LoginView(UserLoginController loginController) {
         this.loginController = loginController;
@@ -33,7 +33,7 @@ public class LoginView extends View {
         return panel;
     }
 
-    private JButton createLoginButton() {
+    protected JButton createLoginButton() {
         JButton loginButton = new JButton("Log in");
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
@@ -48,7 +48,7 @@ public class LoginView extends View {
 
     }
 
-    private JButton createGoBackButton() {
+    protected JButton createGoBackButton() {
         JButton goBackButton = new JButton("Go back");
         goBackButton.addActionListener(e -> ViewManager.switchToWelcomeView());
         return goBackButton;

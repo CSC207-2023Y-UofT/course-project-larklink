@@ -8,7 +8,7 @@ import use_cases_and_adapters.signup_and_login.user_signup.UserSignupController;
  * This class provides static methods to create WelcomeView and switch from SignupView/LoginView to WelcomeView.
  */
 public class ViewManager {
-    private static WelcomeView welcomeView;
+    protected static WelcomeView welcomeView;
 
     /**
      * A static method to create and start the welcomeView

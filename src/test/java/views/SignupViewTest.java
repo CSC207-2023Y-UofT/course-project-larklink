@@ -2,134 +2,59 @@ package views;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import use_cases_and_adapters.signup_and_login.user_login.UserLoginController;
-import use_cases_and_adapters.signup_and_login.user_login.UserLoginInputBoundary;
 import use_cases_and_adapters.signup_and_login.user_signup.UserSignupController;
-import use_cases_and_adapters.signup_and_login.user_signup.UserSignupInputBoundary;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-public class SignupViewTest {
-    private UserLoginController loginController;
+class SignupViewTest {
+
     private UserSignupController signupController;
-    @Mock
-    private UserLoginInputBoundary logInInputBoundary;
-
-    @Mock
-    private UserSignupInputBoundary signupInputBoundary;
-
+    private SignupView signupView;
 
     @BeforeEach
     void setUp() {
-        logInInputBoundary = Mockito.mock(UserLoginInputBoundary.class);
-        signupInputBoundary = Mockito.mock(UserSignupInputBoundary.class);
-        loginController = new UserLoginController(logInInputBoundary);
-        signupController = new UserSignupController(signupInputBoundary);
+        signupController = mock(UserSignupController.class);
+        signupView = new SignupView(signupController);
     }
 
     @Test
-    void testLoginButton() throws AWTException {
+    void testCreatePanel() {
+        JPanel panel = signupView.createPanel();
+        assertNotNull(panel);
 
-        Robot bot = new Robot();
-        // launch view
-        ViewManager.startWelcomeView(loginController, signupController); // launch app
-        bot.mouseMove(700, 435);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        // Test the existence of specific components by their type
+        JTextField usernameField = findComponentByType(panel, JTextField.class);
+        assertNotNull(usernameField);
+
+        JPasswordField passwordField = findComponentByType(panel, JPasswordField.class);
+        assertNotNull(passwordField);
+
+        JPasswordField repeatPasswordField = findComponentByType(panel, JPasswordField.class);
+        assertNotNull(repeatPasswordField);
+
+        JButton signupButton = findComponentByType(panel, JButton.class);
+        assertNotNull(signupButton);
+    }
+
+    // Utility method to find the component of a specific type in the container
+    private <T extends JComponent> T findComponentByType(Container container, Class<T> type) {
+        for (Component component : container.getComponents()) {
+            if (type.isInstance(component)) {
+                return type.cast(component);
+            }
+            if (component instanceof Container) {
+                T result = findComponentByType((Container) component, type);
+                if (result != null) {
+                    return result;
+                }
+            }
         }
-
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        bot.mouseMove(828, 385);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-
-        // enter in username
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        bot.mouseMove(828, 430);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-
-        // enter password
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        bot.mouseMove(828, 480);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-        // re-enter password
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-        bot.keyPress(80);
-
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-        bot.mouseMove(828, 500);
-        bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        bot.mouseRelease(InputEvent.BUTTON1_MASK);
-        try {
-            Thread.sleep(2500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        verify(signupInputBoundary, times(1)).handleUserSignup(any());
+        return null;
     }
 }

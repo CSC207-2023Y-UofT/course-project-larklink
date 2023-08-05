@@ -11,9 +11,9 @@ import java.awt.*;
  */
 
 public abstract class View extends JFrame implements Viewable {
-    private static final String TITLE = "Larklink";
-    private static final int WIDTH = 600;
-    private static final int HEIGHT = 400;
+    protected static final String TITLE = "Larklink";
+    protected static final int WIDTH = 600;
+    protected static final int HEIGHT = 400;
 
     private static JFrame currentFrame = null;
     protected static String messageHistory = "";

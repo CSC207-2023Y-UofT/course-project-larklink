@@ -14,7 +14,7 @@ public class JoinOrHostView extends View {
     private final HostRoomController hostRoomController;
     private final JoinRoomController joinRoomController;
 
-    private JTextField roomField;
+    protected JTextField roomField;
 
     public JoinOrHostView(HostRoomController hostRoomController, JoinRoomController joinRoomController) {
         this.hostRoomController = hostRoomController;
@@ -76,7 +76,7 @@ public class JoinOrHostView extends View {
      * @return JButton with the text "host"
      */
 
-    private JButton createHostButton() {
+    protected JButton createHostButton() {
         JButton hostButton = new JButton("Host");
         hostButton.addActionListener(e -> {
             String roomName = roomField.getText();

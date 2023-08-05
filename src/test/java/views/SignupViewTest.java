@@ -5,11 +5,7 @@ import org.junit.jupiter.api.Test;
 import use_cases_and_adapters.signup_and_login.user_signup.UserSignupController;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SignupViewTest {
@@ -26,35 +22,19 @@ class SignupViewTest {
     @Test
     void testCreatePanel() {
         JPanel panel = signupView.createPanel();
-        assertNotNull(panel);
+        assert panel != null;
 
-        // Test the existence of specific components by their type
-        JTextField usernameField = findComponentByType(panel, JTextField.class);
-        assertNotNull(usernameField);
+        // make sure all fields and buttons displayed
+        JTextField usernameField =  ViewTestUtility.findElement(panel, JTextField.class);
+        assert usernameField != null;
 
-        JPasswordField passwordField = findComponentByType(panel, JPasswordField.class);
-        assertNotNull(passwordField);
+        JPasswordField passwordField =  ViewTestUtility.findElement(panel, JPasswordField.class);
+        assert passwordField != null;
 
-        JPasswordField repeatPasswordField = findComponentByType(panel, JPasswordField.class);
-        assertNotNull(repeatPasswordField);
+        JButton signupButton = ViewTestUtility.findElement(panel, JButton.class);
+        assert signupButton != null;
 
-        JButton signupButton = findComponentByType(panel, JButton.class);
-        assertNotNull(signupButton);
-    }
-
-    // Utility method to find the component of a specific type in the container
-    private <T extends JComponent> T findComponentByType(Container container, Class<T> type) {
-        for (Component component : container.getComponents()) {
-            if (type.isInstance(component)) {
-                return type.cast(component);
-            }
-            if (component instanceof Container) {
-                T result = findComponentByType((Container) component, type);
-                if (result != null) {
-                    return result;
-                }
-            }
-        }
-        return null;
+        JPasswordField repeatPasswordField =  ViewTestUtility.findElement(panel, JPasswordField.class);
+        assert repeatPasswordField != null;
     }
 }

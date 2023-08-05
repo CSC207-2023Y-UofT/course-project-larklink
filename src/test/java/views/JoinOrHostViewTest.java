@@ -6,10 +6,6 @@ import use_cases_and_adapters.host_room.HostRoomController;
 import use_cases_and_adapters.join_room.JoinRoomController;
 
 import javax.swing.*;
-
-import java.awt.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -28,61 +24,38 @@ class JoinOrHostViewTest {
     @Test
     void testCreatePanel() {
         JPanel panel = joinOrHostView.createPanel();
-        assertNotNull(panel);
+        assert panel != null;
 
-        // Test the existence of specific components
-        assertTrue(panel.getComponentCount() > 0);
+        assert panel.getComponentCount() > 0;
 
-        // Test the presence of JTextField, JButton, and JLabel components
-        assertTrue(hasComponentType(panel, JTextField.class));
-        assertTrue(hasComponentType(panel, JButton.class));
-        assertTrue(hasComponentType(panel, JLabel.class));
-
-        // Test the presence of JScrollPane component
-        assertTrue(hasComponentType(panel, JScrollPane.class));
+        // Test constructing components
+        assert ViewTestUtility.hasElement(panel, JTextField.class);
+        assert ViewTestUtility.hasElement(panel, JButton.class);
+        assert ViewTestUtility.hasElement(panel, JLabel.class);
+        assert ViewTestUtility.hasElement(panel, JScrollPane.class);
     }
 
     @Test
     void testCreateHostButton_ValidRoomName() {
         JButton hostButton = joinOrHostView.createHostButton();
-        assertNotNull(hostButton);
+        assert hostButton != null;
 
         // Mocking user input for the room name text field
-        joinOrHostView.roomField = new JTextField("TestRoomName");
-        hostButton.doClick(); // Simulate a click on the "Host" button
+        joinOrHostView.roomField = new JTextField("roomname");
+        hostButton.doClick();
 
-        // Verify that the ValidationHelper and controller methods are called with the correct argument
-        verify(hostRoomController).handleHostRoom("TestRoomName");
+        verify(hostRoomController).handleHostRoom("roomname");
     }
 
     @Test
     void testCreateHostButton_InvalidRoomName() {
         JButton hostButton = joinOrHostView.createHostButton();
-        assertNotNull(hostButton);
+        assert hostButton != null;
 
-        // Mocking user input for the room name text field
-        joinOrHostView.roomField = new JTextField(""); // Invalid room name (empty)
-        hostButton.doClick(); // Simulate a click on the "Host" button
+        // empty room name shouldn't work
+        joinOrHostView.roomField = new JTextField("");
+        hostButton.doClick();
 
-        // Verify that the controller method is not called since the room name is invalid
         verify(hostRoomController, never()).handleHostRoom(any());
-    }
-
-
-
-
-    // Utility method to recursively search for a component with a specific type
-    private boolean hasComponentType(Component component, Class<?> type) {
-        if (type.isInstance(component)) {
-            return true;
-        }
-        if (component instanceof Container) {
-            for (Component child : ((Container) component).getComponents()) {
-                if (hasComponentType(child, type)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

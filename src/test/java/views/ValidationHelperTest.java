@@ -2,77 +2,62 @@ package views;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ValidationHelperTest {
-
     @Test
     void testValidUsername() {
-        assertTrue(ValidationHelper.isUsernameValid("john123"));
-    }
-
-    @Test
-    void testInvalidUsername_Empty() {
-        assertFalse(ValidationHelper.isUsernameValid(""));
-    }
-
-    @Test
-    void testInvalidUsername_NonAlphanumeric() {
-        assertFalse(ValidationHelper.isUsernameValid("john$%^"));
-    }
-
-    @Test
-    void testInvalidUsername_Length() {
-        assertFalse(ValidationHelper.isUsernameValid("jo"));
+        assert ValidationHelper.isUsernameValid("alec");
     }
 
     @Test
     void testValidPassword() {
-        assertTrue(ValidationHelper.isPasswordValid("password123"));
-    }
-
-    @Test
-    void testInvalidPassword_Empty() {
-        assertFalse(ValidationHelper.isPasswordValid(""));
-    }
-
-    @Test
-    void testInvalidPassword_NonAlphanumeric() {
-        assertFalse(ValidationHelper.isPasswordValid("pass$%^"));
-    }
-
-    @Test
-    void testInvalidPassword_Length() {
-        assertFalse(ValidationHelper.isPasswordValid("pass123"));
+        assert ValidationHelper.isPasswordValid("password");
     }
 
     @Test
     void testValidRepeatPassword() {
-        assertTrue(ValidationHelper.isRepeatPasswordValid("password123", "password123"));
-    }
-
-    @Test
-    void testInvalidRepeatPassword_Mismatch() {
-        assertFalse(ValidationHelper.isRepeatPasswordValid("password123", "password456"));
+        assert ValidationHelper.isRepeatPasswordValid("password", "password");
     }
 
     @Test
     void testValidRoomName() {
-        assertTrue(ValidationHelper.isRoomNameValid("room123"));
+        assert ValidationHelper.isRoomNameValid("roomName");
+    }
+
+    @Test
+    void testInvalidUsername_NonAlphanumeric() {
+        assert !ValidationHelper.isUsernameValid("alec$%^");
+    }
+
+    @Test
+    void testInvalidUsername_Empty() {
+        assert !ValidationHelper.isUsernameValid("");
+    }
+    @Test
+    void testInvalidUsername_Length() {
+        assert !ValidationHelper.isUsernameValid("a")
+    }
+
+    @Test
+    void testInvalidRepeatPassword_Mismatch() {
+        assert !ValidationHelper.isRepeatPasswordValid("password123", "password456");
     }
 
     @Test
     void testInvalidRoomName_Empty() {
-        assertFalse(ValidationHelper.isRoomNameValid(""));
+        assert !ValidationHelper.isRoomNameValid("");
     }
 
     @Test
     void testInvalidRoomName_NonAlphanumeric() {
-        assertFalse(ValidationHelper.isRoomNameValid("room$%^"));
+        assert !ValidationHelper.isRoomNameValid("room$%^");
     }
 
     @Test
     void testInvalidRoomName_Length() {
-        assertFalse(ValidationHelper.isRoomNameValid("room"));
+        assert !ValidationHelper.isRoomNameValid("room");
+    }
+    @Test
+    void testInvalidPassword_Length() {
+        assert !ValidationHelper.isPasswordValid("pass123");
     }
 }

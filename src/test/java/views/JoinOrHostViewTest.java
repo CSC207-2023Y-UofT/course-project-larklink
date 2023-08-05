@@ -28,7 +28,7 @@ class JoinOrHostViewTest {
 
         assert panel.getComponentCount() > 0;
 
-        // Test constructing components
+        // constructing components
         assert ViewTestUtility.hasElement(panel, JTextField.class);
         assert ViewTestUtility.hasElement(panel, JButton.class);
         assert ViewTestUtility.hasElement(panel, JLabel.class);
@@ -40,7 +40,7 @@ class JoinOrHostViewTest {
         JButton hostButton = joinOrHostView.createHostButton();
         assert hostButton != null;
 
-        // Mocking user input for the room name text field
+        // mock user input
         joinOrHostView.roomField = new JTextField("roomname");
         hostButton.doClick();
 

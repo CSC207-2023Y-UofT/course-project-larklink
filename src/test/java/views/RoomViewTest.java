@@ -14,13 +14,13 @@ class RoomViewTest {
         LeaveRoomController leaveRoomController = mock(LeaveRoomController.class);
         MessageController sendMessageController = mock(MessageController.class);
 
-        // Create the RoomView
+        // create the room view
         RoomView roomView = new RoomView(leaveRoomController, sendMessageController);
 
         JPanel panel = roomView.createPanel();
         assert panel != null;
 
-        // Test for component gen
+        // test for component gen
         assert ViewTestUtility.hasElement(panel, JTextArea.class);
         assert ViewTestUtility.hasElement(panel, JTextField.class);
         assert ViewTestUtility.hasElement(panel, JButton.class);

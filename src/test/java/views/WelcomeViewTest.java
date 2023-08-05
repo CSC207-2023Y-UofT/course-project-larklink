@@ -21,7 +21,7 @@ class WelcomeViewTest {
 
     @Test
     void testCreateLoginButton() {
-        // Create mock objects for UserLoginController
+        // create mock objects for UserLoginController
         UserLoginController loginController = mock(UserLoginController.class);
         WelcomeView welcomeView = new WelcomeView(loginController, null);
 

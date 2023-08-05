@@ -8,6 +8,7 @@ import java.awt.*;
  */
 
 public class ViewTestUtility {
+    // adapted from competitive programming template DFS
     protected static boolean hasElement(Component element, Class<?> type) {
         if (type.isInstance(element)) {
             return true;

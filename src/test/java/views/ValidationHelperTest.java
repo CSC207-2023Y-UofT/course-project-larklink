@@ -34,7 +34,7 @@ class ValidationHelperTest {
     }
     @Test
     void testInvalidUsername_Length() {
-        assert !ValidationHelper.isUsernameValid("a")
+        assert !ValidationHelper.isUsernameValid("a");
     }
 
     @Test

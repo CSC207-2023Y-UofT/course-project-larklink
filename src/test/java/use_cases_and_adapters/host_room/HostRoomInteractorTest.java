@@ -16,50 +16,53 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import use_cases_and_adapters.host_room.HostRoomDBGateway;
+import use_cases_and_adapters.host_room.HostRoomOutputBoundary;
+import use_cases_and_adapters.host_room.HostRoomInteractor;
 
-public class HostRoomInteractorTest {
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
+
+class HostRoomInteractorTest {
+    private HostRoomDBGateway database;
+    private HostRoomOutputBoundary presenter;
     private HostRoomInteractor interactor;
-    @Mock
-    private HostRoomDBGateway mockDB;
-    @Mock
-    private HostRoomOutputBoundary mockPresenter;
-    private Integer testRoomID;
-    private String testName;
-
-    private Integer testHostID;
-    private String testMessageHistory;
-    private List<RoomDBModel> testRooms;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        interactor = new HostRoomInteractor(mockDB, mockPresenter);
-
-        // initialize shared variables
-        testName = "testRoom";
-        testHostID = 11;
-        testRoomID = 11;
-        testMessageHistory = "";
-        testRooms = List.of(new RoomDBModel(testRoomID, testName, testHostID, new ArrayList<>(),
-                testMessageHistory));
-
+    void setUp() {
+        database = mock(HostRoomDBGateway.class);
+        presenter = mock(HostRoomOutputBoundary.class);
+        interactor = new HostRoomInteractor(database, presenter);
     }
 
     @Test
-    public void testHostRoom_success() {
-        when(mockDB.getRooms()).thenReturn(testRooms);
+    void testHostRoom_NewRoom() {
+        String roomName = "TestRoom";
+        List<RoomDBModel> existingRooms = new ArrayList<>();
+        when(database.getRooms()).thenReturn(existingRooms);
 
-        RoomDBModel newRoom = new RoomDBModel(testRoomID, testName, testHostID, new ArrayList<>(),
-                testMessageHistory);
-        interactor.hostRoom(testName);
+        interactor.hostRoom(roomName);
 
-        ArgumentCaptor<RoomDBModel> captor = ArgumentCaptor.forClass(RoomDBModel.class);
-        verify(mockDB).updateARoom(captor.capture()); // check that we did add a user to the database
-        RoomDBModel addedRoom = captor.getValue(); // get the argument that was passed to addAUser
+        verify(database, times(1)).updateARoom(any(RoomDBModel.class));
+        verify(presenter, times(1)).prepareRoomView(anyString());
+    }
 
-        assert addedRoom.getRoomID() == 3; // since testUserID == 2
-        assert addedRoom.getRoomName().equals(newRoom.getRoomName()); // works
-        verify(mockPresenter).prepareRoomView("");
+    @Test
+    void testHostRoom_DuplicateRoomName() {
+        String roomName = "ExistingRoom";
+        List<RoomDBModel> existingRooms = new ArrayList<>();
+        existingRooms.add(new RoomDBModel(1, roomName, 1, new ArrayList<>(), ""));
+        when(database.getRooms()).thenReturn(existingRooms);
+
+        interactor.hostRoom(roomName);
+
+        verify(database, never()).updateARoom(any(RoomDBModel.class));
+        verify(presenter, times(1)).prepareDuplicateNameView();
     }
 
 }
+

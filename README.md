@@ -69,7 +69,11 @@ This works because only one user can be logged in at once and each user can only
 We also use dependency injection for virtually everything - notably by injecting a `DBAccess` into every `interactor`.
 
 ## Test Coverage
-We aimed for near perfect coverage across the board and manage to achieve XX% class coverage and XX% line coverage. <br>
+We aimed for near perfect coverage across the board and manage to achieve 95% class coverage and 83% line coverage. Many of the 
+view tests are commented out because it was not possible to make them headless. Any tests that intentionally generate an error 
+(e.g. invalid password) will cause the creation of a pop-up which violates the headless requirement. We could not find a way to circumvent this because these pop-ups are integral to the functions being tested.
+
+<br>
 
 ## Packaging
 Originally we had packaged this by use case, but now we've packaged by level and included sub packages for use case because 

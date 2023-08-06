@@ -36,8 +36,7 @@ Here you'll see a list of rooms to join and you'll also be allowed to host a roo
 <img src="images/room.png" width="500"/>
 
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
-If you try to send an empty message, you will get an error message.
-(The implementation of sending lark is still in progress.)
+If you try to send an empty message, you will get an error message. To send a lark just type and send `\lark` and everyone in the room will hear our lark sound !
 
 ### Leave a Room
 If you click `Leave Room` on chat room screen, you can leave the room, and you'll be prompted to host or join screen again.

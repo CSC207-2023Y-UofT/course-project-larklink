@@ -9,17 +9,17 @@ Running LarkLink is as simple as navigating to our `Main` class under `src/main/
 It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one joining that room.
 ### Signup and Login
 First you'll be prompted to either create an account or sign in to an existing one.<br>
-<img src="images/Screenshots/signup_login.png" width="500"/>
+<img src="images/signup_or_login.png" width="500"/>
 
 Clicking the "Log in" button triggers the following 
 prompt
 
-<img src="images/Screenshots/login.png" width="500"/>
+<img src="images/login.png" width="500"/>
 
 where the user can enter in existing credentials. Clicking the 
 "Sign up" button displays the following.
 
-<img src="images/Screenshots/signup.png" width="500"/>
+<img src="images/signup.png" width="500"/>
 
 Here, you can create an account by entering username and password and click `Sign up` button. 
 LarkLink allows alphanumeric characters for username and password. Username must be at least 3 characters long and
@@ -28,12 +28,13 @@ If you try to set username and password shorter than each minimum length, you wi
 If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
 
 ### Join or Host a Room
-<img src="images/Screenshots/room_list.png" width="500"/>
+<img src="images/join_or_host.png" width="500"/>
 
 Here you'll see a list of rooms to join and you'll also be allowed to host a room. If you want to host a room, you need to enter room name with alphanumeric characters and click `Host` button. Room name must be at least 5 characters long and if you try to set the room name shorter than the minimum length, you will see an error message. In addition, you are allowed to host only one room. 
 
 ### Send Messages (and _lark_)
-<img src="images/Screenshots/room.png" width="500"/>
+<img src="images/room.png" width="500"/>
+
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
 If you try to send an empty message, you will get an error message.
 (The implementation of sending lark is still in progress.)

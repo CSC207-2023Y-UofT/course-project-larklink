@@ -1,6 +1,9 @@
 package entities;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 import org.junit.jupiter.api.*;
 
 
@@ -23,7 +26,7 @@ public class MessageTest {
         LocalDateTime expected = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         // checks that expected timestamp is equal to actual timestamp from the message object
         // did not include milliseconds for testing
-        assertEquals(expected, testMessage.getTimestamp().truncatedTo(ChronoUnit.SECONDS));
+        Assertions.assertEquals(expected, testMessage.getTimestamp().truncatedTo(ChronoUnit.SECONDS));
     }
 
     /**
@@ -32,9 +35,7 @@ public class MessageTest {
     @Test
     public void testFormatMessage() {
         String formattedMessage = "[" + testMessage.getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] "
-                + testSender + ": " + testContent + "\n";
+                + "Harry" + ": " + "hello" + "\n";
         assert testMessage.getContent().equals(formattedMessage);
-
     }
-    // omitted testing formatMessage method because it is a private method
 }

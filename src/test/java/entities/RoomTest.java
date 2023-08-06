@@ -43,7 +43,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getRoomID
-        assertEquals(testRoomID, Room.getRoomID());
+        assert Room.getRoomID().equals(testRoomID);
     }
 
     /**
@@ -54,7 +54,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getRoomName
-        assertEquals(testRoomName, Room.getRoomName());
+        assert Room.getRoomName().equals(testRoomName);
     }
 
     /**
@@ -65,7 +65,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getHostID
-        assertEquals(testHostID, Room.getHostID());
+        assert Room.getHostID().equals(testHostID);
     }
 
     /**
@@ -76,7 +76,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getActiveUserIDs
-        assertEquals(testActiveUserIDs, Room.getActiveUserIDs());
+        assert Room.getActiveUserIDs().equals(testActiveUserIDs);
     }
 
     /**
@@ -87,7 +87,6 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getMessageHistory
-        assertEquals(testMessageHistory, Room.getMessageHistory());
+        assert Room.getMessageHistory().equals(testMessageHistory);
     }
-
 }

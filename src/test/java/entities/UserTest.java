@@ -35,7 +35,7 @@ public class UserTest {
     public void testGetUserID() {
         User.setUser(testUserID, testUsername, testPassword);
         // checks that expected value is equal to actual value from getUserID
-        assertEquals(testUserID, User.getUserID());
+        assert User.getUserID().equals(testUserID);
     }
 
     /**
@@ -45,7 +45,7 @@ public class UserTest {
     public void testGetUsername() {
         User.setUser(testUserID, testUsername, testPassword);
         // checks that expected value is equal to actual value from getUsername
-        assertEquals(testUsername, User.getUsername());
+        assert User.getUsername().equals(testUsername);
     }
 
     /**
@@ -54,7 +54,7 @@ public class UserTest {
     @Test
     public void testGetPassword() {
         User.setUser(testUserID, testUsername, testPassword);
-        assertTrue(User.checkPassword(testPassword, User.getPassword()));
+        assert User.checkPassword(testPassword, User.getPassword());
 }
 
     /**

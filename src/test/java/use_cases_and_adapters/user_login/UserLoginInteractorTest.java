@@ -1,9 +1,8 @@
 package use_cases_and_adapters.user_login;
 
 import entities.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import use_cases_and_adapters.UserDBModel;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
 import use_cases_and_adapters.signup_and_login.UserModel;
@@ -11,9 +10,6 @@ import use_cases_and_adapters.signup_and_login.user_login.UserLoginInteractor;
 import use_cases_and_adapters.signup_and_login.user_login.UserLoginOutputBoundary;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
@@ -46,22 +42,22 @@ public class UserLoginInteractorTest {
      */
     @Test
     public void testHandleUserLoginSuccess() {
-        when(database.getUsers()).thenReturn(users);
+        Mockito.when(database.getUsers()).thenReturn(users);
 
         UserModel testUserModel = new UserModel(testUsername, testPassword);
         interactor.handleUserLogin(testUserModel);
 
         // checks that the user is set by correct userID, username, and password
-        assertEquals(testUserID, User.getUserID());
-        assertEquals(testUsername, User.getUsername());
-        assertTrue(User.checkPassword(testPassword, User.getPassword()));
+        assert User.getUserID().equals(testUserID);
+        assert User.getUsername().equals(testUsername);
+        assert User.checkPassword(testPassword, User.getPassword());
 
         // checks that presenter calls prepareJoinOrHostView exactly once
-        verify(presenter, times(1)).prepareJoinOrHostView();
+        Mockito.verify(presenter, Mockito.times(1)).prepareJoinOrHostView();
         // checks that presenter never calls prepareInvalidUsernameView
-        verify(presenter, never()).prepareInvalidUsernameView();
+        Mockito.verify(presenter, Mockito.never()).prepareInvalidUsernameView();
         // checks that presenter never calls prepareInvalidPasswordView
-        verify(presenter, never()).prepareInvalidPasswordView();
+        Mockito.verify(presenter, Mockito.never()).prepareInvalidPasswordView();
     }
 
     /**
@@ -69,17 +65,17 @@ public class UserLoginInteractorTest {
      */
     @Test
     public void testHandleUserLoginInvalidUsername() {
-        when(database.getUsers()).thenReturn(users);
+        Mockito.when(database.getUsers()).thenReturn(users);
 
         UserModel invalidUsernameModel = new UserModel("invalidUser", testPassword);
         interactor.handleUserLogin(invalidUsernameModel);
 
         // checks that presenter never calls prepareJoinOrHostView
-        verify(presenter, never()).prepareJoinOrHostView();
+        Mockito.verify(presenter, Mockito.never()).prepareJoinOrHostView();
         // checks that presenter calls prepareInvalidUsernameView exactly once
-        verify(presenter, times(1)).prepareInvalidUsernameView();
+        Mockito.verify(presenter, Mockito.times(1)).prepareInvalidUsernameView();
         // checks that presenter never calls prepareInvalidPasswordView
-        verify(presenter, never()).prepareInvalidPasswordView();
+        Mockito.verify(presenter, Mockito.never()).prepareInvalidPasswordView();
     }
 
     /**
@@ -87,16 +83,16 @@ public class UserLoginInteractorTest {
      */
     @Test
     public void testHandleUserLoginInvalidPassword() {
-        when(database.getUsers()).thenReturn(users);
+        Mockito.when(database.getUsers()).thenReturn(users);
 
-        UserModel invalidPWModel = new UserModel(testUsername, "invalidPW");
+        UserModel invalidPWModel = new UserModel(testUsername, "invalidPassword");
         interactor.handleUserLogin(invalidPWModel);
 
         // checks that presenter never calls prepareJoinOrHostView
-        verify(presenter, never()).prepareJoinOrHostView();
+        Mockito.verify(presenter, Mockito.never()).prepareJoinOrHostView();
         // checks that presenter calls prepareInvalidPasswordView exactly once
-        verify(presenter, times(1)).prepareInvalidPasswordView();
+        Mockito.verify(presenter, Mockito.times(1)).prepareInvalidPasswordView();
         // checks that presenter never calls prepareInvalidUsernameView
-        verify(presenter, never()).prepareInvalidUsernameView();
+        Mockito.verify(presenter, Mockito.never()).prepareInvalidUsernameView();
     }
 }

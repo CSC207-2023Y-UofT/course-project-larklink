@@ -1,18 +1,11 @@
 package use_cases_and_adapters.join_room;
 
-
-
-import entities.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import use_cases_and_adapters.RoomDBModel;
-import java.util.ArrayList;
-import java.util.List;
+import entities.User;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
@@ -48,16 +41,16 @@ public class JoinRoomInteractorTest {
     @Test public void testHandleJoinRoomFailure(){
         User.setUser(visitorID, visitorName, visitorPW);
 
-        when(database.getRooms()).thenReturn(testRooms);
+        Mockito.when(database.getRooms()).thenReturn(testRooms);
         interactor.handleJoinRoom("nonExistingRoomName");
 
         // checks that presenter calls prepareFailView exactly once
-        verify(presenter, times(1)).prepareFailView();
+        Mockito.verify(presenter, Mockito.times(1)).prepareFailView();
         // checks that presenter never calls prepareRoomView
-        verify(presenter, never()).prepareRoomView(any(String.class));
+        Mockito.verify(presenter, Mockito.never()).prepareRoomView(Mockito.any(String.class));
 
         // checks that database never calls updateARoom so room database is not updated
-        verify(database, never()).updateARoom(any(RoomDBModel.class));
+        Mockito.verify(database, Mockito.never()).updateARoom(Mockito.any(RoomDBModel.class));
     }
 
     /**
@@ -66,37 +59,37 @@ public class JoinRoomInteractorTest {
     @Test public void testHandleJoinRoomSuccess(){
         User.setUser(visitorID, visitorName, visitorPW);
         // checks that this user's ID is not in the active user list of room 'existingRoom' before the user enters
-        assertFalse(testRooms.get(1).getActiveUserIDs().contains(User.getUserID()));
+        assert !testRooms.get(1).getActiveUserIDs().contains(User.getUserID());
 
-        when(database.getRooms()).thenReturn(testRooms);
+        Mockito.when(database.getRooms()).thenReturn(testRooms);
         interactor.handleJoinRoom("existingRoom");
 
         ArgumentCaptor<RoomDBModel> captor = ArgumentCaptor.forClass(RoomDBModel.class);
 
         // checks that database calls updateARoom method exactly once with the correct room
-        verify(database, times(1)).updateARoom(captor.capture());
+        Mockito.verify(database, Mockito.times(1)).updateARoom(captor.capture());
 
         RoomDBModel enteredRoom = captor.getValue(); // get the argument that was passed to updateARoom
 
         // checks that presenter calls prepareRoomView exactly once with the correct message history
-        verify(presenter, times(1)).prepareRoomView(enteredRoom.getMessageHistory());
-        assertEquals(enteredRoom.getMessageHistory(), "[15:38:42] nadine: sup\n");
+        Mockito.verify(presenter, Mockito.times(1)).prepareRoomView(enteredRoom.getMessageHistory());
+        assert enteredRoom.getMessageHistory().equals("[15:38:42] nadine: sup\n");
 
         // checks that presenter never calls prepareFailView
-        verify(presenter, never()).prepareFailView();
+        Mockito.verify(presenter, Mockito.never()).prepareFailView();
 
         // checks that this user's ID is saved in active user list of the room 'existingRoom'
-        assertTrue(enteredRoom.getActiveUserIDs().contains(User.getUserID()));
+        assert enteredRoom.getActiveUserIDs().contains(User.getUserID());
     }
 
     /**
      * Tests loadRoomNames.
      */
     @Test public void testLoadRoomNames() {
-        when(database.getRooms()).thenReturn(testRooms);
+        Mockito.when(database.getRooms()).thenReturn(testRooms);
         List<String> expectedRoomNames = new ArrayList<>(List.of("FakeRoom", "existingRoom"));
 
         // checks this method returns a list of room names which is the same as room names from database
-        assertEquals(expectedRoomNames, interactor.loadRoomNames());
+        assert interactor.loadRoomNames().equals(expectedRoomNames);
     }
 }

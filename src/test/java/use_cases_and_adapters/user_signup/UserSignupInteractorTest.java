@@ -1,10 +1,8 @@
 package use_cases_and_adapters.user_signup;
 
 import entities.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import use_cases_and_adapters.UserDBModel;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
 import use_cases_and_adapters.signup_and_login.UserModel;
@@ -13,9 +11,6 @@ import use_cases_and_adapters.signup_and_login.user_signup.UserSignupOutputBound
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
@@ -46,17 +41,17 @@ public class UserSignupInteractorTest {
      */
     @Test
     public void testHandleUserSignupFailure() {
-        when(database.getUsers()).thenReturn(users);
+        Mockito.when(database.getUsers()).thenReturn(users);
 
         UserModel failedUser = new UserModel(oldUsername, "newPassword");
         interactor.handleUserSignup(failedUser);
 
         // checks that presenter calls prepareUsernameExistsView exactly once
-        verify(presenter, times(1)).prepareUsernameExistsView();
+        Mockito.verify(presenter, Mockito.times(1)).prepareUsernameExistsView();
         // checks that presenter never calls prepareJoinOrHostView
-        verify(presenter, never()).prepareJoinOrHostView();
+        Mockito.verify(presenter, Mockito.never()).prepareJoinOrHostView();
         // checks that database never calls addAUser so no new user is added to database
-        verify(database, never()).addAUser(any(UserDBModel.class));
+        Mockito.verify(database, Mockito.never()).addAUser(Mockito.any(UserDBModel.class));
     }
 
     /**
@@ -64,14 +59,14 @@ public class UserSignupInteractorTest {
      */
     @Test
     public void testHandleUserSignupSuccess() {
-        when(database.getUsers()).thenReturn(users);
+        Mockito.when(database.getUsers()).thenReturn(users);
 
         UserModel newUser = new UserModel("newUsername", "newPassword");
         interactor.handleUserSignup(newUser);
 
         ArgumentCaptor<UserDBModel> captor = ArgumentCaptor.forClass(UserDBModel.class);
         // checks that database calls addAUser method exactly once with the correct UserModel object
-        verify(database, times(1)).addAUser(captor.capture());
+        Mockito.verify(database, Mockito.times(1)).addAUser(captor.capture());
 
         UserDBModel addedUser = captor.getValue(); // get the argument that was passed to addAUser
 
@@ -83,8 +78,8 @@ public class UserSignupInteractorTest {
         assert User.checkPassword(newUser.getPassword(), addedUser.getPassword());
 
         // checks that presenter calls prepareJoinOrHostView exactly once
-        verify(presenter, times(1)).prepareJoinOrHostView();
+        Mockito.verify(presenter, Mockito.times(1)).prepareJoinOrHostView();
         // checks that presenter never calls prepareUsernameExistsView
-        verify(presenter, never()).prepareUsernameExistsView();
+        Mockito.verify(presenter, Mockito.never()).prepareUsernameExistsView();
     }
 }

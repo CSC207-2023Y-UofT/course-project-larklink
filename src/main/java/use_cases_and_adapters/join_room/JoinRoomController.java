@@ -19,7 +19,7 @@ public class JoinRoomController {
     }
 
     /**
-     * Delegates the handling of join room use case to JoinRoominteractor through JoinRoomInputBoundaru.
+     * Delegates the handling of join room use case to JoinRoomInteractor through JoinRoomInputBoundary.
      *
      * @param roomName name of the chat room that user tries to join in
      */

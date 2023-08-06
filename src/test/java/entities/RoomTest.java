@@ -1,12 +1,7 @@
 package entities;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.*;
+import java.util.*;
 
 /**
  * This class is for testing Room entity.
@@ -32,15 +27,12 @@ public class RoomTest {
      */
     @Test
     public void testSetRoom() {
-        Room.setRoom(testRoomID, testRoomName, testHostID,
-                testActiveUserIDs, testMessageHistory);
-
-        // checks that the values are set correctly by comparing expected and actual values
-        assertEquals(testRoomID, Room.getRoomID());
-        assertEquals(testRoomName, Room.getRoomName());
-        assertEquals(testHostID, Room.getHostID());
-        assertEquals(testActiveUserIDs, Room.getActiveUserIDs());
-        assertEquals(testMessageHistory, Room.getMessageHistory());
+        Room.setRoom(testRoomID, testRoomName, testHostID, testActiveUserIDs, testMessageHistory);
+        assert Room.getRoomID().equals(testRoomID);
+        assert Room.getRoomName().equals(testRoomName);
+        assert Room.getHostID().equals(testHostID);
+        assert Room.getActiveUserIDs().equals(testActiveUserIDs);
+        assert Room.getMessageHistory().equals(testMessageHistory);
     }
 
     /**
@@ -51,7 +43,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getRoomID
-        assertEquals(testRoomID, Room.getRoomID());
+        assert Room.getRoomID().equals(testRoomID);
     }
 
     /**
@@ -62,7 +54,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getRoomName
-        assertEquals(testRoomName, Room.getRoomName());
+        assert Room.getRoomName().equals(testRoomName);
     }
 
     /**
@@ -73,7 +65,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getHostID
-        assertEquals(testHostID, Room.getHostID());
+        assert Room.getHostID().equals(testHostID);
     }
 
     /**
@@ -84,7 +76,7 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getActiveUserIDs
-        assertEquals(testActiveUserIDs, Room.getActiveUserIDs());
+        assert Room.getActiveUserIDs().equals(testActiveUserIDs);
     }
 
     /**
@@ -95,7 +87,6 @@ public class RoomTest {
         Room.setRoom(testRoomID, testRoomName, testHostID,
                 testActiveUserIDs, testMessageHistory);
         // checks that expected value is equal to actual value from getMessageHistory
-        assertEquals(testMessageHistory, Room.getMessageHistory());
+        assert Room.getMessageHistory().equals(testMessageHistory);
     }
-
 }

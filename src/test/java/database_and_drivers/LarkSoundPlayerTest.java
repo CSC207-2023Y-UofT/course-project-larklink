@@ -1,9 +1,7 @@
 package database_and_drivers;
 
 import use_cases_and_adapters.messaging.LarkSoundPlayerGateway;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 class LarkSoundPlayerTest {
 
@@ -21,6 +19,6 @@ class LarkSoundPlayerTest {
     void testPlayLarkSoundWithNonExistentFile() {
         String invalidSoundFilePath = "/path/to/non/existent/file.wav";
         LarkSoundPlayerGateway player = new LarkSoundPlayer(invalidSoundFilePath);
-        assertThrows(RuntimeException.class, player::playLarkSound);
+        Assertions.assertThrows(RuntimeException.class, player::playLarkSound);
     }
 }

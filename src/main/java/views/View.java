@@ -5,14 +5,24 @@ import use_cases_and_adapters.Viewable;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Defines the constants and methods shared by all Views. All other
+ * views will inherit from View
+ */
+
 public abstract class View extends JFrame implements Viewable {
     private static final String TITLE = "LarkLink";
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    private static JFrame currentFrame = null;
+    protected static JFrame currentFrame = null;
     protected static String messageHistory = "";
 
+    /**
+     * Creates a JFrame window using the standard class variables
+     * and sets it to current frame
+     * @param msgHistory list of previously sent messages in room
+     */
     @Override
     public void prepareGUI(String msgHistory) {
 
@@ -37,10 +47,18 @@ public abstract class View extends JFrame implements Viewable {
         currentFrame = frame; // store reference to current frame (for when we want to close it)
     }
 
+    /**
+     * Displays a pop-up message on the screen (like the method name suggests)
+     * @param msg The message to be displayed
+     */
     @Override
     public void displayPopUpMessage(String msg) {
         JOptionPane.showMessageDialog(null, msg);
     }
 
+    /**
+     * Constructs the view-specific ui elements
+     * @return JPanel containing the ui components
+     */
     abstract public JPanel createPanel();
 }

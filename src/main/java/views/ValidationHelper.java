@@ -113,7 +113,7 @@ public class ValidationHelper {
      * Displays an error message.
      * @param msg the content of the error message
      */
-    private static void displayErrorMessage(String msg) {
+    protected static void displayErrorMessage(String msg) {
         JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 

@@ -82,8 +82,6 @@ We aimed for near perfect coverage across the board and manage to achieve 95% cl
 view tests are commented out because it was not possible to make them headless. Any tests that intentionally generate an error 
 (e.g. invalid password) will cause the creation of a pop-up which violates the headless requirement. We could not find a way to circumvent this because these pop-ups are integral to the functions being tested.
 
-<br>
-
 ## Packaging
 Originally we had packaged this by use case, but now we've packaged by level and included sub packages for use case because 
 we found there was some code that many use cases used (like `RoomDBModel`).

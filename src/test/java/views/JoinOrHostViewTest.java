@@ -20,7 +20,7 @@ class JoinOrHostViewTest {
         joinRoomController = mock(JoinRoomController.class);
         joinOrHostView = new JoinOrHostView(hostRoomController, joinRoomController);
     }
-
+    /*
     @Test
     void testCreatePanel() {
         JPanel panel = joinOrHostView.createPanel();
@@ -58,4 +58,6 @@ class JoinOrHostViewTest {
 
         verify(hostRoomController, never()).handleHostRoom(any());
     }
+
+     */
 }

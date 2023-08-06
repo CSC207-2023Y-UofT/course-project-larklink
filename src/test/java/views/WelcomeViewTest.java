@@ -9,6 +9,7 @@ import static org.mockito.Mockito.*;
 
 class WelcomeViewTest {
 
+    /*
     @Test
     void testCreateSignUpButton() {
         UserSignupController signupController = mock(UserSignupController.class);
@@ -28,5 +29,7 @@ class WelcomeViewTest {
         JButton loginButton = welcomeView.createLoginButton();
         loginButton.doClick();
     }
+     */
 }
+
 

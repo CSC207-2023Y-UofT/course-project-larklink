@@ -37,7 +37,7 @@ public class SignupView extends View{
         return panel;
     }
 
-    private JButton createSignUpButton() {
+    protected JButton createSignUpButton() {
         JButton signupButton = new JButton("Sign up");
         signupButton.addActionListener(e -> {
             String username = usernameField.getText();
@@ -53,7 +53,7 @@ public class SignupView extends View{
         return signupButton;
     }
 
-    private JButton createGoBackButton() {
+    protected JButton createGoBackButton() {
         JButton goBackButton = new JButton("Go back");
         goBackButton.addActionListener(e -> ViewManager.switchToWelcomeView());
         return goBackButton;

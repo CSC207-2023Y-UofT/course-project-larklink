@@ -18,8 +18,9 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
 
     /**
      * Creates a new room and stores it in the database.
-     * If a room is found with the same host, then the room is not created and a duplicateHostView is prepared
-     *
+     * If a room is found with the same host, then the room is not created and a duplicateHostView is prepared.
+     * If a room is found with the same name,
+     * @param roomName
      */
     public void hostRoom(String roomName) {
         List<RoomDBModel> existingRooms = database.getRooms();

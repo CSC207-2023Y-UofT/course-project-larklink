@@ -7,6 +7,12 @@ public class UserModel {
     private final String username;
     private final String password;
 
+
+    /**
+     * Constructs a UserModel with the given username and password from the user.
+     * @param username the username entered by the user
+     * @param password the password entered by the user
+     */
     public UserModel(String username, String password) {
         this.username = username;
         this.password = password;

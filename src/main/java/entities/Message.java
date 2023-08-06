@@ -23,10 +23,20 @@ public class Message {
         this.content = formatMessage(content);
     }
 
+    /**
+     * A getter for content of the message.
+     *
+     * @return The content of the message.
+     */
     public String getContent() {
         return this.content;
     }
 
+    /**
+     * A getter for timestamp of the message.
+     *
+     * @return The timestamp of the message.
+     */
     public LocalDateTime getTimestamp() { return this.timestamp; }
 
     /**

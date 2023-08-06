@@ -25,7 +25,8 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
     /**
      * Retrieves a list of all users from the database.
      *
-     * @return a List of UserDBModel objects representing all users in the database, or an empty list if an error occurred.
+     * @return a List of UserDBModel objects representing all users in the database,
+     * or an empty list if an error occurred.
      */
     @Override
     public List<UserDBModel> getUsers() {

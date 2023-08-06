@@ -24,6 +24,7 @@ public class SignupView extends View{
         this.PasswordField = new JPasswordField();
         this.repeatPasswordField = new JPasswordField();
         JButton signupButton = createSignUpButton();
+        JButton goBackButton = createGoBackButton();
 
         panel.add(new JLabel("Username:"));
         panel.add(usernameField);
@@ -31,7 +32,7 @@ public class SignupView extends View{
         panel.add(PasswordField);
         panel.add(new JLabel("Repeat Password:"));
         panel.add(repeatPasswordField);
-        panel.add(new JLabel());
+        panel.add(goBackButton);
         panel.add(signupButton);
         return panel;
     }
@@ -50,6 +51,12 @@ public class SignupView extends View{
             }
         });
         return signupButton;
+    }
+
+    private JButton createGoBackButton() {
+        JButton goBackButton = new JButton("Go back");
+        goBackButton.addActionListener(e -> ViewManager.switchToWelcomeView());
+        return goBackButton;
     }
 
 }

@@ -1,10 +1,8 @@
 package use_cases_and_adapters.messaging;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import views.View;
-import static org.mockito.Mockito.*;
 
 public class MessagePresenterTest {
     private MessagePresenter messagePresenter;
@@ -22,12 +20,12 @@ public class MessagePresenterTest {
         String messageHistory = "Old message\\nNew message";
 
         messagePresenter.prepareRoomView(messageHistory);
-        verify(mockView, times(1)).prepareGUI(messageHistory);
+        Mockito.verify(mockView, Mockito.times(1)).prepareGUI(messageHistory);
     }
 
     @Test
     void testPrepareMessageErrorView() {
         messagePresenter.prepareMessageErrorView();
-        verify(mockView, times(1)).displayPopUpMessage("You cannot send an empty message!");
+        Mockito.verify(mockView, Mockito.times(1)).displayPopUpMessage("You cannot send an empty message!");
     }
 }

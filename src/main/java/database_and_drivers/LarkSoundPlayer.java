@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Implementation of the LarkSoundPlayerGateway that plays a specified sound file.
+ * Implementation of the LarkSoundPlayerGateway that plays the lark sound file.
  */
 public class LarkSoundPlayer implements LarkSoundPlayerGateway {
     private final String soundFilePath;
@@ -15,14 +15,13 @@ public class LarkSoundPlayer implements LarkSoundPlayerGateway {
     /**
      * Constructor for LarkSoundPlayer.
      *
-     * @param soundFilePath The relative path to the sound file to be played.
+     * @param soundFilePath the path to the sound file to be played.
      */
     public LarkSoundPlayer(String soundFilePath) {
         this.soundFilePath = soundFilePath;
     }
 
     /**
-     * Plays the lark sound.
      * This method attempts to open and play the sound file specified in the constructor.
      * If the file is not found or there is an issue playing the sound, a RuntimeException will be thrown.
      *

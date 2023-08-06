@@ -1,12 +1,7 @@
 package entities;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.*;
+import java.util.*;
 
 public class RoomTest {
     private Integer testRoomID;
@@ -26,13 +21,11 @@ public class RoomTest {
 
     @Test
     public void testSetRoom() {
-        Room.setRoom(testRoomID, testRoomName, testHostID,
-                testActiveUserIDs, testMessageHistory);
-
-        assertEquals(testRoomID, Room.getRoomID());
-        assertEquals(testRoomName, Room.getRoomName());
-        assertEquals(testHostID, Room.getHostID());
-        assertEquals(testActiveUserIDs, Room.getActiveUserIDs());
-        assertEquals(testMessageHistory, Room.getMessageHistory());
+        Room.setRoom(testRoomID, testRoomName, testHostID, testActiveUserIDs, testMessageHistory);
+        assert Room.getRoomID().equals(testRoomID);
+        assert Room.getRoomName().equals(testRoomName);
+        assert Room.getHostID().equals(testHostID);
+        assert Room.getActiveUserIDs().equals(testActiveUserIDs);
+        assert Room.getMessageHistory().equals(testMessageHistory);
     }
 }

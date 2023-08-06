@@ -1,10 +1,7 @@
 package entities;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.*;
 
 public class MessageTest {
     private String testSender;
@@ -22,7 +19,7 @@ public class MessageTest {
     public void testFormatMessage() {
         String formattedMessage = "[" + testMessage.getTimestamp().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] "
                 + testSender + ": " + testContent + "\n";
-        assertEquals(formattedMessage, testMessage.getContent());
+        assert testMessage.getContent().equals(formattedMessage);
     }
 
 }

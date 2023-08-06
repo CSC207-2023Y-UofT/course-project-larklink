@@ -1,9 +1,6 @@
 package entities;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 
 public class UserTest {
     private Integer testUserID;
@@ -20,18 +17,15 @@ public class UserTest {
     @Test
     public void testSetUser() {
         User.setUser(testUserID, testUsername, testPassword);
-
-        assertEquals(testUserID, User.getUserID());
-        assertEquals(testUsername, User.getUsername());
-        assertTrue(User.checkPassword(testPassword, User.getPassword()));
+        assert User.getUserID().equals(testUserID);
+        assert User.getUsername().equals(testUsername);
+        assert User.checkPassword(testPassword, User.getPassword());
     }
 
     @Test
     public void testCheckPassword() {
         String hashedPassword = User.hashPassword(testPassword);
-
-        assertTrue(User.checkPassword(testPassword, hashedPassword));
-        assertFalse(User.checkPassword("fakePassword", hashedPassword));
+        assert User.checkPassword(testPassword, hashedPassword);
+        assert !User.checkPassword("fakePassword", hashedPassword);
     }
-
 }

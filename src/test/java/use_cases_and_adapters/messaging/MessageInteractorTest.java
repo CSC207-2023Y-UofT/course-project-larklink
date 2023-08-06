@@ -1,18 +1,11 @@
 package use_cases_and_adapters.messaging;
 
 import use_cases_and_adapters.RoomDBModel;
-import entities.Message;
-import entities.Room;
-import entities.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import entities.*;
+import org.junit.jupiter.api.*;
 import org.mockito.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
 
 public class MessageInteractorTest {
     @InjectMocks
@@ -48,16 +41,16 @@ public class MessageInteractorTest {
         Room.setRoom(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)), ""); // simulate being in a room
         User.setUser(userID, "", ""); // simulate logging in a user
         RoomDBModel testRoom = new RoomDBModel(roomID, "Test Room", hostID,new ArrayList<>(Arrays.asList(userID, userID2)), "" );
-        when(database.getARoom(roomID)).thenReturn(testRoom);
+        Mockito.when(database.getARoom(roomID)).thenReturn(testRoom);
     }
 
     @Test
     public void testHandleSendMessage_emptyContent() {
         String emptyContent = "";
         messageInteractor.handleSendMessage(emptyContent);
-        verify(presenter).prepareMessageErrorView();
-        verify(database, never()).getARoom(anyInt());
-        verify(database, never()).updateARoom(any(RoomDBModel.class));
+        Mockito.verify(presenter).prepareMessageErrorView();
+        Mockito.verify(database, Mockito.never()).getARoom(Mockito.anyInt());
+        Mockito.verify(database, Mockito.never()).updateARoom(Mockito.any(RoomDBModel.class));
     }
 
     @Test
@@ -65,18 +58,18 @@ public class MessageInteractorTest {
         Message msg = new Message(User.getUsername(), testContent);
         messageInteractor.handleSendMessage(testContent);
         ArgumentCaptor<RoomDBModel> captor = ArgumentCaptor.forClass(RoomDBModel.class);
-        verify(database).updateARoom(captor.capture()); // check that we sent the message to the database
+        Mockito.verify(database).updateARoom(captor.capture()); // check that we sent the message to the database
         RoomDBModel sentRoom = captor.getValue(); // get the argument that was passed to sendAMessage
 
-        assertEquals(msg.getContent(), sentRoom.getMessageHistory());
-        verify(presenter).prepareRoomView(sentRoom.getMessageHistory());
+        assert sentRoom.getMessageHistory().equals(msg.getContent());
+        Mockito.verify(presenter).prepareRoomView(sentRoom.getMessageHistory());
     }
 
     @Test
     public void testHandleSendMessage_withLarkSound() {
         String testContent = "Test message with /lark sound";
         messageInteractor.handleSendMessage(testContent);
-        verify(larkSoundPlayer).playLarkSound();
+        Mockito.verify(larkSoundPlayer).playLarkSound();
     }
 
     @Test
@@ -84,14 +77,13 @@ public class MessageInteractorTest {
         // Prepare the test data
         String messageHistory = "User1: Hello\nUser2: How are you?";
         RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, new ArrayList<>(Arrays.asList(userID, userID2)), messageHistory);
-        when(database.getARoom(Room.getRoomID())).thenReturn(mockedRoom);
+        Mockito.when(database.getARoom(Room.getRoomID())).thenReturn(mockedRoom);
 
         // Call the method to be tested
         messageInteractor.handleRetrieveMessages();
 
         // Verify that the presenter method is called with the correct message history
-        verify(presenter).prepareRoomView(messageHistory);
-
+        Mockito.verify(presenter).prepareRoomView(messageHistory);
     }
 
     @Test
@@ -99,15 +91,15 @@ public class MessageInteractorTest {
         // Prepare the test data
         String messageHistory = "User1: Hello\nUser2: /lark";
         RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, new ArrayList<>(Arrays.asList(userID, userID2)), messageHistory);
-        when(database.getARoom(Room.getRoomID())).thenReturn(mockedRoom);
+        Mockito.when(database.getARoom(Room.getRoomID())).thenReturn(mockedRoom);
 
         // Call the method to be tested
         messageInteractor.handleRetrieveMessages();
 
         // Verify that the presenter method is called with the correct message history
-        verify(presenter).prepareRoomView(messageHistory);
+        Mockito.verify(presenter).prepareRoomView(messageHistory);
 
         // Verify that the interactor calls the larkSoundPlayer to play the lark sound
-        verify(larkSoundPlayer).playLarkSound();
+        Mockito.verify(larkSoundPlayer).playLarkSound();
     }
 }

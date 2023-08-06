@@ -2,41 +2,42 @@ package database_and_drivers;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpClientTest {
 
-    private MockWebServer mockWebServer; // mock server for testing HTTP requests
-    private HttpClient httpClient;      // client used to perform HTTP requests
+    private MockWebServer mockWebServer;
+    private HttpClient httpClient;
 
     @BeforeEach
     public void setUp() throws IOException {
-        mockWebServer = new MockWebServer(); // create mock web server
-        mockWebServer.start();               // start mock web server
-        String baseUrl = mockWebServer.url("/").toString(); // base URL for mock server
-        httpClient = new HttpClient(baseUrl); // initialize HTTP client with mock server URL
+        // create mock web server
+        mockWebServer = new MockWebServer();
+        // start mock web server
+        mockWebServer.start();
+        // base URL for mock server
+        String baseUrl = mockWebServer.url("/").toString();
+        // initialize HTTP client with mock server URL
+        httpClient = new HttpClient(baseUrl);
     }
 
     @AfterEach
     public void tearDown() throws IOException {
-        mockWebServer.shutdown(); // shutdown mock web server after test
+        // shutdown mock web server after test
+        mockWebServer.shutdown();
     }
 
     @Test
     public void testPerformGETRequest() throws IOException {
-        String expectedResponse = "Test Response"; // expected response body
+        String expectedResponse = "Test Response";
         // a mock response with OK status code and expected body
         mockWebServer.enqueue(new MockResponse().setBody(expectedResponse).setResponseCode(HttpURLConnection.HTTP_OK));
         // perform GET request and assert the response equals the expected response
         String actualResponse = httpClient.performGETRequest("testRoute", 1);
-        assertEquals(expectedResponse, actualResponse);
+        assert actualResponse.equals(expectedResponse);
     }
 
     @Test
@@ -58,7 +59,7 @@ public class HttpClientTest {
                 httpClient.performGETRequest("nonExistentRoute", 1));
 
         String expectedMessage = "GET request failed with response code: " + expectedErrorCode;
-        assertEquals(expectedMessage, exception.getMessage());
+        assert exception.getMessage().equals(expectedMessage);
     }
 
     @Test
@@ -72,6 +73,6 @@ public class HttpClientTest {
                 httpClient.performPUTRequest("testRoute", 1, "{\"key\":\"value\"}"));
 
         String expectedMessage = "PUT request failed with response code: " + expectedErrorCode;
-        assertEquals(expectedMessage, exception.getMessage());
+        assert exception.getMessage().equals(expectedMessage);
     }
 }

@@ -2,15 +2,9 @@ package database_and_drivers.converters;
 
 import com.google.gson.JsonObject;
 import use_cases_and_adapters.RoomDBModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.*;
-
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
 
 public class RoomConverterTest {
 
@@ -32,7 +26,7 @@ public class RoomConverterTest {
         jsonObject.addProperty("host", 100);
         jsonObject.addProperty("name", "Test Room");
         jsonObject.addProperty("activeUsers", "[101, 102, 103]");
-        jsonObject.addProperty("messageHistory", "Some messages");
+        jsonObject.addProperty("messageHistory", "messages");
         JsonObject mainObject = new JsonObject();
         mainObject.add("room", jsonObject);
 
@@ -40,20 +34,20 @@ public class RoomConverterTest {
         RoomDBModel roomDBModel = roomConverter.toObject(mainObject);
 
         // check that the object returned by jsonToObject has the expected properties
-        assertEquals(1, roomDBModel.getRoomID());
-        assertEquals("Test Room", roomDBModel.getRoomName());
-        assertEquals(100, roomDBModel.getHostID());
-        assertEquals(List.of(101, 102, 103), roomDBModel.getActiveUserIDs());
-        assertEquals("Some messages", roomDBModel.getMessageHistory());
+        assert roomDBModel.getRoomID() == 1;
+        assert roomDBModel.getRoomName().equals("Test Room");
+        assert roomDBModel.getHostID() == 100;
+        assert roomDBModel.getActiveUserIDs().equals(List.of(101, 102, 103));
+        assert roomDBModel.getMessageHistory().equals("messages");
     }
 
     @Test
     public void testToJson() {
         // prepare the mock room object
-        when(mockRoomDBModel.getHostID()).thenReturn(100);
-        when(mockRoomDBModel.getRoomName()).thenReturn("Test Room");
-        when(mockRoomDBModel.getActiveUserIDs()).thenReturn(List.of(1, 2, 3));
-        when(mockRoomDBModel.getMessageHistory()).thenReturn("Some messages");
+        Mockito.when(mockRoomDBModel.getHostID()).thenReturn(100);
+        Mockito.when(mockRoomDBModel.getRoomName()).thenReturn("Test Room");
+        Mockito.when(mockRoomDBModel.getActiveUserIDs()).thenReturn(List.of(1, 2, 3));
+        Mockito.when(mockRoomDBModel.getMessageHistory()).thenReturn("Some messages");
 
         // prepare the expected JsonObject
         JsonObject expectedJson = new JsonObject();
@@ -68,6 +62,6 @@ public class RoomConverterTest {
         JsonObject actualJson = roomConverter.toJson(mockRoomDBModel);
 
         // check that the object returned by objectToJson is the expected JsonObject
-        assertEquals(expectedJson, actualJson);
+        assert expectedJson.equals(actualJson);
     }
 }

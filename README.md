@@ -30,7 +30,7 @@ Here you can send a message by typing a message in the blank space and pressing 
 If you try to send an empty message, you will get an error message.
 (The implementation of sending lark is still in progress.)
 ### Leave a Room
-If you click `Leave Room` on chat room screen, you can leave the room and you'll be prompted to host or join screen again.
+If you click `Leave Room` on chat room screen, you can leave the room, and you'll be prompted to host or join screen again.
 
 ## Clean Architecture
 Separation of Concerns: 

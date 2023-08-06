@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class View extends JFrame implements Viewable {
-    private static final String TITLE = "Larklink";
+    private static final String TITLE = "LarkLink";
     private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 

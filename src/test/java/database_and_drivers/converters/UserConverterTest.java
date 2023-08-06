@@ -2,13 +2,8 @@ package database_and_drivers.converters;
 
 import com.google.gson.JsonObject;
 import use_cases_and_adapters.UserDBModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.*;
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 public class UserConverterTest {
 
@@ -22,7 +17,6 @@ public class UserConverterTest {
         userConverter = new UserConverter();
     }
 
-
     @Test
     public void testToObject() {
         // prepare a JsonObject with user data
@@ -35,16 +29,16 @@ public class UserConverterTest {
         UserDBModel userDBModel = userConverter.toObject(jsonObject);
 
         // check that the object returned by toObject has the expected properties
-        assertEquals(1, userDBModel.getUserID());
-        assertEquals("testUser", userDBModel.getUsername());
-        assertEquals("testPassword", userDBModel.getPassword());
+        assert userDBModel.getUserID() == 1;
+        assert userDBModel.getUsername().equals("testUser");
+        assert userDBModel.getPassword().equals("testPassword");
     }
 
     @Test
     public void testToJson() {
         // prepare the mock user object
-        when(mockUserDBModel.getUsername()).thenReturn("testUser");
-        when(mockUserDBModel.getPassword()).thenReturn("testPassword");
+        Mockito.when(mockUserDBModel.getUsername()).thenReturn("testUser");
+        Mockito.when(mockUserDBModel.getPassword()).thenReturn("testPassword");
 
         // prepare the expected JsonObject
         JsonObject expectedJson = new JsonObject();
@@ -57,6 +51,6 @@ public class UserConverterTest {
         JsonObject actualJson = userConverter.toJson(mockUserDBModel);
 
         // check that the object returned by objectToJson is the expected JsonObject
-        assertEquals(expectedJson, actualJson);
+        assert actualJson.equals(expectedJson);
     }
 }

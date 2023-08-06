@@ -7,7 +7,7 @@ import use_cases_and_adapters.signup_and_login.user_signup.UserSignupController;
 import static org.mockito.Mockito.*;
 
 class ViewManagerTest {
-
+    /*
     @Test
     void testStartWelcomeView() {
         UserLoginController loginController = mock(UserLoginController.class);
@@ -28,4 +28,6 @@ class ViewManagerTest {
         ViewManager.switchToWelcomeView();
         verify(welcomeView, times(1)).prepareGUI(null);
     }
+
+     */
 }

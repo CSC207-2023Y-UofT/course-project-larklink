@@ -1,23 +1,14 @@
 package database_and_drivers;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import database_and_drivers.converters.RoomConverter;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import use_cases_and_adapters.RoomDBModel;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
+import org.junit.jupiter.api.*;
+import com.google.gson.*;
+import org.mockito.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import java.io.IOException;
+import java.util.*;
 
 public class DBAccessTest {
 
@@ -52,33 +43,33 @@ public class DBAccessTest {
         mockResponse.add(dbAccess.getRoute(), jsonArray);
 
         // when a GET request is performed, return the mock response (a list of rooms in this case)
-        when(httpClient.performGETRequest(dbAccess.getRoute(), null)).thenReturn(gson.toJson(mockResponse));
+        Mockito.when(httpClient.performGETRequest(dbAccess.getRoute(), null)).thenReturn(gson.toJson(mockResponse));
 
         // when conversion is attempted, return the mock room
-        when(converter.toObject(Mockito.any(JsonObject.class))).thenReturn(mockRoom);
+        Mockito.when(converter.toObject(Mockito.any(JsonObject.class))).thenReturn(mockRoom);
 
         // perform the test
         List<RoomDBModel> rows = dbAccess.getRows();
-        assertEquals(1, rows.size()); // check if we got exactly one row
-        assertEquals(mockRoom, rows.get(0)); // check if the row we got is equal to the mock row
+        assert rows.size() == 1;
+        assert rows.get(0) == mockRoom; // check if the row we got is equal to the mock row
     }
 
     @Test
     public void testGetARow() throws IOException {
         // when a GET request is performed, return the mock response (a single room in this case)
-        when(httpClient.performGETRequest(dbAccess.getRoute(), 1)).thenReturn(gson.toJson(mockResponse));
+        Mockito.when(httpClient.performGETRequest(dbAccess.getRoute(), 1)).thenReturn(gson.toJson(mockResponse));
 
         // when conversion is attempted, return the mock room
-        when(converter.toObject(Mockito.any(JsonObject.class))).thenReturn(mockRoom);
+        Mockito.when(converter.toObject(Mockito.any(JsonObject.class))).thenReturn(mockRoom);
 
         // perform the test
         RoomDBModel row = dbAccess.getARow(1);
-        assertEquals(mockRoom, row); // check if the fetched row matches the mock row
+        assert row == mockRoom; // check if the fetched row matches the mock row
     }
 
     @Test
     public void testUpdateARow() throws IOException {
-        when(converter.toJson(Mockito.any(RoomDBModel.class))).thenReturn(new JsonObject()); // mocking conversion
+        Mockito.when(converter.toJson(Mockito.any(RoomDBModel.class))).thenReturn(new JsonObject()); // mocking conversion
 
         // perform the test
         dbAccess.updateARow(1, mockRoom);
@@ -89,26 +80,30 @@ public class DBAccessTest {
     @Test
     public void testGetRowsIOException() throws IOException {
         // when a GET request is performed, throw an IOException
-        when(httpClient.performGETRequest(dbAccess.getRoute(), null)).thenThrow(new IOException());
+        Mockito.when(httpClient.performGETRequest(dbAccess.getRoute(), null)).thenThrow(new IOException());
 
         // perform the test
         List<RoomDBModel> rows = dbAccess.getRows();
-        assertEquals(0, rows.size()); // check if we got no rows
+
+        // check that we got no rows
+        assert rows.size() == 0;
     }
 
     @Test
     public void testGetARowIOException() throws IOException {
         // when a GET request is performed, throw an IOException
-        when(httpClient.performGETRequest(dbAccess.getRoute(), 1)).thenThrow(new IOException());
+        Mockito.when(httpClient.performGETRequest(dbAccess.getRoute(), 1)).thenThrow(new IOException());
 
         // perform the test
         RoomDBModel row = dbAccess.getARow(1);
-        Assertions.assertNull(row); // check if the fetched row is null
+
+        // check that the fetched row is null
+        assert row == null;
     }
 
     @Test
     public void testUpdateARowIOException() throws IOException {
-        when(converter.toJson(Mockito.any(RoomDBModel.class))).thenReturn(new JsonObject()); // mocking conversion
+        Mockito.when(converter.toJson(Mockito.any(RoomDBModel.class))).thenReturn(new JsonObject()); // mocking conversion
 
         // when a PUT request is performed, throw an IOException
         Mockito.doThrow(new IOException()).when(httpClient).performPUTRequest(dbAccess.getRoute(), 1, mockResponse.toString());

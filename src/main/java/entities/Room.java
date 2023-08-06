@@ -3,7 +3,7 @@ package entities;
 import java.util.*;
 
 /**
- * This class represents a chat room and employs a Singleton-like pattern where all its members are static, since the
+ * This class represents a room and employs a Singleton-like pattern where all its members are static, since the
  * logged-in user can only be in one room at any given time. This design pattern allows other use cases to access room
  * details easily.
  */

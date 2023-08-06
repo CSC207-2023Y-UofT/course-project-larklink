@@ -13,7 +13,6 @@ import java.util.List;
 
 /**
  * This abstract class provides methods for accessing our database, including fetching and updating rows.
- * It uses a HttpClient for performing HTTP requests and a JsonConverter for converting between JSON and database model objects.
  *
  * @param <T> The type of the database model objects.
  */

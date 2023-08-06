@@ -1,22 +1,19 @@
 package use_cases_and_adapters.leave_room;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 
 import views.View;
-
-import static org.mockito.Mockito.*;
 /**
  * The LeaveRoomPresenterTest class contains unit tests for the LeaveRoomPresenter class.
- * The prepareJoinOrHostView() method is tested while a mock of the View interface is built using Mockito.
+ * The prepareJoinOrHostView() method is tested while a mock View abstract class is built using Mockito.
  */
 class LeaveRoomPresenterTest {
     private LeaveRoomPresenter leaveRoomPresenter;
     private View mockView;
     /**
      * Setup method to initialize the test environment.
-     * It builds a mock of the View interface
+     * It builds a mock View abstract class
      * and designates the mockView as the LeaveRoomPresenter's associated View using Mockito
      */
     @BeforeEach
@@ -32,7 +29,7 @@ class LeaveRoomPresenterTest {
     @Test
     void testPrepareJoinOrHostView() {
         leaveRoomPresenter.prepareJoinOrHostView();
-        verify(mockView, times(1)).prepareGUI(null); // check that prepareGUI was called
+        Mockito.verify(mockView, Mockito.times(1)).prepareGUI(null); // check that prepareGUI was called
     }
     /**
      * Test case to verify that prepareFailedToLeaveRoomView() correctly interacts with the associated View.
@@ -41,6 +38,6 @@ class LeaveRoomPresenterTest {
     @Test
     void testPrepareFailedToLeaveRoomView() {
         leaveRoomPresenter.prepareFailedToLeaveRoomView();
-        verify(mockView, times(1)).displayPopUpMessage("Failed to leave the room.");
+        Mockito.verify(mockView, Mockito.times(1)).displayPopUpMessage("Failed to leave the room.");
     }
 }

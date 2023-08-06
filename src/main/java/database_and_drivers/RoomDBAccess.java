@@ -10,10 +10,7 @@ import use_cases_and_adapters.leave_room.LeaveRoomDBGateway;
 import use_cases_and_adapters.messaging.MessageDBGateway;
 
 /**
- * This class provides a specific implementation of the DBAccess abstract class for RoomDBModel objects.
- * This class makes use of a RoomConverter for converting between RoomDBModel objects and their representation
- * in the database, and an HttpClient to make the actual HTTP requests.
- * The main operations this class provides are getting rooms, getting a single room by its ID, and updating a room.
+ * The implementation of the DBAccess abstract class for RoomDBModel objects.
  */
 public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinRoomDBGateway, LeaveRoomDBGateway, MessageDBGateway {
 

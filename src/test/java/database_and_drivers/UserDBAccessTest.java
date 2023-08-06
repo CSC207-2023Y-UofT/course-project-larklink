@@ -1,17 +1,10 @@
 package database_and_drivers;
 
 import database_and_drivers.converters.UserConverter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.*;
 import use_cases_and_adapters.UserDBModel;
-
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
+import java.util.*;
 
 public class UserDBAccessTest {
 
@@ -26,28 +19,29 @@ public class UserDBAccessTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        userDBAccess = Mockito.spy(new UserDBAccess(mockHttpClient, new UserConverter())); // initialize UserDBAccess and a spy to track it
+        // initialize UserDBAccess and a spy to track it
+        userDBAccess = Mockito.spy(new UserDBAccess(mockHttpClient, new UserConverter()));
     }
 
     @Test
     public void testGetUsers() {
         // here we are just checking that a call to getUsers is a call to getRows
         List<UserDBModel> expectedUsers = Collections.singletonList(mockUserDBModel);
-        doReturn(expectedUsers).when(userDBAccess).getRows();
+        Mockito.doReturn(expectedUsers).when(userDBAccess).getRows();
         List<UserDBModel> actualUsers = userDBAccess.getUsers();
-        assertEquals(expectedUsers, actualUsers);
+        assert expectedUsers == actualUsers;
     }
 
     @Test
     public void testAddAUser() {
         // here we are just checking that a call to addAUser is a call to updateARow
-        doNothing().when(userDBAccess).updateARow(anyInt(), any());
+        Mockito.doNothing().when(userDBAccess).updateARow(Mockito.anyInt(), Mockito.any());
         userDBAccess.addAUser(mockUserDBModel);
-        verify(userDBAccess, times(1)).updateARow(anyInt(), any());
+        Mockito.verify(userDBAccess, Mockito.times(1)).updateARow(Mockito.anyInt(), Mockito.any());
     }
 
     @Test
     public void testGetRoute() {
-        assertEquals("users", userDBAccess.getRoute());
+        assert userDBAccess.getRoute().equals("users");
     }
 }

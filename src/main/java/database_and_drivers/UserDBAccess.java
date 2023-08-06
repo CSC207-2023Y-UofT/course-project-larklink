@@ -8,10 +8,7 @@ import java.util.List;
 
 
 /**
- * UserDBAccess is a specific implementation of the DBAccess abstract class for UserDBModel objects.
- * This class implements UserDBGateway interface and provides concrete methods for those interfaces.
- * UserDBAccess makes use of a UserConverter for converting between UserDBModel objects and their database representation,
- * and an HttpClient to perform HTTP requests.
+ * The implementation of the DBAccess abstract class for UserDBModel objects.
  */
 public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway {
 

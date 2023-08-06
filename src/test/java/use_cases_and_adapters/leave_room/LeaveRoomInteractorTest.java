@@ -2,16 +2,11 @@ package use_cases_and_adapters.leave_room;
 
 import entities.Room;
 import entities.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import use_cases_and_adapters.RoomDBModel;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.mockito.Mockito.*;
 /**
  * The LeaveRoomInteractorTest class contains unit tests for the LeaveRoomInteractor class.
  * The interfaces LeaveRoomOutputBoundary and LeaveRoomDBGateway are mocked using Mockito
@@ -50,10 +45,10 @@ public class LeaveRoomInteractorTest {
         User.setUser(userID, "", ""); // simulate logging in a user
 
         RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)),"");
-        when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
+        Mockito.when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
-        verify(roomDBGatewayMock, times(1)).updateARoom(room);
-        verify(leaveRoomOutputBoundaryMock, times(1)).prepareJoinOrHostView();
+        Mockito.verify(roomDBGatewayMock, Mockito.times(1)).updateARoom(room);
+        Mockito.verify(leaveRoomOutputBoundaryMock, Mockito.times(1)).prepareJoinOrHostView();
     }
     /**
      * Test case to verify that leaveRoom() does not remove the user from the room's active user list
@@ -66,9 +61,9 @@ public class LeaveRoomInteractorTest {
         User.setUser(userID, "", ""); // simulate logging in a user
 
         RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(List.of(userID2)),"");
-        when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
+        Mockito.when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
-        verify(roomDBGatewayMock, never()).updateARoom(room);
-        verify(leaveRoomOutputBoundaryMock, times(1)).prepareFailedToLeaveRoomView();
+        Mockito.verify(roomDBGatewayMock, Mockito.never()).updateARoom(room);
+        Mockito.verify(leaveRoomOutputBoundaryMock, Mockito.times(1)).prepareFailedToLeaveRoomView();
     }
 }

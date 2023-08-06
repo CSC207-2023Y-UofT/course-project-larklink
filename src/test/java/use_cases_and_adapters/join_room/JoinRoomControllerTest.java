@@ -1,10 +1,8 @@
 package use_cases_and_adapters.join_room;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import org.mockito.*;
 
-import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.openMocks;
 
 /**
@@ -31,7 +29,7 @@ public class JoinRoomControllerTest {
         controller.handleJoinRoomByRoomName(testRoomName);
 
         // checks that inputBoundary calls handleJoinRoom exactly once with the given room name
-        verify(inputBoundary, times(1)).handleJoinRoom(testRoomName);
+        Mockito.verify(inputBoundary, Mockito.times(1)).handleJoinRoom(testRoomName);
     }
 
     /**
@@ -42,6 +40,6 @@ public class JoinRoomControllerTest {
         controller.loadRoomNames();
 
         // checks that inputBoundary calls loadRoomNames exactly once
-        verify(inputBoundary, times(1)).loadRoomNames();
+        Mockito.verify(inputBoundary, Mockito.times(1)).loadRoomNames();
     }
 }

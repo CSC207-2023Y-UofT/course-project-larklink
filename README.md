@@ -1,7 +1,8 @@
 # LarkLink
 ## Introduction
-LarkLink is a chat system that allows you to host a room or join existing rooms to chat with other users.
+LarkLink is a desktop chat app that allows you to host a room or join existing rooms to chat with other users.
 Once inside the room, you can send and receive normal messages or if you'd like to annoy your friends you can send a _lark_!
+
 ## Overview
 ### Main
 Running LarkLink is as simple as navigating to our `Main` class under `src/main/java` and running the `main` method.
@@ -36,9 +37,9 @@ If you enter the room name which does not exist, an error message will be shown.
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
 If you try to send an empty message, you will get an error message.
 (The implementation of sending lark is still in progress.)
-
 ### Leave a Room
-If you click `Leave Room` on chat room screen, you can leave the room and you'll be prompted to host or join screen again.
+If you click `Leave Room` on chat room screen, you can leave the room, and you'll be prompted to host or join screen again.
+
 ## Clean Architecture
 Separation of Concerns: 
 The interactor is part of the application core, and it is responsible for handling the business logic related to corresponding use case. 
@@ -48,8 +49,9 @@ The Interactor does not have any direct dependencies on specific frameworks or l
 Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. 
 This design ensures that the core business logic remains agnostic of the technologies used in the outer layers.
 In addition, inputs from users and data from DB are encapsulated as input models and DB models to decouple the layers. 
-## Solid Principle
-**Single Responsibility Principle (SRP)**: All classes and interfaces appears to have a single responsibility, 
+
+## SOLID & Design Patterns
+**Single Responsibility Principle (SRP)**: All classes and interfaces are responsible to a single responsibility, 
 which is to handle the interaction between layers for feature related operations. 
 
 **Open/Closed Principle (OCP)**: The Interactor class seems to be open for extension, 
@@ -57,41 +59,30 @@ as it is designed to interact with abstractions (InputBoundary and OutputBoundar
 This allows for potential extensions or modifications to the behavior of the interactor without modifying its existing code.
 
 **Interface Segregation Principle (ISP)**: Since we aimed to break down the classes into small pieces according to SRP, all interfaces are 
-specific to each class which each interface is implemented. 
+specific to each class which each interface is implemented. We also implemented a different DBGateway for each use cases requirements so that to obey ISP. 
 
 **Liskov Substitution Principle (LSP)**: All subclasses that inherit superclass `View` are overriding the abstract method `prepareGUI`
 and all classes that implement interfaces implemented all methods in corresponding interfaces appropriately. Therefore, all these classes
 can be used interchangeably with `View` or each corresponding interface without unexpected error.
 
-**Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object(which is called models here), dependencies between 
-layers could be inverted and therefore, high level classes does not directly depend on lower level classes. 
+**Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object (which is called models here), dependencies between 
+layers could be inverted and therefore, high level classes do not depend on lower level classes. 
 For example, `UserInteractor` can receive data from users through `UserModel` object and `UserInputBoundary` and interact with 
 database_and_drivers through `UserDBGateway`. Hence, `UserInteractor` does not depend on outer layers such as controller and database_and_drivers.
 This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
-## Design Patterns
-TODO - Singleton pattern
+**Extra Design Patterns:** We used the `viewable` interface to remove each presenter's dependency on different views.
+We also use a singleton style design pattern for the Room and User class instead of passing information down and up through the views.
+This works because only one user can be logged in at once and each user can only be in one Room at a time.
+We also use dependency injection for virtually everything - notably by injecting a `DBAccess` into every `interactor`.
 
 ## Test Coverage
-We aimed for near perfect coverage across the board and manage to achieve XX% class coverage and XX% line coverage. <br>
-In the database_and_drivers package we achieved 83% class coverage and 64% line coverage because the HttpClient is impractical to test, 
-as we'd have to simulate a server. Otherwise, we tested the core functionality of the DBAccess's in the package.
+We aimed for near perfect coverage across the board and manage to achieve 95% class coverage and 83% line coverage. Many of the 
+view tests are commented out because it was not possible to make them headless. Any tests that intentionally generate an error 
+(e.g. invalid password) will cause the creation of a pop-up which violates the headless requirement. We could not find a way to circumvent this because these pop-ups are integral to the functions being tested.
 
-## Java Doc
-TODO
+<br>
 
 ## Packaging
-Entity:<br> `src/main/java/entities`<br>
-
-Use case:<br> `src/main/java/host_room`<br>
-<hspace>`src/main/java/join_room`<br>
-`src/main/java/leave_room`<br>
-`src/main/java/messaging`<br>
-`src/main/java/sinup_and_login`<br>
-
-Input and data model:<br> `src/main/java/models`<br>
-
-Gateway and DBAccess:<br> `src/main/java/database_and_drivers`<br>
-
-View:<br> `src/main/java/views`<br>
-
+Originally we had packaged this by use case, but now we've packaged by level and included sub packages for use case because 
+we found there was some code that many use cases used (like `RoomDBModel`).

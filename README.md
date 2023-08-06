@@ -9,8 +9,16 @@ Running LarkLink is as simple as navigating to our `Main` class under `src/main/
 It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one joining that room.
 ### Signup and Login
 First you'll be prompted to either create an account or sign in to an existing one.<br>
-![](images/Screenshots/main.png)<br>
-Here, you can create an account or login by entering username and password and click `Submit` button. 
+![](images/Screenshots/signup_login.png)<br>
+Clicking the "Log in" button triggers the following 
+prompt
+![](images/Screenshots/login.png)<br>
+where the user can enter in existing credentials. Clicking the 
+"Sign up" button displays the following.
+
+![](images/Screenshots/signup.png)<br>
+
+Here, you can create an account by entering username and password and click `Sign up` button. 
 LarkLink allows alphanumeric characters for username and password. Username must be at least 3 characters long and
 must not overlap with existing usernames. Password must be at least 8 characters long. 
 If you try to set username and password shorter than each minimum length, you will see an error message.
@@ -25,7 +33,7 @@ In addition, you are allowed to host only one room.
 When you click `Join` button on host or join screen, you'll be prompted to enter the name of room that you try to join. 
 If you enter the room name which does not exist, an error message will be shown.
 ### Send Messages (and _lark_)
-![](images/Screenshots/room.png)<br>
+![](images/Screenshots/room_list.png)<br>
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
 If you try to send an empty message, you will get an error message.
 (The implementation of sending lark is still in progress.)

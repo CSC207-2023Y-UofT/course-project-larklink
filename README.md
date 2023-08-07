@@ -68,13 +68,14 @@ can be used interchangeably with `View` or each corresponding interface without 
 
 **Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object (which is called models here), dependencies between 
 layers could be inverted and therefore, high level classes do not depend on lower level classes. 
-For example, `UserInteractor` can receive data from users through `UserModel` object and `UserInputBoundary` and interact with 
-database_and_drivers through `UserDBGateway`. Hence, `UserInteractor` does not depend on outer layers such as controller and database_and_drivers.
+For example, `UserSignupInteractor` receives data from users through `UserModel` object,
+and `UserSignupInputBoundary` interacts with database_and_drivers through `UserDBGateway`. 
+Hence, `UserSignupInteractor` does not depend on outer layers such as controller and database_and_drivers.
 This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
 **Extra Design Patterns:** We used the `viewable` interface to remove each presenter's dependency on different views.
-We also use a singleton style design pattern for the Room and User class instead of passing information down and up through the views.
-This works because only one user can be logged in at once and each user can only be in one Room at a time.
+We also use a singleton style design pattern for the `Room` and `User` class instead of passing information down and up through the views.
+This works because only one user can be logged in at once and each user can only be in one room at a time.
 We also use dependency injection for virtually everything - notably by injecting a `DBAccess` into every `interactor`.
 
 ## Test Coverage

@@ -57,8 +57,9 @@ public class RoomDBModel {
         return this.hostId;
     }
 
-    /** TODO FIX COMMENT
+    /**
      * A getter for the list of users' unique identifiers of the room.
+     * This method converts it from a string since our database needs a string.
      *
      * @return The list of users' unique identifiers of the room.
      */
@@ -83,6 +84,7 @@ public class RoomDBModel {
 
     /**
      * Sets activeUserIDs of the room as given input
+     * This method converts to a string since our database needs a string.
      *
      * @param activeUserIDs the active userID list
      */

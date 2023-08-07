@@ -2,7 +2,6 @@ package database_and_drivers;
 
 import java.util.List;
 
-import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import use_cases_and_adapters.RoomDBModel;
 import use_cases_and_adapters.host_room.HostRoomDBGateway;
@@ -11,7 +10,7 @@ import use_cases_and_adapters.leave_room.LeaveRoomDBGateway;
 import use_cases_and_adapters.messaging.MessageDBGateway;
 
 /**
- * The implementation of the DBAccess abstract class for RoomDBModel objects.
+ * A DB access class for our "rooms" database that uses and returns RoomDBModel objects.
  */
 public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, LeaveRoomDBGateway, MessageDBGateway {
     private static final String ROUTE = "rooms";
@@ -44,14 +43,16 @@ public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, Leave
      */
     @Override
     public void updateARoom(RoomDBModel room) {
-        HttpResponse<String> response = Unirest.put(ROUTE + "/" + room.getRoomID())
+        Unirest.put(ROUTE + "/" + room.getRoomID())
                 .header("Content-Type", "application/json")
                 .body(new RoomWrapper(room))
-                .asString();
-        System.out.println(response.getBody());
+                .asEmpty();
     }
 
 
+    /**
+     * A wrapper class used to get around Json formatting
+     */
     private static class RoomWrapper {
         protected RoomDBModel room;
         public RoomWrapper(RoomDBModel room) {
@@ -59,6 +60,9 @@ public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, Leave
         }
     }
 
+    /**
+     * A wrapper class used to get around Json formatting
+     */
     private static class RoomListWrapper {
         protected List<RoomDBModel> rooms;
     }

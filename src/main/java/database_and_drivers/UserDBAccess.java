@@ -8,10 +8,11 @@ import java.util.List;
 
 
 /**
- * The implementation of the DBAccess abstract class for UserDBModel objects.
+ * A DB access class for our "users" database that uses and returns UserDBModel objects.
  */
-public class UserDBAccess implements  UserDBGateway {
+public class UserDBAccess implements UserDBGateway {
     private static final String ROUTE = "users";
+
     /**
      * Retrieves a list of all users from the database.
      *
@@ -36,6 +37,9 @@ public class UserDBAccess implements  UserDBGateway {
                 .asEmpty();
     }
 
+    /**
+     * A wrapper class used to get around Json formatting
+     */
     private static class UserWrapper {
         protected UserDBModel user;
         public UserWrapper(UserDBModel user) {
@@ -43,6 +47,9 @@ public class UserDBAccess implements  UserDBGateway {
         }
     }
 
+    /**
+     * A wrapper class used to get around Json formatting
+     */
     private static class UserListWrapper {
         protected List<UserDBModel> users;
     }

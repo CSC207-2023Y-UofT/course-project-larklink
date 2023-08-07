@@ -3,7 +3,7 @@ package use_cases_and_adapters.host_room;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import views.View;
+import views_and_drivers.views.View;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

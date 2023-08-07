@@ -44,7 +44,7 @@ If you click `Leave Room` on chat room screen, you can leave the room, and you'l
 ## Clean Architecture
 Separation of Concerns: 
 The interactor is part of the application core, and it is responsible for handling the business logic related to corresponding use case. 
-It communicates with the outer layers (controller, presenter and database_and_drivers) through interfaces (InputBoundary, OutputBoundary, and DBGateway), 
+It communicates with the outer layers (controller, presenter and database) through interfaces (InputBoundary, OutputBoundary, and DBGateway), 
 ensuring a clear separation of concerns between different layers of the application.
 The Interactor does not have any direct dependencies on specific frameworks or libraries. 
 Its dependencies are abstracted through interfaces, and the actual implementations are provided externally (injected) during runtime. 
@@ -69,8 +69,8 @@ can be used interchangeably with `View` or each corresponding interface without 
 **Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object (which is called models here), dependencies between 
 layers could be inverted and therefore, high level classes do not depend on lower level classes. 
 For example, `UserSignupInteractor` receives data from users through `UserModel` object,
-and `UserSignupInputBoundary` interacts with database_and_drivers through `UserDBGateway`. 
-Hence, `UserSignupInteractor` does not depend on outer layers such as controller and database_and_drivers.
+and `UserSignupInputBoundary` interacts with database through `UserDBGateway`. 
+Hence, `UserSignupInteractor` does not depend on outer layers such as controller and database.
 This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
 **Extra Design Patterns:** We used the `viewable` interface to remove each presenter's dependency on different views.

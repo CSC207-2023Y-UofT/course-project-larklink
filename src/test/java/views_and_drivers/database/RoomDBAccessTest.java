@@ -1,4 +1,4 @@
-package database_and_drivers;
+package views_and_drivers.database;
 
 import org.junit.jupiter.api.Test;
 import use_cases_and_adapters.RoomDBModel;

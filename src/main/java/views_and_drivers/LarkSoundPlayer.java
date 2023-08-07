@@ -1,4 +1,4 @@
-package database_and_drivers;
+package views_and_drivers;
 
 import use_cases_and_adapters.messaging.LarkSoundPlayerGateway;
 

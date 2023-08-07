@@ -1,4 +1,4 @@
-package views;
+package views_and_drivers.views;
 
 import use_cases_and_adapters.leave_room.LeaveRoomController;
 import use_cases_and_adapters.messaging.MessageController;

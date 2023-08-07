@@ -1,4 +1,4 @@
-package database_and_drivers;
+package views_and_drivers.database;
 
 import kong.unirest.Unirest;
 import use_cases_and_adapters.UserDBModel;

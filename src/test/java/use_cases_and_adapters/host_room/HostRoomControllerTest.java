@@ -20,7 +20,7 @@ public class HostRoomControllerTest {
     }
 
     @Test
-    public void testHandleLeaveRoom() {
+    public void testHandleHostRoom() {
         hostRoomController.handleHostRoom(testRoomName);
         verify(hostRoomInputBoundaryMock, times(1)).hostRoom(testRoomName);
     }

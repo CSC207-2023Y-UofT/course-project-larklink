@@ -40,7 +40,7 @@ public class MessageInteractorTest {
 
         Room.setRoom(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)), ""); // simulate being in a room
         User.setUser(userID, "", ""); // simulate logging in a user
-        RoomDBModel testRoom = new RoomDBModel(roomID, "Test Room", hostID,userID.toString() + ", " + userID2.toString(), "" );
+        RoomDBModel testRoom = new RoomDBModel(roomID, "Test Room", hostID,hostID.toString() + ", " + userID.toString() + ", " + userID2.toString(), "" );
         Mockito.when(database.getARoom(roomID)).thenReturn(testRoom);
     }
 

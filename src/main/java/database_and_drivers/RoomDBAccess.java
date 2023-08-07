@@ -17,11 +17,10 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGat
     /**
      * Constructs a new RoomDBAccess object with the given HttpClient and RoomConverter instances.
      *
-     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
      * @param converter  The UserConverter instance responsible for switching between JSON data to Room objects.
      */
-    public RoomDBAccess(HttpClient httpClient, RoomConverter converter) {
-        super(httpClient, converter);
+    public RoomDBAccess(RoomConverter converter) {
+        super(converter);
     }
 
     /**

@@ -15,11 +15,10 @@ public class UserDBAccess extends DBAccess<UserDBModel> implements UserDBGateway
     /**
      * Constructs a new UserDBAccess object with the given HttpClient and UserConverter instances.
      *
-     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
      * @param converter  The UserConverter instance responsible for switching between JSON data to User objects.
      */
-    public UserDBAccess(HttpClient httpClient, UserConverter converter) {
-        super(httpClient,converter);
+    public UserDBAccess(UserConverter converter) {
+        super(converter);
     }
 
     /**

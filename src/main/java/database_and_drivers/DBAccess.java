@@ -5,8 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import database_and_drivers.converters.JsonConverter;
+import kong.unirest.Unirest;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +18,14 @@ import java.util.List;
  */
 public abstract class DBAccess<T> {
     private final JsonConverter<T> converter;
-    private final HttpClient httpClient;
     private final Gson gson;
 
     /**
      * Constructs a new RoomDBAccess object with the given HttpClient and UserConverter instances.
      *
-     * @param httpClient The HttpClient instance responsible for handling HTTP requests to the API.
      * @param converter  The UserConverter instance responsible for switching between JSON data to User objects.
      */
-    public DBAccess(HttpClient httpClient, JsonConverter<T> converter) {
-        this.httpClient = httpClient;
+    public DBAccess(JsonConverter<T> converter) {
         this.converter = converter;
         this.gson = new Gson();
     }
@@ -40,15 +37,11 @@ public abstract class DBAccess<T> {
      */
     protected List<T> getRows()  {
         List<T> result = new ArrayList<>();
-        try {
-            String response = httpClient.performGETRequest(getRoute(), null);
-            JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
-            JsonArray jsonArray = jsonObject.get(getRoute()).getAsJsonArray();
-            for (JsonElement element : jsonArray) {
-                result.add(converter.toObject(element.getAsJsonObject()));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        String response = Unirest.get(getRoute()).asString().getBody();
+        JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
+        JsonArray rows = jsonObject.get(getRoute()).getAsJsonArray();
+        for (JsonElement row : rows) {
+            result.add(converter.toObject(row.getAsJsonObject()));
         }
         return result;
     }
@@ -60,14 +53,9 @@ public abstract class DBAccess<T> {
      * @return A database model object representing the fetched row, or null if no row with the given ID exists.
      */
     protected T getARow(Integer rowID) {
-        try {
-            String response = httpClient.performGETRequest(getRoute(), rowID);
-            JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
-            return converter.toObject(jsonObject);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        String response = Unirest.get(getRoute() + "/" + rowID).asString().getBody();
+        JsonObject jsonObject = gson.fromJson(response, JsonObject.class);
+        return converter.toObject(jsonObject);
     }
 
     /**
@@ -77,12 +65,11 @@ public abstract class DBAccess<T> {
      * @param model The database model object to use for the update.
      */
     protected void updateARow(Integer rowID, T model)  {
-        try {
-            String jsonInputString = converter.toJson(model).toString();
-            httpClient.performPUTRequest(getRoute(), rowID, jsonInputString);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String jsonString = converter.toJson(model).toString();
+        Unirest.put(getRoute() + "/" + rowID)
+                .header("Content-Type", "application/json")
+                .body(jsonString)
+                .asString();
     }
 
     /**

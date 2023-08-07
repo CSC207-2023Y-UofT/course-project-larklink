@@ -1,4 +1,5 @@
 import database_and_drivers.*;
+import kong.unirest.Unirest;
 import views.*;
 import database_and_drivers.converters.RoomConverter;
 import database_and_drivers.converters.UserConverter;
@@ -10,17 +11,16 @@ import use_cases_and_adapters.signup_and_login.user_login.*;
 import use_cases_and_adapters.signup_and_login.user_signup.*;
 
 public class Main {
-    private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink";
+    private static final String API_URL = "https://api.sheety.co/78ad1edb28469578058ca4c58c3f478b/larklink/";
     private static final String larkSoundFilePath = "/src/main/assets/lark_sound.wav";
     public static void main(String[] args) {
-        HttpClient httpClient = new HttpClient(API_URL);
         LarkSoundPlayer larkSoundPlayer = new LarkSoundPlayer(larkSoundFilePath);
 
+        Unirest.config().defaultBaseUrl(API_URL);
         RoomConverter roomConverter = new RoomConverter();
         UserConverter userConverter = new UserConverter();
-
-        RoomDBAccess roomDBAccess = new RoomDBAccess(httpClient, roomConverter);
-        UserDBAccess userDBAccess = new UserDBAccess(httpClient, userConverter);
+        RoomDBAccess roomDBAccess = new RoomDBAccess(roomConverter);
+        UserDBAccess userDBAccess = new UserDBAccess(userConverter);
 
         UserSignupPresenter userSignupPresenter = new UserSignupPresenter();
         UserSignupInteractor userSignupInteractor = new UserSignupInteractor(userDBAccess, userSignupPresenter);
@@ -56,5 +56,7 @@ public class Main {
         sendMessagePresenter.setView(roomView);
 
         ViewManager.startWelcomeView(userLoginController, userSignupController); // launch app
+
+        Unirest.shutDown();
     }
 }

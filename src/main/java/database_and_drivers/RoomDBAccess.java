@@ -23,7 +23,7 @@ public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, Leave
      */
     @Override
     public List<RoomDBModel> getRooms() {
-        return Unirest.get(ROUTE).asObject(RoomResponseWrapper.class).getBody().rooms;
+        return Unirest.get(ROUTE).asObject(RoomListWrapper.class).getBody().rooms;
     }
 
     /**
@@ -34,7 +34,7 @@ public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, Leave
      */
     @Override
     public RoomDBModel getARoom(Integer roomID) {
-        return Unirest.get(ROUTE + "/" + roomID).asObject(RoomDBModel.class).getBody();
+        return Unirest.get(ROUTE + "/" + roomID).asObject(RoomWrapper.class).getBody().room;
     }
 
     /**
@@ -46,20 +46,20 @@ public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, Leave
     public void updateARoom(RoomDBModel room) {
         HttpResponse<String> response = Unirest.put(ROUTE + "/" + room.getRoomID())
                 .header("Content-Type", "application/json")
-                .body(new RoomRequestWrapper(room))
+                .body(new RoomWrapper(room))
                 .asString();
         System.out.println(response.getBody());
     }
 
 
-    private static class RoomRequestWrapper {
+    private static class RoomWrapper {
         protected RoomDBModel room;
-        public RoomRequestWrapper(RoomDBModel room) {
+        public RoomWrapper(RoomDBModel room) {
             this.room = room;
         }
     }
 
-    private static class RoomResponseWrapper {
+    private static class RoomListWrapper {
         protected List<RoomDBModel> rooms;
     }
 }

@@ -20,8 +20,7 @@ public class UserDBAccess implements  UserDBGateway {
      */
     @Override
     public List<UserDBModel> getUsers() {
-        UserResponseWrapper response = Unirest.get(ROUTE).asObject(UserResponseWrapper.class).getBody();
-        return response.users;
+        return Unirest.get(ROUTE).asObject(UserListWrapper.class).getBody().users;
     }
 
     /**
@@ -33,18 +32,18 @@ public class UserDBAccess implements  UserDBGateway {
     public void addAUser(UserDBModel user) {
         Unirest.post(ROUTE)
                 .header("Content-Type", "application/json")
-                .body(new UserRequestWrapper(user))
+                .body(new UserWrapper(user))
                 .asEmpty();
     }
 
-    private static class UserRequestWrapper {
+    private static class UserWrapper {
         protected UserDBModel user;
-        public UserRequestWrapper(UserDBModel user) {
+        public UserWrapper(UserDBModel user) {
             this.user = user;
         }
     }
 
-    private static class UserResponseWrapper {
+    private static class UserListWrapper {
         protected List<UserDBModel> users;
     }
 }

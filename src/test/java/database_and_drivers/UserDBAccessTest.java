@@ -1,44 +1,30 @@
 package database_and_drivers;
 
-import database_and_drivers.converters.UserConverter;
+import org.junit.jupiter.api.Test;
 import use_cases_and_adapters.UserDBModel;
-import org.junit.jupiter.api.*;
-import org.mockito.*;
 import java.util.*;
 
-public class UserDBAccessTest {
+class UserDBAccessTest {
 
-    @Mock
-    private UserDBModel mockUserDBModel;
+    // We omit the database methods because they are quite simple and are difficult to mock
 
-    private UserDBAccess userDBAccess;
+    @Test
+    void testUserWrapper() {
+        UserDBModel userDBModel = new UserDBModel(1, "username", "password");
+        UserDBAccess.UserWrapper userWrapper = new UserDBAccess.UserWrapper(userDBModel);
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        // initialize UserDBAccess and a spy to track it
-        userDBAccess = Mockito.spy(new UserDBAccess(new UserConverter()));
+        assert userWrapper.user == userDBModel;
     }
 
     @Test
-    public void testGetUsers() {
-        // here we are just checking that a call to getUsers is a call to getRows
-        List<UserDBModel> expectedUsers = Collections.singletonList(mockUserDBModel);
-        Mockito.doReturn(expectedUsers).when(userDBAccess).getRows();
-        List<UserDBModel> actualUsers = userDBAccess.getUsers();
-        assert expectedUsers == actualUsers;
-    }
+    void testUserListWrapper() {
+        UserDBModel userDBModel = new UserDBModel(1, "username", "password");
+        List<UserDBModel> users = Collections.singletonList(userDBModel);
 
-    @Test
-    public void testAddAUser() {
-        // here we are just checking that a call to addAUser is a call to updateARow
-        Mockito.doNothing().when(userDBAccess).updateARow(Mockito.anyInt(), Mockito.any());
-        userDBAccess.addAUser(mockUserDBModel);
-        Mockito.verify(userDBAccess, Mockito.times(1)).updateARow(Mockito.anyInt(), Mockito.any());
-    }
+        UserDBAccess.UserListWrapper userListWrapper = new UserDBAccess.UserListWrapper();
+        userListWrapper.users = users;
 
-    @Test
-    public void testGetRoute() {
-        assert userDBAccess.getRoute().equals("users");
+        assert userListWrapper.users.size() == 1;
+        assert userListWrapper.users.get(0) == userDBModel;
     }
 }

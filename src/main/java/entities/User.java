@@ -13,60 +13,41 @@ public class User {
     private static String password;
 
     /**
-     * Set the user details. This method also hashes the password before storing it.
-     * @param userID The unique identifier for the user.
-     * @param username The username of the user.
-     * @param plainPassword The plain text password that will be hashed and stored.
+     * Set the user details, effectively logging them in.
+     * @param userID            the user's unique identifier (corresponds with the row number in users database)
+     * @param username          the user's unique username
+     * @param plainPassword     the plain text password that will be hashed and stored
      */
     public static void setUser(Integer userID, String username, String plainPassword) {
         User.userID = userID;
         User.username = username;
-        User.password = hashPassword(plainPassword);
+        User.password = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
     }
 
     /**
-     * A getter for the unique identifier of the user.
+     * A getter for the user's unique identifier.
      *
-     * @return The unique identifier of the user.
+     * @return the user's unique identifier.
      */
     public static Integer getUserID() {
         return userID;
     }
 
     /**
-     * A getter for the username of the user.
+     * A getter for the user's unique username.
      *
-     * @return The username of the user.
+     * @return the user's unique username.
      */
     public static String getUsername() {
         return username;
     }
 
     /**
-     * A getter for the hashed password of the user.
+     * A getter for the user's hashed password.
      *
-     * @return The hashed password of the user.
+     * @return the user's hashed password.
      */
     public static String getPassword() {
         return password;
-    }
-
-    /**
-     * Hash a password for the first time using BCrypt.
-     * @param plainPassword The plain text password to be hashed.
-     * @return The hashed password.
-     */
-    public static String hashPassword(String plainPassword){
-        return BCrypt.hashpw(plainPassword, BCrypt.gensalt());
-    }
-
-    /**
-     * Check that a plain password matches one that has previously been hashed.
-     * @param plainPassword The plain text password to be checked.
-     * @param hashedPassword The hashed password to check against.
-     * @return true if the passwords match, false otherwise.
-     */
-    public static boolean checkPassword(String plainPassword, String hashedPassword) {
-        return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 }

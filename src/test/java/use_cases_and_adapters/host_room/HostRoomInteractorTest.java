@@ -38,7 +38,7 @@ class HostRoomInteractorTest {
     void testHostRoom_DuplicateRoomName() {
         String roomName = "ExistingRoom";
         List<RoomDBModel> existingRooms = new ArrayList<>();
-        existingRooms.add(new RoomDBModel(1, roomName, 1, new ArrayList<>(), ""));
+        existingRooms.add(new RoomDBModel(1, roomName, 1, "", ""));
         when(database.getRooms()).thenReturn(existingRooms);
 
         interactor.hostRoom(roomName);

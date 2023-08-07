@@ -30,9 +30,9 @@ public class JoinRoomInteractorTest {
         visitorName = "testUser";
         visitorPW = "12345678";
         testRooms = List.of(new RoomDBModel(10, "FakeRoom", 111,
-                new ArrayList<>(List.of(111)), "[15:38:42] alice: hi\n"),
+                "111", "[15:38:42] alice: hi\n"),
                 new RoomDBModel(50, "existingRoom", 555,
-                        new ArrayList<>(List.of(555)), "[15:38:42] nadine: sup\n"));
+                        "555", "[15:38:42] nadine: sup\n"));
     }
 
     /**

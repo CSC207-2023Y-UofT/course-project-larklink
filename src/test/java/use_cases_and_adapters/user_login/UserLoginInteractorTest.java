@@ -2,6 +2,7 @@ package use_cases_and_adapters.user_login;
 
 import entities.User;
 import org.junit.jupiter.api.*;
+import org.mindrot.jbcrypt.BCrypt;
 import org.mockito.*;
 import use_cases_and_adapters.UserDBModel;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
@@ -33,7 +34,7 @@ public class UserLoginInteractorTest {
         testUserID = 2;
         testUsername = "kim";
         testPassword = "12345678";
-        String hashedPassword = User.hashPassword(testPassword);
+        String hashedPassword = BCrypt.hashpw(testPassword, BCrypt.gensalt());
         users = List.of(new UserDBModel(testUserID, testUsername, hashedPassword));
     }
 
@@ -50,7 +51,7 @@ public class UserLoginInteractorTest {
         // checks that the user is set by correct userID, username, and password
         assert User.getUserID().equals(testUserID);
         assert User.getUsername().equals(testUsername);
-        assert User.checkPassword(testPassword, User.getPassword());
+        assert BCrypt.checkpw(testPassword, User.getPassword());
 
         // checks that presenter calls prepareJoinOrHostView exactly once
         Mockito.verify(presenter, Mockito.times(1)).prepareJoinOrHostView();

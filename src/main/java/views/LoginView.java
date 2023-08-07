@@ -41,7 +41,6 @@ public class LoginView extends View {
 
             if (ValidationHelper.isUsernameValid(username) && ValidationHelper.isPasswordValid(password)){
                 loginController.formatAndHandleUserLogin(username, password);
-                System.out.println("hi");
             }
         });
         return loginButton;

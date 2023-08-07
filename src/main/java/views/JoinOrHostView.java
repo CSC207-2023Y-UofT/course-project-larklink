@@ -81,7 +81,6 @@ public class JoinOrHostView extends View {
         hostButton.addActionListener(e -> {
             String roomName = roomField.getText();
             if (ValidationHelper.isRoomNameValid(roomName)) {
-                System.out.println(MouseInfo.getPointerInfo().getLocation());
                 hostRoomController.handleHostRoom(roomName);
             }
         });

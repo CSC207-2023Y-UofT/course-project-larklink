@@ -22,8 +22,8 @@ public class MessageInteractorTest {
 
     private String testContent;
     private Integer hostID;
-    private int userID;
-    private int userID2;
+    private Integer userID;
+    private Integer userID2;
 
     @BeforeEach
     public void setUp() {
@@ -40,7 +40,7 @@ public class MessageInteractorTest {
 
         Room.setRoom(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)), ""); // simulate being in a room
         User.setUser(userID, "", ""); // simulate logging in a user
-        RoomDBModel testRoom = new RoomDBModel(roomID, "Test Room", hostID,new ArrayList<>(Arrays.asList(userID, userID2)), "" );
+        RoomDBModel testRoom = new RoomDBModel(roomID, "Test Room", hostID,userID.toString() + ", " + userID2.toString(), "" );
         Mockito.when(database.getARoom(roomID)).thenReturn(testRoom);
     }
 
@@ -76,7 +76,7 @@ public class MessageInteractorTest {
     public void testHandleRetrieveMessages_noLark() {
         // Prepare the test data
         String messageHistory = "User1: Hello\nUser2: How are you?";
-        RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, new ArrayList<>(Arrays.asList(userID, userID2)), messageHistory);
+        RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, userID.toString() + ", " + userID2.toString(), messageHistory);
         Mockito.when(database.getARoom(Room.getRoomID())).thenReturn(mockedRoom);
 
         // Call the method to be tested
@@ -90,7 +90,7 @@ public class MessageInteractorTest {
     public void testHandleRetrieveMessages_WithLark(){
         // Prepare the test data
         String messageHistory = "User1: Hello\nUser2: /lark";
-        RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, new ArrayList<>(Arrays.asList(userID, userID2)), messageHistory);
+        RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, userID.toString() + ", " + userID2.toString(), messageHistory);
         Mockito.when(database.getARoom(Room.getRoomID())).thenReturn(mockedRoom);
 
         // Call the method to be tested

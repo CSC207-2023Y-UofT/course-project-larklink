@@ -13,7 +13,7 @@ import use_cases_and_adapters.messaging.MessageDBGateway;
  * A DB access class for our "rooms" database that uses and returns RoomDBModel objects.
  */
 public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, LeaveRoomDBGateway, MessageDBGateway {
-    private static final String ROUTE = "rooms";
+    static final String ROUTE = "rooms";
 
     /**
      * Retrieves a list of all rooms from the database.
@@ -43,17 +43,14 @@ public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, Leave
      */
     @Override
     public void updateARoom(RoomDBModel room) {
-        Unirest.put(ROUTE + "/" + room.getRoomID())
-                .header("Content-Type", "application/json")
-                .body(new RoomWrapper(room))
-                .asEmpty();
+        Unirest.put(ROUTE + "/" + room.getRoomID()).header("Content-Type", "application/json").body(new RoomWrapper(room)).asEmpty();
     }
 
 
     /**
      * A wrapper class used to get around Json formatting
      */
-    private static class RoomWrapper {
+    static class RoomWrapper {
         protected RoomDBModel room;
         public RoomWrapper(RoomDBModel room) {
             this.room = room;
@@ -63,7 +60,7 @@ public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, Leave
     /**
      * A wrapper class used to get around Json formatting
      */
-    private static class RoomListWrapper {
+     static class RoomListWrapper {
         protected List<RoomDBModel> rooms;
     }
 }

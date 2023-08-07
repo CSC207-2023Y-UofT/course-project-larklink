@@ -31,16 +31,13 @@ public class UserDBAccess implements UserDBGateway {
      */
     @Override
     public void addAUser(UserDBModel user) {
-        Unirest.post(ROUTE)
-                .header("Content-Type", "application/json")
-                .body(new UserWrapper(user))
-                .asEmpty();
+        Unirest.post(ROUTE).header("Content-Type", "application/json").body(new UserWrapper(user)).asEmpty();
     }
 
     /**
      * A wrapper class used to get around Json formatting
      */
-    private static class UserWrapper {
+    static class UserWrapper {
         protected UserDBModel user;
         public UserWrapper(UserDBModel user) {
             this.user = user;
@@ -50,7 +47,7 @@ public class UserDBAccess implements UserDBGateway {
     /**
      * A wrapper class used to get around Json formatting
      */
-    private static class UserListWrapper {
+    static class UserListWrapper {
         protected List<UserDBModel> users;
     }
 }

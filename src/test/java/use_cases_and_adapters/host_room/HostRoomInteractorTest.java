@@ -1,28 +1,18 @@
 package use_cases_and_adapters.host_room;
-
-<<<<<<< HEAD
 import entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_cases_and_adapters.RoomDBModel;
-=======
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import use_cases_and_adapters.RoomDBModel;
-
->>>>>>> 862fca0e3dcb0c4b7f8a4976afbece0bdd8cab25
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-<<<<<<< HEAD
 
 /**
  * Test host room interactor (as the name suggests)
  */
-=======
->>>>>>> 862fca0e3dcb0c4b7f8a4976afbece0bdd8cab25
+
 
 class HostRoomInteractorTest {
     private HostRoomDBGateway database;

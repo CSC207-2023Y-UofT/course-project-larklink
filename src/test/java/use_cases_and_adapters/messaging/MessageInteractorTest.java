@@ -76,7 +76,7 @@ public class MessageInteractorTest {
     public void testHandleRetrieveMessages_noLark() {
         // Prepare the test data
         String messageHistory = "User1: Hello\nUser2: How are you?";
-        RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, userID.toString() + ", " + userID2.toString(), messageHistory);
+        RoomDBModel mockedRoom = new RoomDBModel(Room.getRoomID(), "Test Room", hostID, hostID.toString() + ", " + userID.toString() + ", " + userID2.toString(), messageHistory);
         Mockito.when(database.getARoom(Room.getRoomID())).thenReturn(mockedRoom);
 
         // Call the method to be tested

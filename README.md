@@ -6,29 +6,17 @@ Once inside the room, you can send and receive normal messages or if you'd like 
 ## Overview
 ### Main
 Running LarkLink is as simple as navigating to our `Main` class under `src/main/java` and running the `main` method.
-It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one joining that room.
+It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one 
+joining that room.
 ### Signup and Login
 First you'll be prompted to either create an account or sign in to an existing one.<br>
-![](images/Screenshots/signup_login.png)<br>
-Clicking the "Log in" button triggers the following 
-prompt
-![](images/Screenshots/login.png)<br>
-where the user can enter in existing credentials. Clicking the 
-"Sign up" button displays the following.
+<img src="images/signup_or_login.png" alt="Signup or Login View" style="width: 500px; height: 352px;"/><br>
 
-![](images/Screenshots/signup.png)<br>
-<img src="images/signup_or_login.png" alt="Signup or Login View" width="500"/>
+Clicking the `Log in` button triggers the following prompt where the user can enter in existing credentials.
+<img src="images/login.png" alt="Login View" style="width: 500px; height: 352px;"/><br>
 
-Clicking the "Log in" button triggers the following 
-prompt
-
-<img src="images/login.png" alt="Login View" style="width: 500px; height: 352px;"/>
-
-where the user can enter in existing credentials. Clicking the 
-"Sign up" button displays the following.
-
-<img src="images/signup.png" alt="Signup View" style="width: 500px; height: 352px;"/>
-
+Clicking the `Sign up` button displays the following.<br>
+<img src="images/signup.png" alt="Signup View" style="width: 500px; height: 352px;"/><br>
 Here, you can create an account by entering username and password and click `Sign up` button. 
 LarkLink allows alphanumeric characters for username and password. Username must be at least 3 characters long and
 must not overlap with existing usernames. Password must be at least 8 characters long. 
@@ -36,18 +24,14 @@ If you try to set username and password shorter than each minimum length, you wi
 If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
 
 ### Join or Host a Room
-<img src="images/join_or_host.png" alt="Join or Host View" style="width: 500px; height: 352px;"/>
-
+<img src="images/join_or_host.png" alt="Join or Host View" style="width: 500px; height: 352px;"/><br>
 Here you'll see a list of rooms to join and you'll also be allowed to host a room. If you want to host a room, 
 you need to enter room name with alphanumeric characters and click `Host` button. Room name must be at least 
 5 characters long and if you try to set the room name shorter than the minimum length, you will see an error message. 
 In addition, you are allowed to host only one room. 
 
 ### Send Messages (and _lark_)
-![](images/Screenshots/room_list.png)<br>
-
-<img src="images/room.png" alt="Room View" style="width: 500px; height: 352px;"/>
-
+<img src="images/room.png" alt="Room View" style="width: 500px; height: 352px;"/><br>
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
 If you try to send an empty message, you will get an error message. To send a lark just type and send `\lark` and 
 everyone in the room will hear our lark sound !

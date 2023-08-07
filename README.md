@@ -17,26 +17,41 @@ where the user can enter in existing credentials. Clicking the
 "Sign up" button displays the following.
 
 ![](images/Screenshots/signup.png)<br>
+<img src="images/signup_or_login.png" alt="Signup or Login View" width="500"/>
+
+Clicking the "Log in" button triggers the following 
+prompt
+
+<img src="images/login.png" alt="Login View" style="width: 500px; height: 352px;"/>
+
+where the user can enter in existing credentials. Clicking the 
+"Sign up" button displays the following.
+
+<img src="images/signup.png" alt="Signup View" style="width: 500px; height: 352px;"/>
 
 Here, you can create an account by entering username and password and click `Sign up` button. 
 LarkLink allows alphanumeric characters for username and password. Username must be at least 3 characters long and
 must not overlap with existing usernames. Password must be at least 8 characters long. 
 If you try to set username and password shorter than each minimum length, you will see an error message.
 If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
-### Host a Room
-![](images/Screenshots/host_or_join.png)<br>
-To host a room, you need to enter room name with alphanumeric characters and click `Host` button. 
-Room name must be at least 5 characters long and if you try to set the room name shorter than the minimum length, you will see an error message. 
+
+### Join or Host a Room
+<img src="images/join_or_host.png" alt="Join or Host View" style="width: 500px; height: 352px;"/>
+
+Here you'll see a list of rooms to join and you'll also be allowed to host a room. If you want to host a room, 
+you need to enter room name with alphanumeric characters and click `Host` button. Room name must be at least 
+5 characters long and if you try to set the room name shorter than the minimum length, you will see an error message. 
 In addition, you are allowed to host only one room. 
-### Join a Room
-![](images/Screenshots/join.png)<br>
-When you click `Join` button on host or join screen, you'll be prompted to enter the name of room that you try to join. 
-If you enter the room name which does not exist, an error message will be shown.
+
 ### Send Messages (and _lark_)
 ![](images/Screenshots/room_list.png)<br>
+
+<img src="images/room.png" alt="Room View" style="width: 500px; height: 352px;"/>
+
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
-If you try to send an empty message, you will get an error message.
-(The implementation of sending lark is still in progress.)
+If you try to send an empty message, you will get an error message. To send a lark just type and send `\lark` and 
+everyone in the room will hear our lark sound !
+
 ### Leave a Room
 If you click `Leave Room` on chat room screen, you can leave the room, and you'll be prompted to host or join screen again.
 
@@ -67,21 +82,21 @@ can be used interchangeably with `View` or each corresponding interface without 
 
 **Dependency Inversion Principle (DIP)**: By using interfaces and data transfer object (which is called models here), dependencies between 
 layers could be inverted and therefore, high level classes do not depend on lower level classes. 
-For example, `UserInteractor` can receive data from users through `UserModel` object and `UserInputBoundary` and interact with 
-database_and_drivers through `UserDBGateway`. Hence, `UserInteractor` does not depend on outer layers such as controller and database_and_drivers.
+For example, `UserSignupInteractor` receives data from users through `UserModel` object,
+and `UserSignupInputBoundary` interacts with database_and_drivers through `UserDBGateway`. 
+Hence, `UserSignupInteractor` does not depend on outer layers such as controller and database_and_drivers.
 This inversion of dependencies allows for easier interacting between layers without affecting core business logic in high level.
 
 **Extra Design Patterns:** We used the `viewable` interface to remove each presenter's dependency on different views.
-We also use a singleton style design pattern for the Room and User class instead of passing information down and up through the views.
-This works because only one user can be logged in at once and each user can only be in one Room at a time.
+We also use a singleton style design pattern for the `Room` and `User` class instead of passing information down and up through the views.
+This works because only one user can be logged in at once and each user can only be in one room at a time.
 We also use dependency injection for virtually everything - notably by injecting a `DBAccess` into every `interactor`.
 
 ## Test Coverage
 We aimed for near perfect coverage across the board and manage to achieve 95% class coverage and 83% line coverage. Many of the 
 view tests are commented out because it was not possible to make them headless. Any tests that intentionally generate an error 
-(e.g. invalid password) will cause the creation of a pop-up which violates the headless requirement. We could not find a way to circumvent this because these pop-ups are integral to the functions being tested.
-
-<br>
+(e.g. invalid password) will cause the creation of a pop-up which violates the headless requirement. We could not find 
+a way to circumvent this because these pop-ups are integral to the functions being tested.
 
 ## Packaging
 Originally we had packaged this by use case, but now we've packaged by level and included sub packages for use case because 

@@ -11,16 +11,13 @@ public class UserDBAccessTest {
     @Mock
     private UserDBModel mockUserDBModel;
 
-    @Mock
-    private HttpClient mockHttpClient;
-
     private UserDBAccess userDBAccess;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         // initialize UserDBAccess and a spy to track it
-        userDBAccess = Mockito.spy(new UserDBAccess(mockHttpClient, new UserConverter()));
+        userDBAccess = Mockito.spy(new UserDBAccess(new UserConverter()));
     }
 
     @Test

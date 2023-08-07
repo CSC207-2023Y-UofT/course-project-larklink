@@ -11,8 +11,6 @@ public class RoomDBAccessTest {
     @Mock
     private RoomDBModel mockRoomDBModel;
 
-    @Mock
-    private HttpClient mockHttpClient;
 
     private RoomDBAccess roomDBAccess;
 
@@ -20,7 +18,7 @@ public class RoomDBAccessTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         // initialize RoomDBAccess and a spy to track it
-        roomDBAccess = Mockito.spy(new RoomDBAccess(mockHttpClient, new RoomConverter()));
+        roomDBAccess = Mockito.spy(new RoomDBAccess(new RoomConverter()));
     }
 
     @Test

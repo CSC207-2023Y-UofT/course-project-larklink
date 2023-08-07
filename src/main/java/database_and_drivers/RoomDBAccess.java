@@ -2,7 +2,8 @@ package database_and_drivers;
 
 import java.util.List;
 
-import database_and_drivers.converters.RoomConverter;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 import use_cases_and_adapters.RoomDBModel;
 import use_cases_and_adapters.host_room.HostRoomDBGateway;
 import use_cases_and_adapters.join_room.JoinRoomDBGateway;
@@ -12,16 +13,8 @@ import use_cases_and_adapters.messaging.MessageDBGateway;
 /**
  * The implementation of the DBAccess abstract class for RoomDBModel objects.
  */
-public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGateway, JoinRoomDBGateway, LeaveRoomDBGateway, MessageDBGateway {
-
-    /**
-     * Constructs a new RoomDBAccess object with the given HttpClient and RoomConverter instances.
-     *
-     * @param converter  The UserConverter instance responsible for switching between JSON data to Room objects.
-     */
-    public RoomDBAccess(RoomConverter converter) {
-        super(converter);
-    }
+public class RoomDBAccess implements HostRoomDBGateway, JoinRoomDBGateway, LeaveRoomDBGateway, MessageDBGateway {
+    private static final String ROUTE = "rooms";
 
     /**
      * Retrieves a list of all rooms from the database.
@@ -30,7 +23,7 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGat
      */
     @Override
     public List<RoomDBModel> getRooms() {
-        return getRows();
+        return Unirest.get(ROUTE).asObject(RoomResponseWrapper.class).getBody().rooms;
     }
 
     /**
@@ -41,27 +34,32 @@ public class RoomDBAccess extends DBAccess<RoomDBModel> implements HostRoomDBGat
      */
     @Override
     public RoomDBModel getARoom(Integer roomID) {
-        return getARow(roomID);
+        return Unirest.get(ROUTE + "/" + roomID).asObject(RoomDBModel.class).getBody();
     }
 
     /**
      * Updates a single room in the database.
      *
-     * @param request a RoomDBModel object containing the updated data for the room.
+     * @param room a RoomDBModel object containing the updated data for the room.
      */
     @Override
-    public void updateARoom(RoomDBModel request) {
-        updateARow(request.getRoomID(), request);
+    public void updateARoom(RoomDBModel room) {
+        HttpResponse<String> response = Unirest.put(ROUTE + "/" + room.getRoomID())
+                .header("Content-Type", "application/json")
+                .body(new RoomRequestWrapper(room))
+                .asString();
+        System.out.println(response.getBody());
     }
 
-    /**
-     * Returns the route for the Room database table.
-     * This is used by the superclass methods to construct the URLs for the HTTP requests.
-     *
-     * @return the route for the Room database table.
-     */
-    @Override
-    protected String getRoute() {
-        return "rooms";
+
+    private static class RoomRequestWrapper {
+        protected RoomDBModel room;
+        public RoomRequestWrapper(RoomDBModel room) {
+            this.room = room;
+        }
+    }
+
+    private static class RoomResponseWrapper {
+        protected List<RoomDBModel> rooms;
     }
 }

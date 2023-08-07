@@ -1,8 +1,6 @@
 import database_and_drivers.*;
 import kong.unirest.Unirest;
 import views.*;
-import database_and_drivers.converters.RoomConverter;
-import database_and_drivers.converters.UserConverter;
 import use_cases_and_adapters.host_room.*;
 import use_cases_and_adapters.join_room.*;
 import use_cases_and_adapters.leave_room.*;
@@ -17,10 +15,8 @@ public class Main {
         LarkSoundPlayer larkSoundPlayer = new LarkSoundPlayer(larkSoundFilePath);
 
         Unirest.config().defaultBaseUrl(API_URL);
-        RoomConverter roomConverter = new RoomConverter();
-        UserConverter userConverter = new UserConverter();
-        RoomDBAccess roomDBAccess = new RoomDBAccess(roomConverter);
-        UserDBAccess userDBAccess = new UserDBAccess(userConverter);
+        RoomDBAccess roomDBAccess = new RoomDBAccess();
+        UserDBAccess userDBAccess = new UserDBAccess();
 
         UserSignupPresenter userSignupPresenter = new UserSignupPresenter();
         UserSignupInteractor userSignupInteractor = new UserSignupInteractor(userDBAccess, userSignupPresenter);

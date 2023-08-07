@@ -7,6 +7,11 @@ import use_cases_and_adapters.RoomDBModel;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * An interactor for host room use case.
+ * This class implements HostRoomInputBoundary to interact with input from outer layer.
+ */
 public class HostRoomInteractor implements HostRoomInputBoundary{
     private final HostRoomDBGateway database;
     private final HostRoomOutputBoundary presenter;
@@ -29,6 +34,7 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
         // check no duplicate room name
         for (RoomDBModel existingRoom: existingRooms) {
             if (existingRoom.getRoomName().equals(roomName)) {
+                // duplicateNameView if two rooms have same name
                 presenter.prepareDuplicateNameView();
                 return;
             }
@@ -42,6 +48,7 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
                 return;
             }
         }
+        // construct the new room
         List<Integer> activeUsers = new ArrayList<>();
         activeUsers.add(hostID);
         Room.setRoom((existingRooms.size() + 2), roomName, hostID, activeUsers, "");
@@ -49,8 +56,9 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
         RoomDBModel newRoom = new RoomDBModel(
                 Room.getRoomID(), Room.getRoomName(), Room.getHostID(),
                 Room.getActiveUserIDs(), Room.getMessageHistory());
-
+        // add it to the db
         database.updateARoom(newRoom);
+        // display the new room
         presenter.prepareRoomView(Room.getMessageHistory());
     }
 }

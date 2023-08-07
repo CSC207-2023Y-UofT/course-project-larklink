@@ -4,6 +4,10 @@ import use_cases_and_adapters.RoomDBModel;
 
 import java.util.List;
 
+/**
+ * DB gateway for host room. An abstraction layer that defines interactions
+ * with the room DB without implementing them
+ */
 public interface HostRoomDBGateway {
     /**
      * Fetches a complete list of the remotely stored rooms

@@ -9,6 +9,14 @@ Running LarkLink is as simple as navigating to our `Main` class under `src/main/
 It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one joining that room.
 ### Signup and Login
 First you'll be prompted to either create an account or sign in to an existing one.<br>
+![](images/Screenshots/signup_login.png)<br>
+Clicking the "Log in" button triggers the following 
+prompt
+![](images/Screenshots/login.png)<br>
+where the user can enter in existing credentials. Clicking the 
+"Sign up" button displays the following.
+
+![](images/Screenshots/signup.png)<br>
 <img src="images/signup_or_login.png" alt="Signup or Login View" width="500"/>
 
 Clicking the "Log in" button triggers the following 
@@ -36,6 +44,8 @@ you need to enter room name with alphanumeric characters and click `Host` button
 In addition, you are allowed to host only one room. 
 
 ### Send Messages (and _lark_)
+![](images/Screenshots/room_list.png)<br>
+
 <img src="images/room.png" alt="Room View" style="width: 500px; height: 352px;"/>
 
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 

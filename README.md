@@ -6,21 +6,17 @@ Once inside the room, you can send and receive normal messages or if you'd like 
 ## Overview
 ### Main
 Running LarkLink is as simple as navigating to our `Main` class under `src/main/java` and running the `main` method.
-It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one joining that room.
+It allows you to initialize and start LarkLink. To chat, run two instances, with one hosting the room and the other one 
+joining that room.
 ### Signup and Login
 First you'll be prompted to either create an account or sign in to an existing one.<br>
-<img src="images/signup_or_login.png" width="500"/>
+<img src="images/signup_or_login.png" alt="Signup or Login View" style="width: 500px; height: 352px;"/><br>
 
-Clicking the "Log in" button triggers the following 
-prompt
+Clicking the `Log in` button triggers the following prompt where the user can enter in existing credentials.
+<img src="images/login.png" alt="Login View" style="width: 500px; height: 352px;"/><br>
 
-<img src="images/login.png" width="500"/>
-
-where the user can enter in existing credentials. Clicking the 
-"Sign up" button displays the following.
-
-<img src="images/signup.png" width="500"/>
-
+Clicking the `Sign up` button displays the following.<br>
+<img src="images/signup.png" alt="Signup View" style="width: 500px; height: 352px;"/><br>
 Here, you can create an account by entering username and password and click `Sign up` button. 
 LarkLink allows alphanumeric characters for username and password. Username must be at least 3 characters long and
 must not overlap with existing usernames. Password must be at least 8 characters long. 
@@ -28,15 +24,17 @@ If you try to set username and password shorter than each minimum length, you wi
 If you enter valid username and password, you're all set! You'll be allowed to either Join or Host a chat room.
 
 ### Join or Host a Room
-<img src="images/join_or_host.png" width="500"/>
-
-Here you'll see a list of rooms to join and you'll also be allowed to host a room. If you want to host a room, you need to enter room name with alphanumeric characters and click `Host` button. Room name must be at least 5 characters long and if you try to set the room name shorter than the minimum length, you will see an error message. In addition, you are allowed to host only one room. 
+<img src="images/join_or_host.png" alt="Join or Host View" style="width: 500px; height: 352px;"/><br>
+Here you'll see a list of rooms to join and you'll also be allowed to host a room. If you want to host a room, 
+you need to enter room name with alphanumeric characters and click `Host` button. Room name must be at least 
+5 characters long and if you try to set the room name shorter than the minimum length, you will see an error message. 
+In addition, you are allowed to host only one room. 
 
 ### Send Messages (and _lark_)
-<img src="images/room.png" width="500"/>
-
+<img src="images/room.png" alt="Room View" style="width: 500px; height: 352px;"/><br>
 Here you can send a message by typing a message in the blank space and pressing `Send Message`. 
-If you try to send an empty message, you will get an error message. To send a lark just type and send `\lark` and everyone in the room will hear our lark sound !
+If you try to send an empty message, you will get an error message. To send a lark just type and send `\lark` and 
+everyone in the room will hear our lark sound !
 
 ### Leave a Room
 If you click `Leave Room` on chat room screen, you can leave the room, and you'll be prompted to host or join screen again.
@@ -81,7 +79,8 @@ We also use dependency injection for virtually everything - notably by injecting
 ## Test Coverage
 We aimed for near perfect coverage across the board and manage to achieve 95% class coverage and 83% line coverage. Many of the 
 view tests are commented out because it was not possible to make them headless. Any tests that intentionally generate an error 
-(e.g. invalid password) will cause the creation of a pop-up which violates the headless requirement. We could not find a way to circumvent this because these pop-ups are integral to the functions being tested.
+(e.g. invalid password) will cause the creation of a pop-up which violates the headless requirement. We could not find 
+a way to circumvent this because these pop-ups are integral to the functions being tested.
 
 ## Packaging
 Originally we had packaged this by use case, but now we've packaged by level and included sub packages for use case because 

@@ -1,5 +1,9 @@
 package use_cases_and_adapters.host_room;
 
+
+/**
+ * Controller for the host room use case
+ */
 public class HostRoomController {
     private final HostRoomInputBoundary inputBoundary;
 

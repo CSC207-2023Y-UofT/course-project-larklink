@@ -1,6 +1,7 @@
 package entities;
 
 import org.junit.jupiter.api.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * This class is for testing User entity.
@@ -25,7 +26,7 @@ public class UserTest {
         User.setUser(testUserID, testUsername, testPassword);
         assert User.getUserID().equals(testUserID);
         assert User.getUsername().equals(testUsername);
-        assert User.checkPassword(testPassword, User.getPassword());
+        assert BCrypt.checkpw(testPassword, User.getPassword());
     }
 
     /**
@@ -54,16 +55,6 @@ public class UserTest {
     @Test
     public void testGetPassword() {
         User.setUser(testUserID, testUsername, testPassword);
-        assert User.checkPassword(testPassword, User.getPassword());
-}
-
-    /**
-     * Tests hashPassword method.
-     */
-    @Test
-    public void testHashPassword() {
-        String hashedPassword = User.hashPassword(testPassword);
-        assert User.checkPassword(testPassword, hashedPassword);
-        assert !User.checkPassword("fakePassword", hashedPassword);
+        assert BCrypt.checkpw(testPassword, User.getPassword());
     }
 }

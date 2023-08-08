@@ -1,7 +1,7 @@
 package use_cases_and_adapters.user_signup;
 
-import entities.User;
 import org.junit.jupiter.api.*;
+import org.mindrot.jbcrypt.BCrypt;
 import org.mockito.*;
 import use_cases_and_adapters.UserDBModel;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
@@ -32,7 +32,7 @@ public class UserSignupInteractorTest {
 
         int oldUserID = 2;
         oldUsername = "oldUsername";
-        String oldHashedPassword = User.hashPassword("oldPassword");
+        String oldHashedPassword = BCrypt.hashpw("oldPassword", BCrypt.gensalt());
         users = List.of(new UserDBModel(oldUserID, oldUsername, oldHashedPassword));
     }
 
@@ -75,7 +75,7 @@ public class UserSignupInteractorTest {
 
         // checks that correct username and password are saved into database
         assert addedUser.getUsername().equals(newUser.getUsername());
-        assert User.checkPassword(newUser.getPassword(), addedUser.getPassword());
+        assert BCrypt.checkpw(newUser.getPassword(), addedUser.getPassword());
 
         // checks that presenter calls prepareJoinOrHostView exactly once
         Mockito.verify(presenter, Mockito.times(1)).prepareJoinOrHostView();

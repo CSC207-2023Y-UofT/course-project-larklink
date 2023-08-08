@@ -54,7 +54,7 @@ class HostRoomInteractorTest {
         String roomName = "CoolName";
         List<RoomDBModel> existingRooms = new ArrayList<>();
         // create a new room
-        existingRooms.add(new RoomDBModel(1, roomName, 1, new ArrayList<>(), ""));
+        existingRooms.add(new RoomDBModel(1, roomName, 1, "", ""));
         // return a list with the existing room when db is queried
         when(database.getRooms()).thenReturn(existingRooms);
 
@@ -74,7 +74,7 @@ class HostRoomInteractorTest {
         String roomName = "NewRoom";
         List<RoomDBModel> existingRooms = new ArrayList<>();
         // put room with hostid 1 in db (this will collide with new attempt)
-        existingRooms.add(new RoomDBModel(1, "room1", 1, new ArrayList<>(), ""));
+        existingRooms.add(new RoomDBModel(1, "room1", 1, "", ""));
         when(database.getRooms()).thenReturn(existingRooms);
 
         // don't switch views when called

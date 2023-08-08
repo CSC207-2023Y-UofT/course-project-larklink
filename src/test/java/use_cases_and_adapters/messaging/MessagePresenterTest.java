@@ -2,7 +2,7 @@ package use_cases_and_adapters.messaging;
 
 import org.junit.jupiter.api.*;
 import org.mockito.*;
-import views.View;
+import views_and_drivers.views.View;
 
 public class MessagePresenterTest {
     private MessagePresenter messagePresenter;

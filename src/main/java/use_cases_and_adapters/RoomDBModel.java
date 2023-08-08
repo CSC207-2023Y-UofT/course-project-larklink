@@ -1,31 +1,32 @@
 package use_cases_and_adapters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class encapsulates room data from database.
  */
 public class RoomDBModel {
-    private final int roomID;
+    private final int id;
     private final String roomName;
-    private final Integer hostID;
-    private List<Integer> activeUserIDs;
+    private final Integer hostId;
+    private String activeUsers;
     private String messageHistory;
 
     /**
-     * Constructs a RoomDBModel object.
+     * The constructor for the RoomDBModel
      *
-     * @param roomID The unique identifier of the room
+     * @param id The unique identifier of the room
      * @param roomName The name of the room
-     * @param hostID The unique identifier of the room's host
-     * @param activeUserIDs The list of users' unique identifiers of the room
+     * @param hostId The unique identifier of the room's host
+     * @param activeUsers The string depiction of the users' currently inside the room
      * @param messageHistory The message history of the room
      */
-    public RoomDBModel(int roomID, String roomName, Integer hostID, List<Integer> activeUserIDs, String messageHistory) {
-        this.roomID = roomID;
+    public RoomDBModel(int id, String roomName, Integer hostId, String activeUsers, String messageHistory) {
+        this.id = id;
         this.roomName = roomName;
-        this.hostID = hostID;
-        this.activeUserIDs = activeUserIDs;
+        this.hostId = hostId;
+        this.activeUsers = activeUsers;
         this.messageHistory = messageHistory;
     }
 
@@ -35,7 +36,7 @@ public class RoomDBModel {
      * @return The unique identifier of the room.
      */
     public int getRoomID() {
-        return this.roomID;
+        return this.id;
     }
 
     /**
@@ -53,16 +54,23 @@ public class RoomDBModel {
      * @return The unique identifier of the room's host.
      */
     public Integer getHostID() {
-        return this.hostID;
+        return this.hostId;
     }
 
     /**
      * A getter for the list of users' unique identifiers of the room.
+     * This method converts it from a string since our database needs a string.
      *
      * @return The list of users' unique identifiers of the room.
      */
     public List<Integer> getActiveUserIDs() {
-        return this.activeUserIDs;
+        List<Integer> list = new ArrayList<>();
+        if (!(activeUsers == null || activeUsers.trim().isEmpty())) {
+            for (String userId : activeUsers.split(",")) {
+                list.add(Integer.parseInt(userId.trim()));
+            }
+        }
+        return list;
     }
 
     /**
@@ -76,11 +84,21 @@ public class RoomDBModel {
 
     /**
      * Sets activeUserIDs of the room as given input
+     * This method converts to a string since our database needs a string.
      *
      * @param activeUserIDs the active userID list
      */
     public void setActiveUserIDs(List<Integer> activeUserIDs) {
-        this.activeUserIDs = activeUserIDs;
+        StringBuilder sb = new StringBuilder();
+        if (!(activeUserIDs == null || activeUserIDs.isEmpty())) {
+            for (Integer userId : activeUserIDs) {
+                if (sb.length() > 0) {
+                    sb.append(",");
+                }
+                sb.append(userId);
+            }
+        }
+        this.activeUsers = sb.toString();
     }
 
     /**

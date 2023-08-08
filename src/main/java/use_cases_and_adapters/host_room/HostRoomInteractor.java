@@ -55,7 +55,8 @@ public class HostRoomInteractor implements HostRoomInputBoundary{
 
         RoomDBModel newRoom = new RoomDBModel(
                 Room.getRoomID(), Room.getRoomName(), Room.getHostID(),
-                Room.getActiveUserIDs(), Room.getMessageHistory());
+                hostID.toString(), // only one user in this new room
+                Room.getMessageHistory());
         // add it to the db
         database.updateARoom(newRoom);
         // display the new room

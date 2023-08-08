@@ -17,8 +17,8 @@ public class LeaveRoomInteractorTest {
     private LeaveRoomDBGateway roomDBGatewayMock;
     private LeaveRoomOutputBoundary leaveRoomOutputBoundaryMock;
     private int roomID;
-    private int userID;
-    private int userID2;
+    private Integer userID;
+    private Integer userID2;
     /**
      * Setup method to initialize the test environment.
      * It creates mocks of LeaveRoomDBGateway and LeaveRoomOutputBoundary using Mockito
@@ -44,7 +44,7 @@ public class LeaveRoomInteractorTest {
         Room.setRoom(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)), ""); // simulate getting a room
         User.setUser(userID, "", ""); // simulate logging in a user
 
-        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(Arrays.asList(userID, userID2)),"");
+        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, userID.toString() + ", " + userID2.toString(),"");
         Mockito.when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
         Mockito.verify(roomDBGatewayMock, Mockito.times(1)).updateARoom(room);
@@ -60,7 +60,7 @@ public class LeaveRoomInteractorTest {
         Room.setRoom(roomID, "Test Room", userID2, new ArrayList<>(List.of(userID2)), ""); // simulate getting a room
         User.setUser(userID, "", ""); // simulate logging in a user
 
-        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, new ArrayList<>(List.of(userID2)),"");
+        RoomDBModel room = new RoomDBModel(roomID, "Test Room", userID2, userID2.toString(),"");
         Mockito.when(roomDBGatewayMock.getARoom(roomID)).thenReturn(room);
         leaveRoomInteractor.leaveRoom();
         Mockito.verify(roomDBGatewayMock, Mockito.never()).updateARoom(room);

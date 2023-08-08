@@ -1,4 +1,6 @@
 package use_cases_and_adapters.signup_and_login.user_login;
+
+import org.mindrot.jbcrypt.BCrypt;
 import use_cases_and_adapters.UserDBModel;
 import entities.User;
 import use_cases_and_adapters.signup_and_login.UserDBGateway;
@@ -39,7 +41,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
 
         for (UserDBModel existingUser : existingUsers) {
             if (existingUser.getUsername().equals(request.getUsername())) {
-                if (User.checkPassword(request.getPassword(), existingUser.getPassword())) {
+                if (BCrypt.checkpw(request.getPassword(), existingUser.getPassword())) {
                     User.setUser((existingUser.getUserID()), request.getUsername(), request.getPassword());
                     presenter.prepareJoinOrHostView();
                 } else {

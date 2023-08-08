@@ -3,7 +3,7 @@ package use_cases_and_adapters.leave_room;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 
-import views.View;
+import views_and_drivers.views.View;
 /**
  * The LeaveRoomPresenterTest class contains unit tests for the LeaveRoomPresenter class.
  * The prepareJoinOrHostView() method is tested while a mock View abstract class is built using Mockito.

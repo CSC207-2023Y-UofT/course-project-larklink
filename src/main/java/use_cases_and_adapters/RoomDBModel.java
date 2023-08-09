@@ -7,7 +7,7 @@ import java.util.List;
  * This class encapsulates room data from database.
  */
 public class RoomDBModel {
-    private final int id;
+    private final Integer id;
     private final String roomName;
     private final Integer hostId;
     private String activeUsers;

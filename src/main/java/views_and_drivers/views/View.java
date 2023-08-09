@@ -9,7 +9,6 @@ import java.awt.*;
  * Defines the constants and methods shared by all Views. All other
  * views will inherit from View
  */
-
 public abstract class View extends JFrame implements Viewable {
     private static final String TITLE = "LarkLink";
     private static final int WIDTH = 600;

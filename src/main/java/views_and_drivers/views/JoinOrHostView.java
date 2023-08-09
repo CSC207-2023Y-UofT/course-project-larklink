@@ -9,7 +9,6 @@ import java.awt.*;
 /**
     View for the join room and host room use cases
  **/
-
 public class JoinOrHostView extends View {
     private final HostRoomController hostRoomController;
     private final JoinRoomController joinRoomController;
@@ -75,7 +74,6 @@ public class JoinOrHostView extends View {
      * Constructs a button that when clicked triggers the creation of a new room
      * @return JButton with the text "host"
      */
-
     protected JButton createHostButton() {
         JButton hostButton = new JButton("Host");
         hostButton.addActionListener(e -> {

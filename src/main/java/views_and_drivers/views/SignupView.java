@@ -5,6 +5,9 @@ import use_cases_and_adapters.signup_and_login.user_signup.UserSignupController;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * View for the sign up use case
+ */
 public class SignupView extends View{
     private final UserSignupController signupController;
     private JTextField usernameField;
@@ -15,6 +18,11 @@ public class SignupView extends View{
         this.signupController = signupController;
     }
 
+    /**
+     * Creates a panel with a username field and two password fields as well as a button
+     * that calls the signup controller and one that lets you go back to welcome view
+     * @return JPanel with the specified fields
+     */
     @Override
     public JPanel createPanel() {
         JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
@@ -37,6 +45,11 @@ public class SignupView extends View{
         return panel;
     }
 
+    /**
+     * Creates a button that grabs the text from username and password fields and attempts to
+     * sign up the user by calling the signup controller
+     * @return JButton with the described functionality
+     */
     protected JButton createSignUpButton() {
         JButton signupButton = new JButton("Sign up");
         signupButton.addActionListener(e -> {
@@ -53,10 +66,13 @@ public class SignupView extends View{
         return signupButton;
     }
 
+    /**
+     * Creates a button that allows the user to go back to the welcome view
+     * @return JButton with the described functionality
+     */
     protected JButton createGoBackButton() {
         JButton goBackButton = new JButton("Go back");
         goBackButton.addActionListener(e -> ViewManager.switchToWelcomeView());
         return goBackButton;
     }
-
 }

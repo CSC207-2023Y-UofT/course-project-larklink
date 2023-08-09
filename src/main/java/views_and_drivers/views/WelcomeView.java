@@ -7,10 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The view displayed when a user first connects to LarkLink. Contains two fields:
- * username and password.
+ * The view displayed when a user first connects to LarkLink.
  */
-
 public class WelcomeView extends View {
     private final UserLoginController loginController;
     private final UserSignupController signupController;
@@ -25,7 +23,6 @@ public class WelcomeView extends View {
      * buttons: one to log in and the other to sign up
      * @return JPanel with the specified components
      */
-
     @Override
     public JPanel createPanel() {
         JPanel panel = new JPanel(new GridLayout(1, 2, 10, 10));

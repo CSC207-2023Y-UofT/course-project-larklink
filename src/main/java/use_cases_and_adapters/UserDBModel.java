@@ -4,7 +4,7 @@ package use_cases_and_adapters;
  * This class encapsulates user data from database.
  */
 public class UserDBModel {
-    private final int id;
+    private final Integer id;
     private final String username;
     private final String password;
 
